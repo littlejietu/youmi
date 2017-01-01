@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/animate.min.css"/>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/jquery.validation.min.js"></script>
+	<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+	<script type="text/javascript" src="../js/apply2.js"></script>
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3 ><i class="left-arow" onclick="webBackHandler('details5.html',true);"></i><p id="title_info"></p></h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<section>
+<div class="apply2-wrapper">
+	<div class="apply2-content">
+		<ul class="list1">
+			<li><span id="status_1" class="span1"></span></li>
+			<li><span id="status_2" class="span4"></span></li>
+			<li><span id="status_3" class="span3"></span></li>
+			<div class="clear"></div>
+			<i class="line4"></i>
+			<i class="line3"></i>
+		</ul>
+		<ul class="list1">
+			<li id="status_title1">申请退货</li>
+			<li id="status_title2">商家处理</li>
+			<li id="status_title3">退货成功</li>
+			<div class="clear"></div>
+		</ul>
+		<div class="text">
+			<p id="details_info" style="margin-top: 10px"></p>
+			<p id="cancel_btn1" style="display: none;font-size:16px;"><button onclick="cancelRefund();">取消退货</button></p>
+			<p id="cancel_btn2" style="display: none;font-size:16px;"><button class="cancel"onclick="cancelRefund();">取消退货</button><button class="sign" id="express_detail">填写退货物流</button></p>
+
+		</div>
+		<div class="text2">
+			<p id="tips_text"><span>提示：</span>商家处理后，你须填写物流单号退货给商家</p>
+		</div>
+	</div>
+	<h3>退货清单</h3>
+	<div class="text3">
+		<p>退款金额&nbsp;&nbsp;<span id="refund_cash"></span></p>
+		<p>退款原因&nbsp;&nbsp;<span id="refund_reason"></span></p>
+		<p>退款说明&nbsp;&nbsp;<span id="refund_instructions"></span></p>
+		<p>申请时间&nbsp;&nbsp;<span id="refund_date"></span></p>
+	</div>
+</div>
+</section>
+</div>
+<div class="apply2-mask" style="display:none;">
+	<div class="apply2-outMask">
+		<div class="head">
+			<h3><i class="left-arow" id="express_info"></i>填写物流信息</h3>
+		</div>
+		<form id="express_form">
+		<div class="apply-wrapper" style="position:absolute;left:20%;top:48px;bottom:48px;width:80%;overflow:auto;">
+			<input name="id" id="id" style="display: none;">
+			<h3>物流公司<i>&nbsp;*&nbsp;</i></h3>
+			<div class="apply-1"><input placeholder="请输入物流公司" maxlength="20" type="text" name="logistic_name" id="logistic_name"/></div>
+			<h3>物流单号<i>&nbsp;*&nbsp;</i></h3>
+			<div class="apply-1">
+				<input placeholder="请输入物流单号" type="text" maxlength="20" name="logistic_id" id="logistic_id"/>
+			</div>
+			<h3>联系电话<i>&nbsp;*&nbsp;</i></h3>
+			<div class="apply-1">
+				<input placeholder="请输入手机号" type="text" maxlength="11" name="phone" id="phone"/>
+			</div>
+		</div>
+			
+		
+		<div class="apply-footer" style="left:20%;width:80%;"><button id="submit_btn" type="submit">提交退货物流申请</button></div>
+		</form>
+	</div>
+</div>
+
+
+</body>
+</html>

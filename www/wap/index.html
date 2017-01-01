@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>加油站</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="corejs/0.js"></script>
+
+	<link rel="stylesheet" href="corecss/reset.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script  type="text/javascript" src="corejs/jquery.min.js"></script>
+	<script  type="text/javascript" src="corejs/mirong.config.js"></script>
+	<script  type="text/javascript" src="corejs/fastclick.js"></script>
+	<script  type="text/javascript" src="corejs/TouchSlide.1.1.js"></script>
+	<script  type="text/javascript" src="corejs/arttemplate.js"></script>
+	<script  type="text/javascript" src="corejs/idangerous.swiper.min.js"></script>
+	<script  type="text/javascript" src="corejs/mirong.utils.js"></script>
+	<script  type="text/javascript" src="corejs/weixin_share_common.js"></script>
+	<script  type="text/javascript" src="corejs/jquery.lazyload.min.js"></script>
+	<script  type="text/javascript" src="corejs/lib.js"></script>
+	<script  type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="pay">
+		<div class="oil_num">
+			<p>
+				<span>油枪号</span>
+				<input type="tel" name="gun_no" id="gun_no" placeholder="请输入油枪号" onkeyup="value=value.replace(/[^\d.]/g,'')"/>
+			</p>
+			<dl id="index-gun"></dl>
+		</div>
+		<div class="money">
+			<p>
+				<span>金额</span>
+				<input type="tel" name="oil_amt" id="oil_amt" placeholder="请输入金额" onkeyup="value=value.replace(/[^\d.]/g,'')" />
+			</p>
+			<dl id="index-amt"></dl>
+		</div>
+		<div class="notice">
+			<p class="care" id="index-oil"></p>
+			<p class="cheap" id="index-act"></p>
+		</div>
+		<a class="btn pay_sure" id="btnSave" href="javascript:void(0);">实付</a>
+		<a class="go_user_center" href="userCenter.html">个人中心>></a>
+	</div>
+</div>
+
+<script type="text/html" id="index-gun-tpl">
+	{{each gun_oil_no as value i}}
+		<dd oil="{{value.oil_no}}" gun="{{value.gun_no}}"><p>{{value.gun_no}}号</p></dd>
+	{{/each}}
+</script>
+<script type="text/html" id="index-amt-tpl">
+	{{each amts as value i}}
+		<dd val="{{value}}"><p>{{value}}</p></dd>
+	{{/each}}
+</script>
+<script type="text/html" id="index-oil-tpl">
+	{{gun_no}}号油枪，国五{{oil_no}}#{{oil_type_name}}
+</script>
+<script type="text/html" id="index-act-tpl">
+	{{if act}}
+		[<a href="/wap/act.html?id={{act.act_id}}">{{act.name}}</a>] 优惠{{act.discount_amt}}元{{if act.act_words!=''}}({{act.act_words}}){{/if}}
+	{{/if}}
+</script>
+</body>
+</html>

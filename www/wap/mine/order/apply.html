@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../corejs/weixin_share_common.js"></script>
+	<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+	<script type="text/javascript" src="../js/apply.js"></script>
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><i class="left-arow" onclick="webBackHandler();"></i>我要退货</h3>
+	</div>
+</header>
+<div class="scroll">
+<section>
+	<div class="apply-wrapper">	
+		<!-- <h3>选择类型<i>&nbsp;*&nbsp;</i></h3>
+		<div class="apply-1">
+			<ul>
+				<li>我要退货/退款<i class="select"></i></li>
+				<li>我要换货/重发<i></i></li>
+			</ul>
+		</div> -->
+		<h3>退款金额<span id="max_input">(最多可申请90元)</span><i>&nbsp;*&nbsp;</i></h3>
+		<div class="apply-1">
+			<input type="text" placeholder="输入退款金额" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" id="input_refund"/>
+		</div>
+		<h3>申请原因<i>&nbsp;*&nbsp;</i></h3>
+		<div class="apply-1" id="icon-down"><p><span>收到商品破损</span><i class="icon-down"></i></p></div>
+		<h3>退款说明<span>（写下你遇到的问题）</span></h3>
+		<div class="apply-1">
+			<textarea  placeholder="请输入遇到的具体问题，有助于客服更快地处理你的申请" id="reason_text" maxlength="200"></textarea>
+			<small id="text_num">0/200</small>
+		</div>
+		<h3>上传凭证<span>（最多四张，每张不超过1M）</span></h3>
+		<div class="apply-2">
+			<ul>
+				<li><img src="../images/25.png" id="user_image1"/><input type="file" onchange="previewImage(this,'user_image1','file1',imageObj)"  name="filedata" id="file1">
+					<i></i>
+				</li>
+				<li><img src="../images/25.png" id="user_image2"/><input type="file" onchange="previewImage(this,'user_image2','file2',imageObj)"  name="filedata" id="file2"><i></i></li>
+				<li><img src="../images/25.png" id="user_image3"/><input type="file" onchange="previewImage(this,'user_image3','file3',imageObj)"  name="filedata" id="file3"><i></i></li>
+				<li><img src="../images/25.png" id="user_image4"/><input type="file" onchange="previewImage(this,'user_image4','file4',imageObj)"  name="filedata" id="file4"><i></i></li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+	</div>
+	
+</section>
+</div>
+<div class="apply-footer"><a id="submit_btn"><button>提交申请</button></a></div>
+<div class="apply-mask" style="display:none;">
+<div class="apply-outMask">
+	<div class="mask-inner">
+		<h3>选择退款原因</h3>
+		<ul>
+			<!--<li><span>退运费</span><i class="num2"></i></li>-->
+			<li><span>收到商品破损</span><i class="num3"></i></li>
+			<li><span>收到商品与描述不符</span><i class="num3"></i></li>
+			<li><span>商品质量问题</span><i class="num3"></i></li>
+			<li><span>假冒品牌</span><i class="num3"></i></li>
+			<li><span>不想要了</span><i class="num3"></i></li>
+			<!--<li><span>商品需要维修</span><i class="num3"></i></li>-->
+		</ul>
+	</div>
+</div>
+</div>
+
+<!--<script src="../js/main.js"></script>-->
+</body>
+</html>

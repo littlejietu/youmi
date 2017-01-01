@@ -1,0 +1,360 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+	<script type="text/javascript" src="../corejs/0.js"></script>
+	<link rel="stylesheet" href="../corecss/idangerous.swiper2.7.css">
+	<!--<link rel="stylesheet" href="../corecss/idangerous.swiper.css">-->
+
+	<link rel="stylesheet" href="../corecss/reset.css"/>
+	<link rel="stylesheet" href="css/main.css"/>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script  type="text/javascript" src="../corejs/jquery.min.js"></script>
+	<script  type="text/javascript" src="../corejs/zooer.config.js"></script>
+	<script  type="text/javascript" src="../corejs/fastclick.js"></script>
+	<script  type="text/javascript" src="../corejs/TouchSlide.1.1.js"></script>
+	<script  type="text/javascript" src="../corejs/arttemplate.js"></script>
+	<script  type="text/javascript" src="../corejs/idangerous.swiper.min.js"></script>
+	<script  type="text/javascript" src="../corejs/zooer.utils.js"></script>
+	<script  type="text/javascript" src="../corejs/weixin_share_common.js"></script>
+	<script  type="text/javascript" src="../corejs/jquery.lazyload.min.js"></script>
+	<script  type="text/javascript" src="./js/daojishi.js"></script>
+	<script  type="text/javascript" src="./js/hot.js"></script>
+	<script  type="text/javascript" src="./js/index2.js"></script>
+	<style>
+		/*section {display: none}*/
+
+	</style>
+</head>
+
+<body>
+<!-- <div style="position: fixed;width: 100%;height: 100%;z-index: 10000;background: rgba(0,0,0,0.6);" id="loading_inmation">
+	<div class="load5" >
+		<div class="loader" style="top: 130px;"></div>
+
+	</div>
+	<div style="position:fixed;left:0;top:50%;margin-top:-60px;width:100%;height:120px;background:#fff;"><img src="../images/loading.gif" style="width:100%;height:120px;display:block;"/></div>
+</div> -->
+<header>
+	<div class="header" style="position:fixed;">
+		<div class="logo"><a><img src="images/logo1.png"/></a></div>
+		<div class="form">
+			<form>
+				<label id="location">杭州</label>
+				<a href="search.html"><span><input type="text" placeholder="搜索你想找的商品"/>
+				<i></i></span></a>
+				<div class="clear"></div>
+			</form>
+		</div>
+		<div class="header-right">
+			<a href="information/inform.html">
+				<img src="images/xiao.png"/>
+				<div id="msg"></div>
+			</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+</header>
+
+<!-- <div class="line2"></div> -->
+<div class="scroll">
+<section>
+	<div class="slideBox" id="slideBox">
+		<div class="bd">
+			<ul id="touchslide">
+			   	<!-- <li><a href="#"><img src="images/haibao1.png"></a></li>
+			   	<li><a href="#"><img src="images/haibao1.png"></a></li>
+				<li><a href="#"><img src="images/haibao1.png"></a></li> -->
+			</ul>
+		</div>
+		<div class="hd">
+			<ul></ul>
+		</div>
+	</div>
+	<div class="content-list" >
+		<ul id="nav-list">
+			<!-- <li><a href="prefer.html"><img src="images/hui.png"/><span>今日特惠</span></a></li>
+			<li><a href="nine.html"><img src="images/yao.png"/><span>九块九</span></a></li>
+			<li><a href="sign/details.html"><img src="images/cash.png"/><span>领积分</span></a></li>
+			<li><a href="../mine/integral/market2.html"><img src="images/fen.png"/><span>积分商城</span></a></li> -->
+		</ul>
+	</div>
+</section>
+<section>
+	<div class="hot">
+		<div class="left"><a><img src="images/logo2.png"/></a></div>
+		<div class="left1"><a><img src="images/laba.png"/></a></div>
+		<div class="right slide-mask">
+			<ul class="slide-group" id="hot_ad">
+				<!-- <li class="slide">1九号街区获A轮投资，市值1亿美元</li>
+				<li class="slide">2九号街区获A轮投资，市值1亿美元</li>
+				<li class="slide">3九号街区获A轮投资，市值1亿美元</li>
+				<li class="slide">4九号街区获A轮投资，市值1亿美元</li>
+				<li class="slide">5九号街区获A轮投资，市值1亿美元</li>
+				<li class="slide">6九号街区获A轮投资，市值1亿美元</li> -->
+			</ul> 
+		</div>
+		
+	</div>
+	<div class="index2-haibao" id="ad-lg1">
+		<!-- <div class="index2-wrapper">
+			<a href=""><img src="images/6.png"/></a>
+		</div> -->
+	</div>
+	<div class="index2-pic" id="ad-sm1">
+		<div class="index2-wrapper">
+		<table>
+			<tr>
+				<!-- <td><a href="#"><img src="images/7.png"/></a></td>
+				<td><a href="#"><img src="images/8.png"/></a></td>
+				<td><a href="#"><img src="images/9.png"/></a></td> -->
+			</tr>
+		</table>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="index2-time">
+		<div class="index2-wrapper">
+			<span class="span1"><img src="images/rob.png"/><i id="everyday"><!-- 每日10点 --></i></span>
+			<span class="span2" id="index_time"><label>还剩</label><span id="qianggou"><i></i>:<i></i>:<i></i></span></span>
+			<span class="span3"><a href="snap-up.html">今日抢购<i></i></a></span>
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+	<div class="index2-case">
+		<div class="swiper-container thumbs-cotnainer" id="container1">
+			<div class="swiper-wrapper" id="rush">
+					<!--<div class="swiper-slide">-->
+						<!--<div class="slide-content">-->
+							<!--<a href="#">-->
+								<!--<img src="images/10.png"/>-->
+								<!--<h3>咖啡速溶经典咖啡咖啡</h3>-->
+								<!--<p class="p1"><del>&yen;19.5</del></p>-->
+								<!--<p class="p2">&yen;11.5<span></span></p>-->
+							<!--</a>-->
+						<!--</div>-->
+					<!--</div>-->
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="index2-haibao" style="margin-top:10px;" id="ad-lg2">
+		<!-- <div class="index2-wrapper">
+			<img src="images/6.png"/>
+		</div> -->
+	</div>
+</section>
+<section>
+	<div class="temai">
+		<h3 class="seckill-title" id="kill0"><span>特价秒杀</span>&nbsp;SECKILL<i><img src="images/bg-red.png"/></i></h3>
+		<div class="temai-left" id="kill">
+			<!-- <a href="seckill.html">
+				<h2>特价秒杀</h2>
+				<p><label>还剩</label><span id="miaosha"><i></i>:<i></i>:<i></i></span></p>
+				<div><img src="images/11.png"/></div>
+			</a> -->
+		</div>
+		<div class="temai-right">
+			<div class="case" id="kill2">
+				
+				<!-- <a href="goods-show.html">
+					<div class="left">
+					<h2>最强年货抢免单</h2>
+					<p>整点派红包 最高<span class="color2">88</span>元</p>
+					</div>
+					<div class="right"><img src="images/22.png"/></div>
+					<div class="clear"></div>
+				</a> -->
+			</div>
+			<div class="case1">
+				<ul id="kill3">
+					<!-- <li>
+						<h2>服饰鞋包</h2>
+						<p>抢免单</p>
+						<div><img src="images/18.png"/></div>
+					</li>
+					<li>
+						<h2>食品生鲜</h2>
+						<p>年货礼盒<span class="color2">1元秒</span></p>
+						<div><img src="images/18.png"/></div>
+					</li> -->
+				</ul>	
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</section>
+<section>
+	<div class="index2-haibao" id="ad-lg3">
+		<!-- <div class="index2-wrapper">
+			<img src="images/6.png"/>
+		</div> -->
+	</div>
+
+<div class="index2-title">
+	<h3 id="goods0"><!-- <span>发现好货</span>&nbsp;DISCOVERY<i class="discovery"><img src="images/bg-green.png"/></i> --></h3>
+</div>
+
+</section>
+<section>
+	<div class="index2-goods2">
+	    <ul id="goods">
+	    
+	    	<!-- <li style="width:66.66%;">
+	    		<a href="#">
+	    			<h3>国货美食</h3>
+					<p>满399减<span class="color2">100</span></p>
+					<div><img src="images/14.png"/></div>
+	    		</a>
+	    	</li>
+	    	<li>
+	    		<a href="#">
+	    			<h3>酒水冲饮</h3>
+					<p>满399减<span class="color2">100</span></p>
+					<div><img src="images/13.png"/></div>
+	    		</a>
+	    	</li>
+	    	<li>
+	    		<a href="#">
+					<h3>进口美食</h3>
+					<p>满399减<span>100</span></p>
+					<div><img src="images/12.png"/></div>
+				</a>
+	    	</li>
+	    	<li>
+	    		<a href="#">
+					<h3>进口美食</h3>
+					<p>满399减<span>100</span></p>
+					<div><img src="images/12.png"/></div>
+				</a>
+	    	</li>
+	    	<li>
+	    		<a href="#">
+					<h3>进口美食</h3>
+					<p>满399减<span>100</span></p>
+					<div><img src="images/12.png"/></div>
+				</a>
+	    	</li> -->
+	    </ul>
+	</div>
+</section>
+<section style="margin-top:10px;" id="ad-lg4">
+	<!-- <div class="index2-haibao">
+		<div class="index2-wrapper">
+			<img src="images/6.png"/>
+		</div>
+	</div> -->
+</section>
+<section>
+<div class="index2-title" id="intro">
+	
+	<!-- <h3 ><span>精选推荐</span>&nbsp;CHOICENESS<i class="choice"><img src="images/bg-blue.png"/></i></h3> -->
+</div>
+</section>
+<section id="intro1">
+	<!-- <div class="index2-case">
+		<div class="swiper-container thumbs-cotnainer" id="container2">
+			<div class="swiper-wrapper" style="width:540px;" >
+	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active">
+						<a href="#">
+							<img src="images/10.png"/>
+							<h3>咖啡速溶经典咖啡咖啡溶经典咖啡咖啡</h3>
+							<p class="p1"></p>
+							<br/>
+							<p class="p2">&yen;11.5&nbsp;<del>&yen;99.9</del><i></i></p>
+						</a>
+					</div>
+			</div>
+		</div>	
+	</div> -->
+</section>
+<section style="margin-top:10px;" id="ad-lg5">
+	<!-- <div class="index2-haibao" >
+		<div class="index2-wrapper">
+			<img src="images/6.png"/>
+		</div>
+	</div> -->
+</section>
+<section>
+<div class="index2-title" id="index-title2">
+</div>
+</section>
+<section id="intro2">
+
+</section>
+<section>
+<div class="index2-title" id="index-title3">
+</div>
+
+	<div class="index2-case2">
+		<ul  id="love_goodlist">
+
+		</ul>
+	</div>
+</section>
+
+<div class="over">没有了,往上看看吧！</div>
+</div>
+<!-- <div class="line2"></div> -->
+<footer>
+	<div class="footer" style="position:fixed;">
+		<nav>
+			<ul>
+				<li><a href="index.html" class="color2"><img src="images/index.png"/>首页</a></li>
+				<li><a href="category/category.html"><img src="images/fenlei.png"/>分类</a></li>
+				<!--<li><a href="information/chat.html"><img src="images/chat.png"/>聊天</a></li>-->
+				<li><a href="prefer.html"><img src="images/activity.png"/>嗨购</a></li>
+				<li><a href="cart/cart3.html?ef=1"><span id="cart_num_span"><img src="images/cart.png" /></span>购物车</a></li>
+				<li><a href="../mine/me/me.html"><img src="images/my.png"/>我的</a></li>
+
+			</ul>
+		</nav>
+	</div>
+</footer>
+<div class="lo_mask" style="display:none;">
+	<div class="lo_outMask">
+		<div class="header-title" style="background:#fff;border-bottom:1px solid #eee;text-align:center;">
+			<h3 style="padding-left:0;"><i class="left-arow" id="left_select"></i>选择城市</h3>
+		</div>
+		<div class="content">
+			<div class="lo_current">
+				<h3><i></i>当前位置</h3>
+				<ul>
+					<li>杭州</li>
+				</ul>
+			</div>
+			<div class="lo_all">	
+				<h3><i></i>可选择城市</h3>
+				<ul id="name">
+					<!-- <li style="background:#eee;">北京</li>
+					<li>上海</li>
+					<li>广州</li>
+					<li>深圳</li>
+					<li>天津</li>
+					<li>杭州</li>
+					<li>南京</li>
+					<li>北京</li>
+					<li>北京</li>
+					<li>北京</li>
+					<li>北京</li>-->
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+
+</html>

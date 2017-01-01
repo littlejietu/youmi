@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><a href="../me/me.html"><i class="left-arow"></i></a>设置</h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<section>
+	<div class="content">
+		<!--<div class="content-list">-->
+			<!--<a href="#">-->
+				<!--<img src="../images/10.png"/>消息提醒-->
+				<!--<div class="chekbox-panel">-->
+					<!--<input type="checkbox">-->
+					<!--<p style="background:#bababa;border:1px solid #bababa;"><label>开</label><label>关</label><span></span></p>改动结束&ndash;&gt;-->
+				<!--</div>-->
+			<!--</a>-->
+		<!--</div>-->
+		<div class="content-list">
+			<a href="index2.html">
+				<img src="../images/11.png"/>个人信息
+				<i></i>
+			</a>
+		</div>
+		<div class="content-list">
+			<a href="about.html">
+				<img src="../images/16.png"/>关于我们
+				<i></i>
+			</a>
+		</div>
+	</div>
+	<!-- <div style="width:100%;overflow:hidden;height:40px;"></div>
+	<div class="weibu"><a href="">退出当前账号</a></div> -->
+</section>
+</div>
+<script src="../../corejs/jquery.min.js"></script>
+<script  type="text/javascript" src="../../corejs/fastclick.js"></script>
+<script  type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+<script>
+$(function() {
+	var token = get_user_token();
+	if(!token){
+		location.href = 'http://data.zooernet.com/api/wxauth/go?url=http://data.zooernet.com/wap/home/index.html';
+	}
+  	FastClick.attach(document.body);
+});
+</script>
+</body>
+</html>

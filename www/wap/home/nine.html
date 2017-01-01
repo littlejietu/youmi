@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<script type="text/javascript" src="../corejs/0.js"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<link rel="stylesheet" href="../corecss/idangerous.swiper2.7.css">
+	<link rel="stylesheet" href="../corecss/reset.css"/>
+	<link rel="stylesheet" href="css/main.css"/>
+	<style>
+		.swiper-wrapper .slide-nav{width:80px;height:40px;text-align:center;line-height:40px;border-right:0;}
+		.swiper-wrapper .slide-nav a{display:inline-block;width:80%;height:38px;color:#000;}
+		.swiper-wrapper .slide-nav a.active{border-bottom:2px solid #ff3d23;color:#ff3d23;}
+		.product-mask{position:absolute;z-index:3;left:0;top:0;width:100%;height:100%;background:#000;opacity:0.4;}
+		.product-outMask{position:absolute;z-index:4;width:80px;height:80px;text-align:center;line-height:80px;left:50%;top:50%;margin-top:-40px;margin-left:-40px;background:#fff;border-radius:100%;opacity:0.6;color:#666;font-size:22px;font-weight:bold;}
+		.swiper-slide{width:100%;}
+		   body{overflow:hidden;}
+	</style>
+
+</head>
+<body>
+<header>
+	<div class="header-title">
+		<h3><i class="left-arow" onclick="webBackHandler();"></i></a>九号闪购</h3>
+	</div>
+</header>
+
+<nav>
+	<div class="head-nav">
+		<div class="swiper-container thumbs-cotnainer" id="category_cont">
+			<div class="swiper-wrapper" style="width:600px;" id="nine-nav">
+					<!-- <div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav" style="">
+						<a  class="active">全部产品</a>
+					</div>
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >厨房用品</a>
+					</div>
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >休闲零食</a>
+					</div>	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >母婴玩具</a>
+					</div>	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >母婴玩具</a>
+					</div>	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >休闲零食</a>
+					</div>	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >母婴玩具</a>
+					</div>	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >母婴玩具</a>
+					</div>	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >休闲零食</a>
+					</div>	
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active slide-nav">
+						<a >休闲零食</a>
+					</div> -->
+			</div>
+		</div>
+	</div>
+</nav>
+<div class="scroll" style="top:90px;bottom:0;">
+<section>
+	<div class="new-product" style="margin-top:10px;">
+		<div class="product">
+		<div class="swiper-container" id="goods_cont" style="position:relative;width: 100%;height: 100%;">
+			<div class="swiper-wrapper" id="nine">
+			<!-- <div class="product-list" style="position:relative;">
+				<figure>
+					<div class="pic"><img src="images/case1.png"/></div>
+					<figcaption>
+						<h3>帮宝适婴儿纸尿裤小裤裤夜用</h3>
+						<p>
+							<span class="color2">&yen;57.00</span>
+							<span  style="background:#fff;color:#999;">剩余20</span>
+							<del class="del">&yen;76.00</del>
+						</p>
+					</figcaption>
+				</figure>
+				<div class="product-mask"></div>
+				<div class="product-outMask">售光了</div>
+			</div>
+			<div class="product-list">
+				<figure>
+					<div class="pic"><img src="images/case2.png"/></div>
+					<figcaption>
+						<h3>帮宝适婴儿纸尿裤小裤裤夜用</h3>
+						<p>
+							<span class="color2">&yen;57.00</span>
+							<span  style="background:#fff;color:#999;">剩余20</span>
+							<del class="del">&yen;76.00</del>
+						</p>
+					</figcaption>
+				</figure>
+			</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</div>
+<!-- <script>
+	$(function(){
+			//Thumbs
+		$('.thumbs-cotnainer').swiper({
+			slidesPerView:'auto',
+			offsetPxBefore:0,
+			offsetPxAfter:0,
+			calculateHeight: true
+		});
+
+		$(".swiper-wrapper .slide-nav").click(function(){
+			$(this).children("a").addClass("active").parent().siblings().children("a").removeClass("active");
+
+		});
+});
+</script> -->
+<script  type="text/javascript" src="../corejs/jquery.min.js"></script>
+<script  type="text/javascript" src="../corejs/zooer.config.js"></script>
+<script  type="text/javascript" src="../corejs/arttemplate.js"></script>
+<script  type="text/javascript" src="../corejs/idangerous.swiper.min.js"></script>
+<script  type="text/javascript" src="../corejs/zooer.utils.js"></script>
+<script  type="text/javascript" src="js/nine.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/idangerous.swiper2.7.css"/>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+	<script type="text/javascript" src="../../corejs/idangerous.swiper.min.js"></script>
+	<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+	<script type="text/javascript" src="../../corejs/fastclick.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+	<script type="text/javascript" src="../js/order.js"></script>
+
+	<style>
+    .swiper-slide{width:100%;}
+    body{overflow:hidden;}
+    .empty{display:none;position:absolute;left:20%;top:30%;width:60%;text-align:center;}
+    .empty img{display:block;width:50%;margin:20px auto;}
+
+  </style>
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;position:absolute;">
+		<h3><a href="../me/me.html"><i class="left-arow"></i></a>我的订单</h3>
+	</div>
+</header>
+<section>
+	<div class="order" style="position:absolute;left:0;top:49px;width:100%;">
+		<ul>
+			<li id="ordertype_0" ><span >全部</span></li>
+			<li id="ordertype_1" ><span>待付款</span></li>
+			<li id="ordertype_2" ><span>待发货</span></li>
+			<li id="ordertype_3" ><span >待收货</span></li>
+			<li id="ordertype_4" ><span>待评价</span></li>
+		</ul>
+	</div>
+</section>
+
+<section>
+<div style="position:absolute;top:102px;bottom:0;left:0;width:100%;overflow:auto;">
+<div class="swiper-container" style="width: 100%;height: 100%;position:relative">
+    <div class="swiper-wrapper" id="order_list"> 
+	    <!-- <div class="swiper-slide">
+	    			<div class="order-1">
+	    				<div class="top">2016-03-04<span>待发货</span></div>
+	    				<div class="up">
+	    					<div class="left"><img src="../images/17.png"/></div>
+	    					<div class="right">
+	    						<h3>毛衣间搭建电脑藏毒快点快点看看时靠电放费</h3>
+	    						<p>颜色：蓝色 尺码：L<span>X1</span></p>
+	    					</div>
+	    					<div class="clear"></div>
+	    				</div>
+	    				<div class="up">
+	    					<div class="left"><img src="../images/17.png"/></div>
+	    					<div class="right">
+	    						<h3>毛衣间搭建电脑藏毒快点快点看看时靠电放费</h3>
+	    						<p>颜色：蓝色 尺码：L<span>X1</span></p>
+	    					</div>
+	    					<div class="clear"></div>
+	    				</div>
+	    				<div class="down">
+	    					<p class="p1">共1件商品<span>实收款：<i>&yen;99.00&nbsp;</i>（邮费&yen;0.00）</span></p>
+	    					<p class="p2"><a href=""><span class="span1">不想要了</span></a></p>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="swiper-slide">
+	    			<div class="order-1">
+	    				<div class="top">2016-03-04<span>待付款</span></div>
+	    				<div class="up">
+	    					<div class="left"><img src="../images/17.png"/></div>
+	    					<div class="right">
+	    						<h3>毛衣间搭建电脑藏毒快点快点看看时靠电放费</h3>
+	    						<p>颜色：蓝色 尺码：L<span>X1</span></p>
+	    					</div>
+	    					<div class="clear"></div>
+	    				</div>
+	    				<div class="down">
+	    					<p class="p1">共1件商品<span>实收款：<i>&yen;99.00&nbsp;</i>（邮费&yen;0.00）</span></p>
+	    					<p class="p2"><a href=""><span class="span1">付款</span></a><a href="javascript:;"><span class="span2 details4-cancel">删除</span></a></p>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="swiper-slide">
+	    			<div class="order-1">
+	    				<div class="top">2016-03-04<span>待评价</span></div>
+	    				<div class="up">
+	    					<div class="left"><img src="../images/17.png"/></div>
+	    					<div class="right">
+	    						<h3>毛衣间搭建电脑藏毒快点快点看看时靠电放费</h3>
+	    						<p>颜色：蓝色 尺码：L<span>X1</span></p>
+	    					</div>
+	    					<div class="clear"></div>
+	    				</div>
+	    				<div class="down">
+	    					<p class="p1">共1件商品<span>实收款：<i>&yen;99.00&nbsp;</i>（邮费&yen;0.00）</span></p>
+	    					<p class="p2"><a href="publish.html"><span class="span1">评价</span></a></p>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="swiper-slide">
+	    			<div class="order-1">
+	    				<div class="top">2016-03-04<span>待收货</span></div>
+	    				<div class="up">
+	    					<div class="left"><img src="../images/17.png"/></div>
+	    					<div class="right">
+	    						<h3>毛衣间搭建电脑藏毒快点快点看看时靠电放费</h3>
+	    						<p>颜色：蓝色 尺码：L<span>X1</span></p>
+	    					</div>
+	    					<div class="clear"></div>
+	    				</div>
+	    				<div class="down">
+	    					<p class="p1">共1件商品<span>实收款：<i>&yen;99.00&nbsp;</i>（邮费&yen;0.00）</span></p>
+	    					<p class="p2">
+	    						<a href="#"><span class="span1">确认收货</span></a>
+	    					</p>
+	    				</div>
+	    			</div>
+	    		</div>
+	    
+	    		<div class="swiper-slide">
+	    			<div class="order-1">
+	    				<div class="top">2016-03-04<span class="span1">已取消</span></div>
+	    				<div class="up">
+	    					<div class="left"><img src="../images/17.png"/></div>
+	    					<div class="right">
+	    						<h3>毛衣间搭建电脑藏毒快点快点看看时靠电放费</h3>
+	    						<p>颜色：蓝色 尺码：L<span>X1</span></p>
+	    					</div>
+	    					<div class="clear"></div>
+	    				</div>
+	    				<div class="down">
+	    					<p class="p1">共1件商品<span>实收款：<i>&yen;99.00&nbsp;</i>（邮费&yen;0.00）</span></p>
+	    					<p class="p2">
+	    						<a href="javascript:;"><span class="span2 details4-cancel">删除</span></a>
+	    					</p>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="swiper-slide">
+	    			<div class="order-1">
+	    				<div class="top">2016-03-04<span>已完成</span></div>
+	    				<div class="up">
+	    					<div class="left"><img src="../images/17.png"/></div>
+	    					<div class="right">
+	    						<h3>毛衣间搭建电脑藏毒快点快点看看时靠电放费</h3>
+	    						<p>颜色：蓝色 尺码：L<span>X1</span></p>
+	    					</div>
+	    					<div class="clear"></div>
+	    				</div>
+	    				<div class="down">
+	    					<p class="p1">共1件商品<span>实收款：<i>&yen;99.00&nbsp;</i>（邮费&yen;0.00）</span></p>
+	    					<p class="p2">
+	    						<a href="javascript:;"><span class="span2 details4-cancel">删除</span></a>
+	    					</p>
+	    				</div>
+	    			</div>
+	    		</div> -->
+	</div>
+</div>
+</div>
+</section>
+<div class="empty"><img src="../images/empty-order.png"/><span>还没有您的全部订单</span></div>
+
+
+</body>
+</html>

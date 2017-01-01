@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+	<script type="text/javascript" src="../../corejs/fastclick.js"></script>
+	<script type="text/javascript" src="../js/me.js"></script>
+</head>
+<body>
+<header>
+	<div class="me-header" style="line-height:48px;text-align:center;font-size:18px;color:#000;">
+		九号街区
+		<div class="left"><a href="../setting/index.html"><img src="../images/control.png"/></a></div>
+		<div class="right"><a href="../../home/information/inform.html" id="message_icon"><img src="../images/xiao.png" /></a></div>
+		<div class="clear"></div>
+	</div>
+</header>
+<!-- <div class="line2"></div> -->
+<div class="scroll">
+<div class="me-1">
+	<div class="left"><img src="../images/person.png" class="imgMask" id="user_image"/></div>
+	<div class="middle">
+		<h3 id="user_name"></h3>
+		 <p class="p1" id="user_title"></p>
+	</div>
+	<div class="clear"></div>
+	<div class="right"><a href="../integral/market2.html"><img src="../images/icon2.png"/><label>领积分</label></a></div>
+</div>
+<div class="me-2">
+	<h3><a href="../order/order.html?type=0"><img src="../images/icon3.png"/><label>我的订单</label><span>查看全部订单<i></i></span></a></h3>
+	<div class="list" id="me-nav">
+		<script type="text/html" id="order_detail">
+			<ul>
+			<li><a href="../order/order.html?type=1"><span><img src="../images/icon4.png"/>
+			{{if waitpay_num>0}}
+			<i>{{waitpay_num}}</i>
+			{{/if}}
+			</span><p>待付款</p></a></li>
+			<li><a href="../order/order.html?type=2"><span><img src="../images/icon5.png"/>
+			{{if waitsend_num>0}}
+			<i>{{waitsend_num}}</i>
+			{{/if}}
+			</span><p>待发货</p></a></li>
+			<li><a href="../order/order.html?type=3"><span><img src="../images/icon6.png"/>
+			{{if waitconfirm_num>0}}
+			<i>{{waitconfirm_num}}</i>
+			{{/if}}
+			</span><p>待收货</p></a></li>
+			<li><a href="../order/order.html?type=4"><span><img src="../images/icon7.png"/>
+			{{if waitcomment_num>0}}
+			<i>{{waitcomment_num}}</i>
+			{{/if}}
+			</span><p>待评价</p></a></li>
+			<li><a href="../order/details5.html"><span><img src="../images/icon8.png"/>
+			{{if refund_num>0}}
+			<i>{{refund_num}}</i>
+			{{/if}}
+			</span><p>退款/售后</p></a></li>
+		</ul>
+
+		</script>
+		
+	</div>
+</div>
+<div class="me-3">
+	<h3><a href="../wallet/index.html"><img src="../images/icon9.png"/><label>我的钱包</label><i></i></a></h3>
+	<div class="list" id="me-list">
+		<!-- <ul>
+			<li><a href="../wallet/integral.html"><label>20</label><label>我的积分</label></a></li>
+			<li><a href="../wallet/remain2.html"><label>100.00</label><label>账户余额</label></a></li>
+			<li><a href="../wallet/coupon.html"><label>2</label><label>优惠劵</label></a></li>
+		</ul> -->
+	</div>
+</div> 
+<div class="me-4">
+	<div class="list">
+		<a href="../collect/collect.html">
+			<img src="../images/icon10.png"/><label>我的收藏</label>
+			<i></i>
+		</a>
+	</div>
+	<div class="list">
+		<a href="../track/track.html">
+			<img src="../images/icon11.png"/><label>我的足迹</label>
+			<i></i>
+		</a>
+	</div>
+	<div class="list">
+		<a href="../invite/invite.html">
+			<img src="../images/icon12.png"/><label>邀请好友</label>
+			<i></i>
+		</a>
+	</div>
+	<div class="list">
+		<a href="../feedback/feedback.html">
+			<img src="../images/icon13.png"/><label>意见与反馈</label>
+			<i></i>
+		</a>
+	</div>
+</div>
+</div>
+<!-- <div class="line2"></div> -->
+<footer>
+	<div class="footer">
+		<nav>
+			<ul>
+				<li><a href="../../home/index.html"><img src="../images/index2.png"/>首页</a></li>
+				<li><a href="../../home/category/category.html"><img src="../images/fenlei.png"/>分类</a></li>
+				<!--<li><a href="../../home/information/chat.html"><img src="../images/chat.png"/>聊天</a></li>-->
+				<li><a href="../../home/prefer.html"><img src="../images/activity.png"/>嗨购</a></li>
+				<li><a href="../../home/cart/cart3.html?ef=3" ><span id="cart_num_span"><img src="../images/cart.png"/></span>购物车</a></li>
+				<li><a href="me.html" class="color2"><img src="../images/my2.png"/>我的</a></li>
+			</ul>
+		</nav>
+	</div>
+</footer>
+
+<!-- <script src="../js/main.js"></script> -->
+<script>
+$(function() {
+  FastClick.attach(document.body);
+});
+</script>
+</body>
+</html>

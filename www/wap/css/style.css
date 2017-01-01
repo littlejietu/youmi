@@ -1,0 +1,1435 @@
+*{
+	position: relative;
+	margin: 0;
+	padding: 0;
+	line-height: .6rem;
+	color: #333;
+}
+html,body{
+	font-family:'Microsoft YaHei',tahoma, Arial, Verdana, sans-serif;
+	font-size: .373333rem;
+	background: #ededed;
+	height: 100%;
+}
+
+/* ---------- common ---------- */
+.tl{
+	text-align: left;
+}
+
+.tc{
+	text-align: center;
+}
+
+.tr{
+	text-align: right;
+}
+
+img{
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+a.btn{
+	display: inline-block;
+	padding: .03rem .4rem;
+	border: 1px solid #000;
+	border-radius: 4px;
+	text-align: center;
+}
+
+a.btn.red{
+	border-color: #ff3d3c;
+	background: #ff3d3c;
+	color: #fff;
+}
+
+a.btn.gray{
+	border-color: #ccc;
+	background: #ccc;
+	color: #fff;
+}
+
+.container{
+	width: 10rem;
+}
+
+.ellipsis{
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+.c_gray{
+	color: #999;
+}
+
+.c_green{
+	color: #01c480;
+}
+
+.c_red{
+	color: #ff3d3c;
+}
+
+ul,li{
+	list-style-type: none;
+}
+input{
+	border: none;
+	display: inline-block;
+	font-family:'Microsoft YaHei',tahoma, Arial, Verdana, sans-serif;
+	height: .8rem;
+	line-height: .8rem;
+	padding: 0 .2rem;
+}
+
+
+/* ---------- userCenter.html ---------- */
+.user_info{
+	position: relative;
+	padding: .9375rem .5rem .5rem .5rem;
+	background: url(../img/bg_user.png) no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+.user_info .user_pic{
+	overflow: auto;
+}
+.user_info .user_pic img{
+	display: inline-block;
+	width: 1.5625rem;
+	height: 1.5625rem;
+	border: 3px solid #49d49b;
+	border-radius: 1.5625rem;
+	float: left;
+}
+
+.user_info .user_nf{
+	display: inline-block;
+	width: 5rem;
+	padding: .25rem 2rem .25rem .25rem;
+}
+.user_info .user_nf p{
+	color: #fff;
+}
+.user_info .user_nf p.user_name{
+	font-size: .45rem;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+.user_info .user_nf a.btn{
+	position: absolute;
+	right: 0;
+	top: .5rem;
+	z-index: 11;
+}
+
+.user_point{
+	padding-top: 0.625rem;
+}
+
+.user_point_show{
+	width: 100%;
+	height: 0.06rem;
+	background: #fff;
+	border-radius: 0.6rem;
+}
+
+.user_point_show .user_point_now{
+	width: 1rem;
+	height: 100%;
+	background: #0bc67a;
+}
+.user_point_show .user_point_now .user_point_num{
+	position: absolute;
+    top: -0.6rem;
+    right: 0;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    color: #fff;
+    min-width: .125rem;
+    z-index: 11;
+    height: .6rem;
+    min-width: 2rem;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+}
+.user_point_show .user_point_now .user_point_num b{
+	font-size: .44rem;
+	color: #fff;
+	padding-right: .06rem;
+}
+.user_point_show .user_point_now .user_point_circle{
+	position: absolute;
+	top: -0.05rem;
+	right: -0.09rem;
+	width: 0.16rem;
+	height: 0.16rem;
+	border-radius: 0.16rem;
+	background: #0bc67a;
+}
+.user_point p{
+	color: #fff;
+}
+
+.user_level{
+	background: #fff;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: .5rem;
+}
+.user_level dl{
+	overflow: auto;
+}
+.user_level dl dd{
+	float: left;
+	width: 2.5rem;
+	text-align: center;
+	line-height: 1rem;
+}
+.user_level dl dd.on{
+	color: #02c27f;
+	border-bottom: 2px solid #02c27f;
+	font-weight: bold;
+}
+
+.user_others{
+	
+}
+
+.user_others li{
+	margin-bottom: .2rem;
+	background: #fff;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+.user_others li h3{
+	font-size: 0.373333rem;
+	font-weight: normal;
+	padding: 0;
+}
+
+.user_others li h3 a{
+	display: block;
+	font-size: 0.373333rem;
+	font-weight: normal;
+	padding: .2rem .35rem;
+	height: .6rem;
+	line-height: .6rem;
+}
+
+.user_others li h3 a:after{
+	content: ">";  /*:before和:after必带技能，重要性为满5颗星*/
+    display: block;
+    position: absolute;  /*日常绝对定位*/
+    top: .2rem;
+    right: .35rem;
+    height: .6rem;
+	line-height: .6rem;
+}
+
+.user_others li.user_wallet{
+	padding: 0 .05rem;
+}
+
+
+.user_others li.user_wallet dl{
+	border-top: 1px solid #ddd;
+	overflow: auto;
+}
+
+.user_others li.user_wallet dd{
+	float: left;
+	width: 3.3rem;
+	padding: .2rem 0;
+	text-align: center;
+}
+.user_others li.user_wallet dd img{
+	margin: 0 auto 0.1rem auto;
+	width: 0.9rem;
+	height: 0.9rem;
+}
+.user_others li.user_wallet dd span{
+	color: #01c480;
+}
+
+.user_others li dd.center:before{
+	content: "";  /*:before和:after必带技能，重要性为满5颗星*/
+    display: block;
+    position: absolute;  /*日常绝对定位*/
+    top:0;
+    left: 0;
+    width: 0;
+    height: 100%;
+	border-right: 1px solid #ddd;
+}
+
+.user_others li dd.center:after{
+	content: "";  /*:before和:after必带技能，重要性为满5颗星*/
+    display: block;
+    position: absolute;  /*日常绝对定位*/
+    top:0;
+    right: 0;
+    width: 0;
+    height: 100%;
+	border-right: 1px solid #ddd;
+}
+
+.user_others li dd .line.l{
+	float: left;
+}
+
+.user_others li dd .line.r{
+	float: right;
+}
+
+.user_others li h3 span.text{
+	position: absolute;
+    right: 0.65rem;
+}
+
+
+
+/* ---------- userOrder.html ---------- */
+.user_order{
+	
+}
+
+.user_order dl{
+	background: #fff;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	overflow: auto;
+	z-index: 11;
+}
+.user_order dl dd{
+	float: left;
+	width: 3.333333333333rem;
+	line-height: 1rem;
+	text-align: center;
+	border-bottom: 2px solid #fff;
+}
+
+.user_order dl dd.on{
+	color: #02c27f;
+	border-bottom: 2px solid #02c27f;
+}
+
+.user_order_list{
+	padding: 0 0.35rem;
+	background: #fff;
+	margin-top: -2px;
+}
+
+.user_order_list li{
+	list-style: none;
+	border-top: 1px dashed #e0e0e0;
+	padding: 0.3rem 0;
+}
+
+
+.user_order_list li:first-child{
+	padding-top: 0.45rem;
+}
+
+.user_order_list li .status{
+	padding-bottom: 0.3rem;
+	border-bottom: 1px dashed #e0e0e0;
+}
+
+.user_order_list li p{
+	width: 5.5rem;
+	padding-right: 3.8rem;
+}
+.user_order_list li p span{
+	position: absolute;
+	right: 0;
+}
+
+.user_order_list li p.o_time{
+	font-size: 0.3rem;
+	color: #999;
+}
+
+.user_order_list li p.o_time span{
+	color: #999;
+}
+
+.user_order_list li .operate{
+	padding-top: 0.3rem;
+}
+
+.user_order_list li .operate .o_operate{
+	float: right;
+}
+
+/* ---------- userInvite.html ---------- */
+.user_code{
+	text-align: center;
+	padding: 1.3rem 0 .6rem 0;
+}
+.user_code img{
+	width: 4rem;
+	margin: 0 auto .3rem auto;
+}
+
+.user_code a.btn{
+	padding: .03rem .6rem;
+	margin-top: .2rem;
+}
+
+.code_list ul{
+	background: #fff;
+}
+
+.code_list ul li{
+	padding: .3rem;
+	border: 1px solid #e0e0e0;
+}
+
+.code_list ul li img{
+	width: 1.5rem;
+	height: 1.5rem;
+	display: inline-block;
+}
+
+.code_list ul li p.txt{
+	width: 5rem;
+	margin-left: .5rem;
+	padding-right: .3rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	display: inline-block;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.code_list ul li span{
+	display: inline-block;
+    vertical-align: top;
+    margin-top: .47rem;
+}
+
+.code_list ul li:first-child p{
+	width: 8rem;
+	padding-left: .7rem;
+	background: url(../img/icon_04.png) no-repeat left center;
+	background-size: auto .5rem;
+}
+
+.mask{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 10rem;
+	height: 100%;
+	background: url(../img/icon_07.png) repeat;
+	display: none;;
+}
+
+.mask img.share{
+	width: 6rem;
+	margin-right: 0;
+	margin-bottom: 1rem;
+	float: right;
+}
+
+.mask img.big_code{
+	margin: auto;
+	width: 5rem;
+}
+
+/* ---------- userBalance.html ---------- */
+.user_balance{
+	padding: 0.875rem 0 0 0;
+	background: url(../img/icon_05.png) repeat;
+	margin-bottom: .375rem;
+}
+
+.user_balance p.money{
+	color: #02c27f;
+	margin-top: .3rem;
+}
+
+.user_balance p.money b{
+	font-size: 1rem;
+	color: #02c27f;
+}
+
+.user_balance .notice{
+	background: #fff;
+	padding: .3rem;
+	margin-top: 1.25rem;
+}
+
+.user_balance .notice p{
+	height: .8rem;
+	line-height: .8rem;
+	padding-left: .7rem;
+	background: url(../img/icon_04.png) no-repeat left center;
+	background-size: auto .5rem;
+}
+
+.user_balance .notice p a.btn{
+	float: right;
+	margin-top: .05rem;
+}
+
+
+.balance_list ul{
+	background: #fff;
+}
+
+.balance_list ul li{
+	padding: .3rem;
+	border: 1px solid #e0e0e0;
+}
+
+.balance_list ul li img{
+	width: 1.5rem;
+	height: 1.5rem;
+	display: inline-block;
+}
+
+.balance_list ul li p{
+	width: 7rem;
+	display: inline-block;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	line-height: .4rem;
+}
+.balance_list ul li p.time{
+	font-size: .3rem;
+	line-height: .3rem;
+	color: #999;
+}
+
+.balance_list ul li span{
+	display: inline-block;
+	position: absolute;
+	right: .3rem;
+	top: .6rem;
+}
+
+/* ---------- userPoints.html ---------- */
+.user_points{
+	padding: .6rem .3rem;
+	background: url(../img/icon_05.png) repeat;
+}
+.user_points span{
+	position: absolute;
+	top: .3rem;
+	right: .3rem;
+	display: inline-block;
+	padding-left: .8rem;
+	background: url(../img/icon_08.png) no-repeat;
+	background-size: auto .6rem;
+	background-position: left center;
+}
+.user_points p.money{
+	color: #02c27f;
+	margin-top: .3rem;
+}
+
+.user_points p.money b{
+	font-size: 1rem;
+	color: #02c27f;
+}
+
+.user_points .notice{
+	background: #fff;
+	padding: .3rem;
+	margin-top: 1.25rem;
+}
+
+.user_points .notice p{
+	padding-left: .7rem;
+	background: url(../img/icon_04.png) no-repeat left center;
+	background-size: auto .5rem;
+}
+
+.user_points .notice p a.btn{
+	float: right;
+}
+
+.point_intro{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 10rem;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+	display: none;
+}
+
+.point_intro ul{
+	width: 6rem;
+	height: 100%;
+	background: #fff;
+	padding: 0 .3rem;
+	margin-left: 10rem;
+	list-style-type: none;
+}
+
+.point_intro ul li{
+	border-bottom: 1px solid #e0e0e0;
+	padding-bottom: .3rem;
+}
+
+.point_intro ul li h3{
+	font-weight: normal;
+	font-size: .4rem;
+	padding-top: .3rem;
+	padding-left: .4rem;
+}
+.point_intro ul li h3:before{
+	content: "‹";  /*:before和:after必带技能，重要性为满5颗星*/
+    display: block;
+    position: absolute;  /*日常绝对定位*/
+    top: .2rem;
+    left: 0;
+    height: .6rem;
+	line-height: .6rem;
+	font-size: 1rem;
+	color: #676767;
+	font-weight: 200;
+}
+.point_intro ul li h4{
+	font-weight: normal;
+	font-size: .33rem;
+	padding: .2rem 0;
+}
+
+.point_intro ul li p{
+	color: #666;
+}
+
+
+/* ---------- userOrderDetail.html ---------- */
+.user_order_detail{
+	background: #fff;
+	margin-top: .3rem;
+	padding-bottom: 2rem;
+}
+
+.user_order_detail ul li{
+	padding: 0 .4rem;
+}
+
+.user_order_detail ul li p{
+	color: #666;
+}
+
+.user_order_detail ul li p span{
+	float: right;
+	color: #666;
+}
+
+.user_order_detail ul li:first-child{
+	margin-bottom: .3rem;
+	padding: .2rem .4rem;
+	border-bottom:1px solid #e0e0e0;
+}
+
+.user_order_detail ul li:first-child span{
+	font-size: .5rem;
+	color: #ff3d3c;
+}
+
+/* ---------- userOil.html ---------- */
+.user_oil{
+	padding: 0.875rem 0 0 0;
+	background: url(../img/icon_09.png) no-repeat;
+	background-position: center;
+	background-size: cover;
+	margin-bottom: .375rem;
+}
+
+.user_oil .circle{
+	width: 3rem;
+	height: 1.6rem;
+	margin: auto;
+	padding: 1.5rem .8rem;
+	border-radius: 4rem;
+	border: 2px solid #02c27f;
+}
+
+.user_oil p.money{
+	color: #02c27f;
+	margin-top: .2rem;
+}
+
+.user_oil p.money b{
+	font-size: .7rem;
+	color: #000;
+}
+
+.user_oil .notice{
+	background: #fff;
+	padding: .3rem;
+	margin-top: .6rem;
+}
+
+.user_oil .notice p{
+	padding-left: .7rem;
+	background: url(../img/icon_04.png) no-repeat left center;
+	background-size: auto .5rem;
+}
+
+.user_oil .notice p a.btn{
+	float: right;
+}
+
+/* ---------- recharge.html ---------- */
+.recharge,.cash{
+	margin-top: .3rem;
+}
+
+.recharge .recharge_money,.cash .cash_money{
+	background: #fff;
+	padding: .3rem .4rem;
+}
+.recharge .recharge_money b,.cash .cash_money b{
+	color: #999;
+	font-size: .7rem;
+	font-weight: normal;
+	vertical-align: middle;
+	margin-left: .3rem;
+}
+
+.recharge .recharge_type,.cash .cash_type{
+	background: #fff;
+	margin: .3rem 0 .6rem 0;
+	padding: 0 .4rem;
+}
+
+.recharge .recharge_type dd,.cash .cash_type dd{
+	border-top: 1px solid #ddd;
+	height: .7rem;
+	padding: .3rem 0;
+}
+.recharge .recharge_type dd:first-child,.cash .cash_type dd:first-child{
+	border: none;
+}
+.recharge .recharge_type dd img,.cash .cash_type dd img{
+	height: 100%;
+}
+
+.recharge .recharge_type dd.type:after,.cash .cash_type dd.type:after{
+	content: "";  /*:before和:after必带技能，重要性为满5颗星*/
+    display: block;
+    position: absolute;  /*日常绝对定位*/
+    top: .45rem;
+    right: .35rem;
+    width: .3rem;
+    height: .3rem;
+    border-radius: .3rem;
+	border: 2px solid #ddd;
+	background: #666;
+}
+
+.recharge .recharge_type dd.on:after,.cash .cash_type dd.on:after{
+	background: #ff3d3c;
+}
+
+.recharge .recharge_sure,.cash .cash_sure{
+	display: block;
+	width: 9.6rem;
+	margin: auto;
+	background: #02c27f;
+	border: none;
+	color: #fff;
+	padding: .2rem 0;
+}
+
+
+.recharge .oil_type{
+	background: #fff;
+}
+
+.recharge .oil_type p{
+	border-bottom: 1px solid #e0e0e0;
+	padding: .3rem;
+}
+
+.recharge .oil_type dl{
+	overflow: auto;
+	border-bottom: 1px solid #e0e0e0;
+	padding: .2rem .5rem;
+}
+
+.recharge .oil_type dl dd{
+	float: left;
+	width: 2rem;
+	text-align: center;
+	padding: .2rem 0;
+	margin: 0 .5rem;
+}
+
+.recharge .oil_type dl dd p{
+	border: 1px solid #00aa6f;
+	border-radius: .1rem;
+	padding: .1rem 0;
+	color: #02c27f;
+}
+
+.recharge .oil_type dl dd.on p{
+	background: #02c27f;
+	color: #fff;
+}
+
+.cash .cash_type dd span{
+	position: absolute;
+	right: 1rem;
+	top: .35rem;
+	font-size: .3rem;
+}
+
+.cash .cash_type dd span b{
+	font-weight: normal;
+	color: #02c27f;
+}
+
+/* ---------- userIdCard.html ---------- */
+.user_card{
+	margin-top: .5rem;
+	margin-bottom: .4rem;
+}
+
+.user_card img.card_bg{
+	width: 10rem;
+}
+
+.user_card .user_info{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: none;
+	padding: .3rem 1.25rem;
+}
+
+.user_card .user_info .user_nf {
+	width: 3rem;	
+}
+
+.card_notice{
+	background: #fff;
+	padding: .3rem 0;
+	margin-top: .6rem;
+	border-top: 1px solid #f1f1f1;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.card_notice h3{
+	padding-left: 1rem;
+	padding-bottom: .2rem;
+	background: url(../img/icon_04.png) no-repeat .3rem .05rem;
+	background-size: auto .5rem;
+	font-weight: normal;
+	font-size: .373333rem;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.card_notice p{
+	text-indent: 2em;
+	padding: .2rem .3rem;
+	text-align: justify;
+}
+
+
+/* ---------- userCoupon.html ---------- */
+.user_coupon{
+	
+}
+
+.user_coupon dl{
+	background: #fff;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	overflow: auto;
+	z-index: 11;
+}
+.user_coupon dl dd{
+	float: left;
+	width: 3.333333333333rem;
+	line-height: 1rem;
+	text-align: center;
+	border-bottom: 2px solid #fff;
+}
+
+.user_coupon dl dd.on{
+	color: #02c27f;
+	border-bottom: 2px solid #02c27f;
+}
+
+.user_coupon .user_coupon_list li{
+	margin: .4rem .3rem;
+	padding: 0;
+	height: 3.1rem;
+}
+
+.user_coupon .user_coupon_list li .coupon{
+	height: 100%;
+	padding-left: 1rem;
+	background: url(../img/icon_12.png) no-repeat left top;
+	background-size: 1rem auto;
+}
+.user_coupon .user_coupon_list li .coupon.out{
+	background: url(../img/icon_13.png) no-repeat left top;
+	background-size: 1rem auto;
+}
+
+.coupon .coupon_text{
+	height: 100%;
+	background: #fefefe;
+	padding-left:.3rem;
+	padding-right: .2rem;
+}
+.coupon .coupon_text p.money{
+	padding: .6rem 2.5rem .6rem 0;
+	height: 1rem;
+	border-bottom: 1px dashed #e0e0e0;
+}
+
+.coupon .coupon_text p.money b{
+	float: left;
+	font-size: 1.4rem;
+	color: #02c27f;
+	margin-top: .25rem;
+}
+
+.coupon .coupon_text p.money b .symbol{
+	font-size: .5rem;
+	color: #02c27f;
+	vertical-align: .06rem;
+}
+
+.coupon.out .coupon_text p.money b{
+	color: #ccc;
+}
+
+.coupon.out .coupon_text p.money b .symbol{
+	color: #ccc;
+}
+
+.coupon .coupon_text p.money label{
+	float: right;
+}
+.coupon .coupon_text p.money label span{
+	display: block;
+}
+
+.coupon .coupon_text p.money a.btn{
+	position: absolute;
+	right: 0;
+	top: .8rem;
+	z-index: 111;
+}
+
+.coupon.out .coupon_text p.time{
+	padding-top: .15rem;
+	color: #ccc;
+}
+
+.coupon.out a.btn{
+	border-color: #ccc;
+	background: #ccc;
+	color: #fff;
+}
+
+.coupon.out .status{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 1.5rem;
+}
+
+/* ---------- userRedBag.html ---------- */
+
+.user_red_bag{
+	padding: 0.875rem 0 .8rem 0;
+	background: url(../img/icon_09.png) no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.user_red_bag .circle{
+	width: 3rem;
+	height: 1.6rem;
+	margin: auto;
+	padding: 1rem .8rem 0 .8rem;
+	background: url(../img/icon_16.png) no-repeat;
+	background-size: 100% auto;
+}
+
+.user_red_bag p.money{
+	margin-top: .2rem;
+
+}
+
+.user_red_bag p.money b{
+	font-size: .7rem;
+	color: #000;
+	vertical-align: -0.037rem;
+}
+
+.user_red_bag p.red_num{
+	font-size: .3rem;
+	color: #999;
+}
+
+/* ---------- register.html/change.html ---------- */
+.register{
+	
+}
+.change{
+	margin-top: .3rem;	
+}
+
+.register ul,.change ul{
+	background: #fff;
+	margin-bottom: .6rem;
+}
+
+.register ul li,.change ul li{
+	padding: .1rem .3rem;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+
+.register ul li:first-child p{
+	padding: .3rem 0 .3rem .6rem;
+	font-size: .28rem;
+	background: url(../img/icon_17.png) no-repeat left center;
+	background-size: auto .6rem;
+}
+
+.register ul li p,.change ul li p{
+	padding: .1rem 0;
+}
+
+.register ul li input,.change ul li input{
+	min-width: 6rem;
+	height: .8rem;
+	line-height: .8rem;
+	padding: 0 .2rem;
+}
+
+.register a.btn,.change a.btn{
+	display: block;
+	width: 9.4rem;
+	margin: auto;
+	background: #02c27f;
+	border: none;
+	color: #fff;
+	padding: .2rem 0;
+}
+
+/* ---------- activity.html ---------- */
+.activity{
+	
+}
+
+.activity ul li{
+	margin: .4rem .3rem;
+	padding: 0;
+	height: 3.1rem;
+}
+
+.activity ul li .activity_out{
+	height: 100%;
+	padding-left: 1rem;
+	background: url(../img/icon_18.png) no-repeat left top;
+	background-size: 1rem auto;
+}
+
+
+.activity_out .activity_text{
+	height: 100%;
+	background: #fefefe;
+	padding-left:.3rem;
+	padding-right: .2rem;
+}
+.activity_out .activity_text p.money{
+	padding: .6rem 2.5rem .6rem 0;
+	height: 1rem;
+	border-bottom: 1px dashed #e0e0e0;
+}
+
+/*.activity_out .activity_text p.money:after{
+	content: "›";  
+    display: block;
+    position: absolute; 
+    top: .68rem;
+    right: .35rem;
+    height: .6rem;
+	line-height: .6rem;
+	font-size: 1rem;
+	color: #b1b1b1;
+}*/
+
+.activity_out .activity_text p.money b{
+	float: left;
+	font-size: 1.4rem;
+	color: #ff3d3c;
+	margin-top: .25rem;
+}
+
+.activity_out .activity_text p.money b .symbol{
+	font-size: .5rem;
+	color: #ff3d3c;
+	vertical-align: .06rem;
+}
+
+
+.activity_out .activity_text p.money label{
+	float: right;
+}
+.activity_out .activity_text p.money label span{
+	display: block;
+}
+
+.activity_out .activity_text p.money a.btn{
+	position: absolute;
+	right: 0;
+	top: .8rem;
+	z-index: 111;
+}
+
+.activity .rules{
+	padding: .3rem;
+}
+
+.activity .rules h3{
+	font-weight: normal;
+	font-size: .4rem;
+	margin-bottom: .2rem;
+}
+
+.activity .rules p{
+	padding-left: .4rem;
+	text-align: justify;
+}
+
+/* ---------- pay.html ---------- */
+.pay .oil_num,.pay .money{
+	background: #fff;
+	padding: .4rem .3rem .1rem .3rem;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.pay .oil_num{
+	margin-bottom: .3rem;
+}
+
+.pay .oil_num span,.pay .money span{
+	display: inline-block;
+	width: 1.5rem;
+}
+
+.pay .oil_num input,.pay .money input{
+	min-width: 6rem;
+    height: .8rem;
+    line-height: .8rem;
+    padding: 0 .2rem;
+}
+
+.pay .oil_num dl,.pay .money dl{
+	overflow: auto;
+	padding: .4rem 0;
+	margin-left: -.3rem;
+	display: none;
+}
+
+.pay .oil_num dl dd,.pay .money dl dd{
+	float: left;
+	width: 2.125rem;
+	margin-left: .3rem;
+	margin-bottom: .2rem;
+	text-align: center;
+}
+
+.pay .oil_num dl dd p,.pay .money dl dd p{
+	border: 1px solid #ccc;
+	border-radius: .1rem;
+	padding: .1rem 0;
+}
+
+.pay .oil_num dl dd.on p,.pay .money dl dd.on p{
+	background: #02c27f;
+	border: 1px solid #02c27f;
+	color: #fff;	
+}
+
+.pay a.pay_sure{
+	display: block;
+    width: 9.4rem;
+    margin: auto;
+    background: #02c27f;
+    border: none;
+    color: #fff;
+    padding: .2rem 0;
+}
+
+.pay .notice{
+	background: #fff;
+	padding: .3rem;
+	margin-bottom: .6rem;
+}
+
+.pay .notice .care,.pay .notice .cheap{
+	padding-left: .6rem;
+	font-size: .33rem;
+	background: url(../img/icon_17.png) no-repeat left center;
+	background-size: auto .55rem;
+}
+
+.pay .notice .cheap{
+	background: none;
+	color: #ff3d3c;
+}
+
+.pay .go_user_center{
+	display: inline-block;
+	color: #02c27f;
+	margin-left: .3rem;
+	margin-top: .6rem;
+}
+
+
+
+/* ---------- cash.html ---------- */
+.cash h3{
+	background: #fff;
+	padding: .3rem;
+	margin-bottom: .3rem;
+	font-weight: normal;
+	font-size: .373333rem;
+}
+.cash ul{
+	background: #fff;
+}
+
+.cash ul li{
+	border-bottom: 1px solid #e0e0e0;
+	padding: .3rem;
+}
+
+.cash ul li p{
+	width: 7rem;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+.cash ul li span{
+	position: absolute;
+	right: .3rem;
+	top: .35rem;
+}
+
+
+/* ---------- rechargeOil.html ---------- */
+.oil_notice{
+	background: #fff;
+	padding: .3rem;
+	border-top: 1px solid #e0e0e0;
+}
+
+.oil_notice p{
+	height: .8rem;
+	line-height: .8rem;
+	padding-left: .7rem;
+	background: url(../img/icon_04.png) no-repeat left center;
+	background-size: auto .5rem;
+}
+
+.oil_notice p a.btn{
+	float: right;
+	margin-top: .05rem;
+}
+
+/* ---------- password_s.html ---------- */
+.password_set_title{
+	background: #fff;
+	border-top: 1px solid #ddd;
+	margin-top: .3rem;
+}
+.password_set_title dl{
+	overflow: auto;
+}
+
+.password_set_title dl dd{
+	float: left;
+	width: 5rem;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+	color: #000;
+}
+.password_set_title dl dd p{
+	height: 1.25rem;
+	line-height: 1.25rem;
+	border: 1px solid #fff;
+}
+
+.password_set_title dl dd.on{
+	border-bottom-color: #02c27f;
+}
+.password_set_title dl dd.on p{
+	color: #02c27f;
+	font-weight: bold;
+	border-bottom-color: #02c27f;
+}
+
+.password_set .step2{
+	display: none;
+}
+
+
+
+/* ---------- 获取验证码 ---------- */
+
+input.captcha {
+	min-width: 3rem !important;
+	text-transform: uppercase;
+	ime-mode: disabled;
+	display: inline-block;
+}
+.getcaptchabtn {
+	border: 1px solid #02c27f;
+	padding: 0;
+	width: 3.5rem;
+	height: 36px;
+	background: #02c27f;
+	margin-top: 0;
+	text-align: center;
+	line-height: 36px;
+	color: #ffffff;
+	text-decoration: none;
+	display: inline-block;
+	cursor:pointer;
+	vertical-align: -1px;
+}
+.getcaptchabtn.off {
+  background: #f3f5f7;
+  border-color: #d7d7d7;
+  color: #999999;
+}
+
+/* ---------- 获取验证码 ---------- */
+.dzp{
+	height: 100%;
+}
+.dzp .container{
+	height: 100%;
+}
+.dzp .rules{
+	width: 8rem;
+	padding: 0 .5rem .3rem .5rem;
+	margin: auto;
+	margin-top: 1rem;
+	background: url(../img/icon_22.png) no-repeat;
+	background-size: 100% 100%;
+}
+.dzp .rules h3{
+	color: #fff;
+	padding: .2rem 0 .1rem .6rem;
+	font-size: .28rem;
+	background: url(../img/icon_21.png) no-repeat left center;
+	background-size: auto .4rem;
+	
+}
+
+.dzp .rules p{
+	color: #fff;
+	font-size: .3rem;
+	text-indent: 2em;
+}
+
+.ly-plate{
+	position:relative;
+	width:10rem;
+	margin: auto;
+}
+.rotate-bg{
+	width:10rem;
+	text-align: center;
+}
+.ly-plate{
+	min-height: 100%;
+	background:url(../img/roate_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+.ly-plate div.lottery-star{
+	width:9rem;
+	height: 9rem;
+	position:relative;
+	display: inline-block;
+	margin: auto;
+	margin-top: 1.3rem;
+	/*text-indent:-999em;
+	overflow:hidden;
+	background:url(rotate-static.png);
+	-webkit-transform:rotate(0deg);*/
+	outline:none;
+	overflow: hidden;
+}
+
+.ly-plate div.lottery-star img{
+	width: 9rem;
+	height: 9rem;
+}
+
+.ly-plate .roate_btn{
+	cursor: pointer;
+	position: absolute;
+	width: 2.5rem;
+	top: 3.7rem;
+    left: 3.7rem;
+	z-index: 999;
+}
+
+.ly-plate .roate_btn img{
+	width: 2.5rem;
+}
+
+
+.member_head{background-color: #fff;text-align: center; padding:10px;}
+
+
+.cancel-mask2{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000;}
+.cancel-mask2 .cancel-outMask10{position:fixed;width:80%;background:#fff;z-index:1001;border-radius:5px;}
+.cancel-mask2 .cancel-wrapper{padding:10px 20px;}
+.cancel-mask2 .cancel-outMask10 h3{text-align:center;font-size:16px;color:#000;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
+.cancel-mask2 .cancel-outMask10 .div1{padding:10px;}
+
+.cancel-mask2 .cancel-outMask10 .div1 .span1{float:left;display:inline-block;width:20%;}
+.cancel-mask2 .cancel-outMask10 .div1 .span1 img{width:80%;}
+.cancel-mask2 .cancel-outMask10 .div1 .span2{float:left;display:inline-block;width:80%;}
+.cancel-mask2 .cancel-outMask10 p{line-height:30px;text-align:center;}
+.cancel-mask2 .cancel-outMask10 .p1{padding:10px 0;margin-top:10px;}
+.cancel-mask2 .cancel-outMask10 .p1 button{display:inline-block;width:200px;border-radius:5px;border:0;height:40px;text-align:center;line-height:40px;margin:0 10px;}
+.cancel-mask2 .cancel-outMask10 .btn1{color:#fff;background:#ff3d23;}
+
+.cancel-mask{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;}
+.cancel-mask .cancel-outMask{position: fixed;width: 80%;background: #fff;z-index: 1001;border-radius: 5px;}
+.cancel-mask .cancel-wrapper{padding:10px;}
+.cancel-mask .cancel-outMask h3{text-align:center;font-size:16px;color:#000;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
+.cancel-mask .cancel-outMask .div1{padding:10px;font-size:14px;}
+.cancel-mask .cancel-outMask .div1 .span1{float:left;display:inline-block;width:20%;}
+.cancel-mask .cancel-outMask .div1 .span1 img{width:80%;}
+.cancel-mask .cancel-outMask .div1 .span2{float:left;display:inline-block;width:80%;}
+.cancel-mask .cancel-outMask p{line-height:30px;text-align:center;}
+.cancel-mask .cancel-outMask .p1{padding:10px 0;margin-top:10px;font-size:14px;}
+.cancel-mask .cancel-outMask .p1 button{display:inline-block;width:80px;border-radius:5px;border:0;height:40px;text-align:center;line-height:40px;margin:0 10px;}
+.cancel-mask .cancel-outMask .btn1{color:#999;background:#e5e5e5;}
+.cancel-mask .cancel-outMask .btn2{background:#ff3d23;color:#fff;}

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+
+	<script src="../../corejs/jquery.min.js"></script>
+	<script src="../../corejs/zooer.config.js"></script>
+	<script src="../../corejs/arttemplate.js"></script>
+	<script src="../../corejs/zooer.utils.js"></script>
+	<script src="../js/cash.js"></script>
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><a href="javascript:window.history.go(-1);"><i class="left-arow"></i></a>提现</h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<section>
+	<div class="bind-2" style="margin-top:10px;">
+		<div class="bind-list">
+			<label>可提现金额</label>
+			<input type="text"  id="cash_num" readonly="readonly" style="color:#ff3d23;background:#fff;" />
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="bind-2" style="margin-top:10px;">
+		<!-- <div class="bind-list">
+			<label>提到微信：</label>
+			<input type="text" placeholder="请输入微信账号" id="weixin" />
+			<div class="clear"></div>
+		</div> -->
+		<div class="bind-list">
+			<label>提现金额：</label>
+			<input type="text" id="cash_input" placeholder="请输入提现金额" maxlength="10" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" />
+			<div class="clear"></div>
+		</div>
+	</div>
+	<p id="remind" style="color:#ff3d23;padding:0 10px;margin-top:5px;font-size:12px;"></p>
+	<div class="bind-3">
+		<button id="cash">提现</button>
+	</div>
+</section>
+</div>
+<div class="cancel-mask" style="display:none">
+	<div class="cancel-outMask" >
+		<div class="cancel-wrapper">
+			<h3 style="color:#ff3d23;">支付密码错误</h3>
+			<p class="p1" style="margin-top:20px;"><button class="btn1">找回密码</button><button class="btn1" style="float:right;">重新输入</button></p>
+		</div>
+	</div>
+</div>
+<div class="zhezhao" style="display:none;">
+	<div class="fucun">
+		<h3><i class="close"></i>输入支付密码</h3>
+		<div class="form">
+			<p id="text" style="display:none;">需填写六位，请重新输入</p>
+			<table>
+				<tr>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td style="border-right:0;"><input type="password" disabled/></td>
+				</tr>
+			</table>
+		</div>
+		<div class="tab">
+			<ul>
+				<li><a>1</a></li>
+				<li><a>2</a></li>
+				<li><a>3</a></li>
+				<li><a>4</a></li>
+				<li><a>5</a></li>
+				<li><a>6</a></li>
+				<li><a>7</a></li>
+				<li><a>8</a></li>
+				<li><a>9</a></li>
+				<li><a>0</a></li>
+				<li  id="delete_btn" ><img src="../images/black.png"/></li>
+				<li style="background:#ff3d23;color:#fff;" id="finish">完成</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

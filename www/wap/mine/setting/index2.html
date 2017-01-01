@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/animate.min.css"/>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+	<script  type="text/javascript" src="../../corejs/fastclick.js"></script>
+	<script type="text/javascript" src="../../corejs/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><a href="index.html"><i class="left-arow"></i></a>个人资料<span id="save_set">保存</span></h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<section>
+	<div class="content">
+		<div class="content-list">
+			<a id="choose_image">
+				头像
+				<i></i>
+				<span class="span1"><img id="user_image" src="" style=""> </img><input type="file" onchange="previewImage(this,'user_image','filedata')" name="filedata" id="filedata" style="position:absolute;width: 36px;height: 30px;top:8px;opacity:0"></span>
+			</a>
+		</div>
+		<div class="content-list">
+			<a id="name">
+				昵称
+				<i id="user_name">NO001</i>
+			</a>
+		</div>
+		<div class="content-list">
+			<a id="sign_ax" href="javascript:void(0)">
+				个性签名
+				<i id="user_sign" style="color:#999;" ></i>
+			</a>
+		</div>
+		
+	</div>
+	<div class="content">
+		<div class="content-list">
+			<a href="address2.html">
+				我的收货地址
+				<i></i>
+			</a>
+		</div>  
+	</div>
+</section>
+</div>
+<div class="zhezhao3"></div>
+<div class="inner3">
+	<h3>设定昵称</h3>
+	<p class="p1"><input id="name_input" type="text" placeholder="设置用户名" maxlength="16"/></p>
+	<p class="p2"><label id="cancel">取消</label><span id="modify_name" style="color:#ff3d23;">确定</span></p>
+</div>
+<div class="sign_box" style="display:none;">
+    <div class="sign_cont">
+        <header>
+            <div class="integral_title">
+                <h3>
+                    <i id="close" class="left-arow "></i>
+                    个性签名
+                    <span id="sign_id">保存</span>
+                </h3>
+            </div>
+        </header>
+        <section>
+            <div class="sign">
+                <div class="wrapper">	
+                   <textarea id="status" name="status" rows="6" maxlength="50" cols="40"  placeholder="添加个性签名吧！让更多人了解你。"></textarea>
+                     <div style="position:absolute;bottom:10px;right:10px;"><span id="counter">0</span>/50</div> 
+                </div>
+            </div>
+            <p class="sign-text">签名最多不超过50个字！</p>    
+        </section>
+       
+    </div>
+</div>
+
+
+<script>
+$(function(){
+
+//	var userinfo = get_user_data_from_local('userInfo');
+//	if(userinfo){
+//		$('#user_name').text(userinfo.user_name);
+//		$('#user_i
+		var token = get_user_token();
+		if(!token){
+			location.href = 'http://data.zooernet.com/api/wxauth/go?url=http://data.zooernet.com/wap/home/index.html';
+		}
+		FastClick.attach(document.body);
+	$('#file').change(function(){
+
+	})
+	$("#choose_image").click(function(){
+
+	});
+	$("#name").click(function(){
+		$(".zhezhao3").show();
+		$(".inner3").show();
+	});
+	$("#cancel").click(function(){
+		$(".zhezhao3").hide();
+		$(".inner3").hide();
+	});
+     $('#modify_name').click(function(){		
+	 var name1 = $('#name_input').val();
+	 var name2 = $('#name i');		
+		if(name1 ==""){			  	  
+				name2.text('未填写');	
+			}else{
+				name2.text(name1);
+				}		
+		//$("#name i").text(name1);
+		//alert(name1);
+		$('.inner3,.zhezhao3').css("display","none");			
+	});
+	var userInfo = get_user_data_from_local('userInfo'); //调取后台数据
+	if(userInfo){
+		$('#user_name').text(userInfo.name);   //接口字段user_name
+		if(userInfo.sign){
+			$('#user_sign').text(userInfo.sign.substr(0,6) +'...');   //接口字段sign
+			$('#status').val(userInfo.sign);
+		}else{
+			$('#user_sign').text('说点什么吧');
+		}
+
+		$('#user_image').attr('src',userInfo.logo);
+		$('#name_input').val(userInfo.name);
+	}else{
+		location.href = 'http://data.zooernet.com/api/wxauth/go?url=http://data.zooernet.com/wap/home/index.html';
+
+	}
+
+	$('#save_set').click(function(){
+		if($('#user_name').text() ==userInfo.name
+			&&$('#status').val() == userInfo.sign
+			&& $('#user_image').attr('src') == userInfo.logo
+		){
+			return ;
+		}else{
+			var obj = {user_logo:$('#user_image').attr('src'),user_sign:$('#status').val(),name:$('#user_name').text()};
+			sendPostData(obj,ApiUrl+'m/user/modify',function(result){
+				if(result.code == 1){
+					userInfo.name = $('#user_name').text();
+					userInfo.sign = $('#status').val();
+					userInfo.logo = $('#user_image').attr('src');
+					save_user_data_to_local('userInfo',userInfo);
+					tipsAlert("修改成功！");
+
+				}else{
+					tipsAlert(result.msg);
+				}
+			})
+		}
+	});
+
+	$(".sign_box").addClass('animated');
+	$(".sign_box").hide();
+	$("#sign_ax").click(function(){
+        $(".sign_box").show();
+		$(".sign_box").removeClass('slideOutRight');
+		$(".sign_box").addClass('slideInRight');
+	}); 
+	$("#close,#sign_id").click(function(){
+		$(".sign_box").addClass('slideOutRight');
+		$(".sign_box").removeClass('slideInRight');
+	 });
+	   $('#status').live('input',function(){
+	   var len = $(this).val().length;
+
+//	   var num = ;
+	   $("#counter").text(len);
+  });
+	$('#sign_id').click(function(){
+		var sign_if = $('#status').val();
+		var sign1 = $('#sign_ax i');
+		if(sign_if ==""){			  	  
+				  sign1.html('说点什么吧');
+			}else{
+				 sign1.text(sign_if);
+				}		
+		 //alert(sign_if);		
+	});
+})
+</script>
+</body>
+</html>

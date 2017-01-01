@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script type="text/javascript"  src="http://map.qq.com/api/js?v=2.exp&key=JCXBZ-DZWRU-3R7VN-44RPV-I6OK5-6DFYB"></script>
+	<!--<script type="text/javascript"  src="http://api.map.baidu.com/api?type=quick&ak=wdn4UpmNQQZYI5LxiXN2ljORFuxHXox7&v=1.0"></script>-->
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+	<script type="text/javascript" src="../../corejs/jquery.validation.min.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+	<script type="text/javascript" src="../../corejs/weixin_share_common.js"></script>
+
+	<script type="text/javascript" src="../../corejs/fastclick.js"></script>
+	<script type="text/javascript" src="../js/address.js"></script>
+	<script type="text/javascript" src="../js/bind.js"></script>
+
+
+
+</head>
+<body>
+<form class="cmxform" id="signupForm">
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><a href="javascript:window.history.go(-1);"><i class="left-arow"></i></a><em id="title">编辑地址</em><a id="complete_btn" ><span><input class="submit" type="submit" value="完成"></span></a></h3>
+        
+	</div>
+</header>
+<div class="scroll address_box" style="bottom:0;">
+<section>
+	<div class="bind-2" style="margin-top:10px;">
+		<div class="bind-list">
+			<label>收货人</label>
+			<input type="text" placeholder="请输入收货人" name="consignee_name" id="consignee_name"/>
+			<div class="clear"></div>
+		</div>
+		<div class="bind-list">
+			<label>手机号码</label>
+			<input type="text" placeholder="请输入手机号" maxlength="11" name="mobile" id="mobile"/>
+			<div class="clear"></div>
+		</div>
+		<div class="bind-list" style="height:80px;">
+			<label>省市地址</label>
+			<textarea type="text" placeholder="点击选择省市地址" style="width:40%;height:60px;line-height:30px;" name="city_address" id="city_address" ></textarea>
+    		<label style="position:absolute;left:26%;top:10px;width:40%;background: transparent;height:60px;line-height:30px;" id="addr_click"></label>
+			<span class=""><img src="../images/location.png" id="local_pos"/>&nbsp;定位</span>
+			<div class="clear"></div>
+		</div>
+		<div class="bind-list" style="height:110px;">
+			<label>详细地址</label>
+			<textarea type="text" placeholder="输入详细地址" name="detail_address" maxlength="40" id="detail_address"></textarea>
+			<div class="clear"></div>
+		</div>
+		<div class="bind-list">
+			<label>邮政编码</label>
+			<input type="text" placeholder="请输入邮政编码" id="postcode" maxlength="6" name="postcode"/>
+			<div class="clear"></div>
+		</div>
+	</div>
+</section>
+</div>
+</form>
+<form id="address_from">
+<div id="area" class="area" style="display:none;position:absolute;" >
+	<div class="area_box">
+		<p>省份：<span class="opera-tips">(*必填)</span></p>
+		<div class="new-select-wp" id="prov">
+			<select class="select-30 province" id="prov_select" name="prov" >
+				<option value="">请选择...</option>
+			</select>
+		</div>
+		<p>城市：<span class="opera-tips">(*必填)</span></p>
+		<div class="new-select-wp" id="city">
+			<select class="select-30 city" id="city_select" name="city" >
+				<option value="">请选择...</option>
+			</select>
+		</div>
+		<p>区县：<span class="opera-tips">(*必填)</span></p>
+		<div class="new-select-wp" id="region">
+			<select class="select-30 areag" id="region_select" name="region" >
+				<option value="">请选择...</option>
+			</select>
+		</div>
+		<input type="submit" class="area_button" value="确定">
+	</div>
+</div>
+</form>
+<div id="bind_mobile" style="display: none;position: absolute;width: 100%;height: 100%;background: #fff;">
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><!-- <a href="javascript:window.history.go(-1);"><i class="left-arow"></i></a> -->绑定手机号</h3>
+	</div>
+</header>
+<div class="line2"></div>
+<section>
+	<div class="bind-2">
+		<div class="bind-list">
+			<label>手机号码：</label>
+			<input type="text" placeholder="请输入手机号" id="addmobile"/>
+			<div class="clear"></div>
+		</div>
+		<div class="bind-list">
+			<label>验证码：</label>
+			<input type="text" placeholder="请输入验证码" id="code_input" style="padding-right:35%;"/>
+			<button id="get_check_btn">获取验证码</button>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<label id="error_label" style="padding-left: 3%;color: #ff3d23;font-size: 12px;display:block;"></label>
+	<div class="bind-3">
+		<button id="submit">确定绑定</button>
+	</div>
+</section>
+</div>
+<script>
+var addarr = [];
+var addObj;
+$(function(){
+	getTokenFromUrl();
+	sendPostData({},ApiUrl+'area/get_province_list',getProvData);  //接口路径
+	getUserInfo(showUserInfo);
+	function showUserInfo(user){
+		if(user.mobile){
+			$('#bind_mobile').hide();
+		}else{
+			$('#bind_mobile').show();
+		}
+	}
+	var addId = getUrlParam("id");
+
+	if(addId){
+		var list = get_user_data_from_local("addressList");
+
+		for(var key in list){
+			if(list[key].id == addId){
+				addObj = list[key];
+				addarr.push(list[key].province_name);
+				addarr.push(list[key].city_name);
+				addarr.push(list[key].area_name);
+				break;
+			}
+		}
+
+	}
+	if(addObj){
+		$('#consignee_name').val(addObj.real_name);
+		$('#mobile').val(addObj.mobile);
+		$('#postcode').val(addObj.zip_code);
+		$('#detail_address').val(addObj.address);
+		$("#city_address").val(addarr.join(" "));
+		$('#title').text('编辑地址');
+	}else{
+		$('#title').text('添加地址');
+	}
+
+	$('#address_from').validate({
+		rules:{
+
+			prov:"required",
+			city:"required",
+			region:"required",
+
+		},
+		messages:{
+
+			prov:"省份必填！",
+			city:"城市必填！",
+			region:"区县必填！",
+
+		},
+		submitHandler: function() {
+			addarr.splice(0);
+			if($("#address_from").validate()){
+				$("#area option:checked").each(function(index,element){
+					addarr.push($(this).text());
+				})
+				$("#city_address").val(addarr.join(" "));
+				$("#area").hide();
+			}
+		}
+
+	});
+
+
+
+
+
+	$("#prov_select").change(function(){       //绑定事件 
+		var id = $(this).val();
+		sendPostData({'parent_id':id},ApiUrl+'area/get_parent_id',getCityData);
+	});
+		
+	$("#city_select").change(function(){
+		var id = $(this).val();
+		sendPostData({'parent_id':id},ApiUrl+'area/get_parent_id',getregionDatay);
+	});
+	
+	function getProvData(result){
+//		alert(result.code);
+		var str = '<option value="">请选择...</option>';
+		for(var i = 0 ;i < result.data.data.length;i++){
+			str += '<option value="'+result.data.data[i].id+'">'+result.data.data[i].name+'</option>'
+		}
+		$('#prov_select').html(str);
+		FastClick.attach(document.body);
+	}
+
+	function getCityData(result){
+		var str = '<option value="">请选择...</option>';
+		for(var i = 0 ;i < result.data.data.length;i++){
+			str += '<option value="'+result.data.data[i].id+'">'+result.data.data[i].name+'</option>'
+		}
+		$('#city_select').html(str);
+	}
+
+	function getregionDatay(result){
+		var str = '<option value="">请选择...</option>';
+		for(var i = 0 ;i < result.data.data.length;i++){
+			str += '<option value="'+result.data.data[i].id+'">'+result.data.data[i].name+'</option>'
+		}
+		$('#region_select').html(str);
+	}
+
+
+});
+</script>
+<script>
+$(function(){
+	//验证表单
+
+	jQuery.validator.addMethod("isMobile", function(value, element) {
+		var length = value.length;
+		var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+		return this.optional(element) || (length == 11 && mobile.test(value));
+	}, "请正确填写您的手机号码");
+	// 在键盘按下并释放及提交后验证提交表单
+	$("#signupForm").validate({
+				rules:{
+					consignee_name:"required",
+					mobile:{
+						required:true,
+						isMobile:true,
+						minlength : 11,
+					},
+					prov:"required",
+					city:"required",
+					region:"required",
+					detail_address:"required",
+					city_address:"required",
+//					postcode:"required",
+				},
+				messages:{
+					consignee_name:"姓名必填！",
+					mobile:{
+						required : "请输入手机号",
+						minlength : "确认手机不能小于11个字符",
+						isMobile : "请正确填写您的手机号码"
+					},
+					city_address:"城市必填！",
+					prov:"省份必填！",
+					city:"城市必填！",
+					region:"区县必填！",
+					detail_address:"请填写详细的收货地址",
+//					postcode:"请填写邮编",
+				},
+		submitHandler: function() {
+			//alert("提交事件!");
+			var add = $('#city_address').val();
+
+			if(!addObj){
+				addObj = {};
+			}
+			addObj.real_name = $('#consignee_name').val();
+			addObj.mobile = $('#mobile').val();
+			addObj.address = $('#detail_address').val();
+			addObj.address = addObj.address.replace(/\s+/g,"");
+			addObj.zip_code = $('#postcode').val();
+			addObj.province_name = addarr[0];
+			addObj.city_name =addarr[1];
+			addObj.area_name = addarr[2];
+
+
+			sendPostData(addObj,ApiUrl+'m/addr/add',function(result){
+				if(result.code ==1){
+					if(getUrlParam('ef')){
+						var addAddreess = get_user_data_from_local('op_addr');
+						if(addAddreess){
+							location.href = addAddreess;
+							return ;
+						}
+					}
+
+
+					location.href = 'address2.html';
+				}else{
+					tipsAlert(result.msg);
+				}
+			});
+		}
+
+	});
+//	$.validator.setDefaults({
+//
+//	});
+});
+
+</script>
+</body>
+</html>

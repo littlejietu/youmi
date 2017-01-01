@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <style type="text/css">
+    	.fenlei-left ul li a.on
+    	{
+			border-bottom:2px solid #fd0200;color:#fd0200;
+    	}
+    	.slideBox .bd li  img{height:100px;}
+    </style>
+
+    
+</head>
+<body style="background:#f8f8f8;">
+<header>
+  <div class="header">
+    <div class="logo"><a><img src="../images/logo1.png"/></a></div>
+	<div class="form">
+		<form>
+		 <label id="location">杭州</label>
+		 <span><input type="text" placeholder="搜索你想找的商品" id="search_input"/>
+		 <i></i></span>
+		 <div class="clear"></div>
+		 </form>
+	 </div>
+	 <div class="header-right">
+		<a href="../information/inform.html" id="message_icon">
+			<img src="../images/xiao.png"/>
+		</a>
+	</div>
+	<div class="clear"></div>
+  </div>
+</header>
+<section>
+<div style="position:absolute;top:49px;bottom:49px;width:100%;overflow:hidden;"> 
+    	<div class="fenlei-left">
+		    <ul id="category1">
+				<!-- <li><a class="on"><img src="../images/iconb0.png"/>热门推荐</a></li> -->   
+			</ul>
+	    </div>
+	    <div class="fenlei-right">
+	    	<div class="slideBox" id="slideBox">
+				<div class="bd" style="padding:10px;background:#fff;">
+					<ul id="category-banner">
+					   	<!-- <li><a href="#"><img src="images/haibao1.png"></a></li>
+					   	<li><a href="#"><img src="images/haibao1.png"></a></li>
+						<li><a href="#"><img src="images/haibao1.png"></a></li> -->
+					</ul>
+				</div>
+				<div class="hd" style="bottom:5px;">
+					<ul></ul>
+				</div>
+			</div>
+	    	<div class="fenlei-details" id="category_list">
+	    		<!-- <h3 id="category-title1"><i class="dot-red"></i><label>常用分类</label></h3>
+				<ul id="category-list1">
+	  				<li><a href="#">进口奶粉</a></li>
+	  				<li><a href="#">进口食品</a></li>
+	  				<li><a href="#">休闲零食</a></li>
+				</ul>
+				<h3 id="category-title2"><i class="dot-blue"></i><label>猜你喜欢</label></h3>
+				<ul id="category-list2">
+	  				<li><a href="#">进口奶粉</a></li>
+	  				<li><a href="#">进口食品</a></li>
+	  				<li><a href="#">休闲零食</a></li>
+	  				<li><a href="#">进口奶粉</a></li>
+	  				<li><a href="#">进口食品</a></li>
+	  				<li><a href="#">休闲零食</a></li>
+	  				<li><a href="#">进口奶粉</a></li>
+	  				<li><a href="#">进口食品</a></li>
+	  				<li><a href="#">休闲零食</a></li>
+				</ul>
+				<h3 id="category-title3"><i class="dot-orange"></i><label>为你推荐</label></h3>
+				<ul id="category-list3">
+	  				<li><a href="#">进口奶粉</a></li>
+	  				<li><a href="#">进口食品</a></li>
+	  				<li><a href="#">休闲零食</a></li>
+	  				<li><a href="#">进口奶粉</a></li>
+	  				<li><a href="#">进口食品</a></li>
+	  				<li><a href="#">休闲零食</a></li>
+	  				<li><a href="#">进口奶粉</a></li>
+	  				<li><a href="#">进口食品</a></li>
+	  				<li><a href="#">休闲零食</a></li>
+				</ul> -->
+			</div>
+		</div>
+	  	
+</div>  
+</section>
+<footer>
+	<div class="footer">
+		<nav>
+			<ul>
+				<li><a href="../index.html"><img src="../images/index2.png"/>首页</a></li>
+				<li><a href="category.html" class="color2"><img src="../images/fenlei22.png"/>分类</a></li>
+				<!--<li><a href="../information/chat.html"><img src="../images/chat.png"/>聊天</a></li>-->
+				<li><a href="../prefer.html"><img src="../images/activity.png"/>嗨购</a></li>
+				<li><a href="../cart/cart3.html?ef=2"><span id="cart_num_span"><img src="../images/cart.png"/></span>购物车</a></li>
+				<li><a href="../../mine/me/me.html"><img src="../images/my.png"/>我的</a></li>
+			</ul>
+		</nav>
+	</div>
+</footer>
+<div class="lo_mask" style="display:none;">
+	<div class="lo_outMask">
+		<div class="header-title" style="background:#fff;border-bottom:1px solid #eee;text-align:center;">
+			<h3 style="padding-left:0;"><i class="left-arow" id="left_select"></i>选择城市</h3>
+		</div>
+		<div class="content">
+			<div class="lo_current">
+				<h3><i></i>当前位置</h3>
+				<ul>
+					<li>杭州</li>
+				</ul>
+			</div>
+			<div class="lo_all">	
+				<h3><i></i>可选择城市</h3>
+				<ul id="name">
+					<!-- <li style="background:#eee;">北京</li>
+					<li>上海</li>
+					<li>广州</li>
+					<li>深圳</li>
+					<li>天津</li>
+					<li>杭州</li>
+					<li>南京</li>
+					<li>北京</li>
+					<li>北京</li>
+					<li>北京</li>
+					<li>北京</li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+
+<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+<script type="text/javascript" src="../../corejs/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+<script type="text/javascript" src="../../corejs/fastclick.js"></script>
+<script type="text/javascript" src="../js/category.js"></script>
+</body>
+</html>

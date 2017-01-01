@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/animate.min.css"/>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+	<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+	<script type="text/javascript" src="../js/integral_record.js"></script>
+
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;z-index:20;">
+		<h3><a onclick="webBackHandler();"><i class="left-arow"></i></a>我的积分</h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<section>
+	<div class="jifen">
+		<div class="wrapper">
+			<p class="p1">当前积分<span id="explain"><i></i>&nbsp;&nbsp;积分说明</span></p>
+			<p class="p2"><span id="integral_num1"><script id="integral_num" type="text/html">{{integral}}</script></span>分</p>
+			
+		</div>
+	</div>
+</section>
+<section>
+	<div class="jifen-content">
+		<h3>最近30天积分记录</h3>
+		<div id="jifen_record"></div>
+		<!-- <div class="jifen-list">
+			<span class="span1">消费金额<i>2016-02-05</i></span>
+			<span class="span2">+5</span>
+		</div> -->
+		<!-- <div class="jifen-list">
+			<span class="span1">兑换礼品<i>2016-02-05</i></span>
+			<span class="span2">-99</span>
+		</div>
+		<div class="jifen-list">
+			<span class="span1">兑换礼品<i>2016-02-05</i></span>
+			<span class="span2">-199</span>
+		</div>
+		<div class="jifen-list">
+			<span class="span1">消费金额<i>2016-02-05</i></span>
+			<span class="span2">+15</span>
+		</div>
+		<div class="jifen-list">
+			<span class="span1">消费金额<i>2016-02-05</i></span>
+			<span class="span2">+5</span>
+		</div>
+		<div class="jifen-list">
+			<span class="span1">消费金额<i>2016-02-05</i></span>
+			<span class="span2">+5</span>
+		</div> -->
+	</div>
+</section>
+</div>
+<div class="integral_mask" style="display:none;">
+	<div class="integral_outMask">	
+		<header>
+			<div class="integral_title">
+				<h3><i class="left-arow " id="close"></i>积分规则</h3>
+			</div>
+		</header>
+		 <section class="credit-cont">
+		    <h3>1、积分有什么用？</h3>
+		    <p>我们九号街区的积分究竟有什么用，您通过平台回馈的积分，可在积分商城进行实物或者虚拟物品兑换。实物兑换有很多丰富的礼品，用户可以直接通过积分进行购买；在虚拟兑换中，用户可以兑换商城的优惠券等各种服务。</p>
+		</section>
+		<section class="credit-cont">
+		    <h3>2、我怎样才能获得积分呢？</h3>
+		    <p>A、用户可以通过签到获得积分。</p>
+		    <p>B、用户购买商品，成功下单即可获得相应积分。</p>
+		</section>
+	</div><!--zhezhao-inner2-->
+</div>
+<script>
+$(function(){
+	$(".integral_mask").hide();
+	$(".integral_mask").addClass('animated')
+	$("#explain").click(function(){
+		$(".integral_mask").show();
+		$(".integral_mask").removeClass('slideOutRight');
+		$(".integral_mask").addClass('slideInRight');
+
+	});
+	$("#close").click(function(){
+		$(".integral_mask").addClass('slideOutRight');
+		$(".integral_mask").removeClass('slideInRight');
+//       	$(".integral_mask").animate({left:width+'px'},500,function(){
+//       		$(".integral_mask").hide();
+//       	});
+	 });
+});
+</script>
+</body>
+</html>

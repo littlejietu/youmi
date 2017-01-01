@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>密油-订单</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="corejs/0.js"></script>
+		<script type="text/javascript" src="corejs/jquery.min.js"></script>
+		<script type="text/javascript" src="corejs/jquery.cookie.js"></script>
+		<!--[if lt IE 9]>
+    		<script type="text/javascript" src="corejs/json2.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="corejs/mirong.config.js"></script>
+		<script type="text/javascript" src="corejs/fastclick.js"></script>
+		<script type="text/javascript" src="corejs/arttemplate.js"></script>
+		<script type="text/javascript" src="corejs/mirong.utils.js"></script>
+		<!-- <script type="text/javascript" src="corejs/lib.js"></script> -->
+		<script type="text/javascript" src="corejs/laydate.js"></script>
+		<script type="text/javascript" src="js/order.js"></script>
+	</head>
+	<body style="background: #f7f7f7;">
+		<div class="container">
+			<div class="header">
+				<div class="logo">
+					<img src="img/logo.png" width="180" height="91" />
+				</div>
+				<div class="operate">
+					<h1><div class="user_pic"><img src="img/header_user.png"></div> <span id="site_name"></span></h1>
+					<div class="user">
+						<p class="user_name"><span id="cashier_name">某某</span>，你好~</p>
+						<i class="logoout"></i>
+						<i class="set"></i>
+					</div>
+				</div>
+			</div>
+			<div class="nav">
+				<dl>
+					<dd>
+						<a href="index.html">
+							<img src="img/icon1_1.png" />
+							<span>收款</span>
+						</a>
+					</dd>
+					<dd class="add_line on">
+						<a href="javascript:void(0);">
+							<img src="img/icon2_2.png" />
+							<span>订单</span>
+						</a>
+					</dd>
+					<dd>
+						<a href="refund.html">
+							<img src="img/icon3_1.png" />
+							<span>扫码退款</span>
+						</a>
+					</dd>
+				</dl>
+			</div>
+			<div class="content">
+				<div class="content_in">
+					<div class="order_sel">
+						<input type="text" id="txtOrder_id" placeholder="订单号" />
+						<div class="divselect">
+							<input type="hidden" id="hidType" class="inputselect" />
+					      	<cite>订单状态</cite>
+					      	<ul>
+					        	<li><a href="javascript:;" selectid="1">已支付</a></li>
+					        	<li><a href="javascript:;" selectid="2">未支付</a></li>
+					    	</ul>
+					  	</div>
+					  	<div class="divselect">
+					  		<input type="hidden" id="hidPay_type" class="inputselect" />
+					      	<cite>支付方式</cite>
+					      	<ul>
+					        	<li><a href="javascript:;" selectid="1">微信</a></li>
+					        	<li><a href="javascript:;" selectid="2">支付宝</a></li>
+					    	</ul>
+					  	</div>
+					  	<div class="divselect">
+					  		<input type="hidden" id="hidCashier_id" class="inputselect" />
+					      	<cite>收银员</cite>
+					      	<ul id="order-cashier">
+					        	
+					    	</ul>
+					  	</div><br />
+						<input class="laydate-icon date" id="time1" placeholder="开始时间">
+						<input class="laydate-icon date" id="time2" placeholder="结束时间">
+						&nbsp;
+						<a class="btn" href="javascript:;" id="btnSearch">查询</a>
+						<a class="btn" href="order.html">刷新</a>
+					</div>
+					<div class="order_list">
+						<div class="count">
+							<p>订单数：<b><span id="order_count">0</span>单</b>已支付金额：<b>¥<span id="order_payed_amt">0</span></b></p>
+						</div>
+						<table border="0" cellpadding=0 cellspacing=0 >
+							<thead>
+								<tr>
+									<th>订单号</th>
+									<th>订单</th>
+									<th>应付金额</th>
+									<th>实付金额</th>
+									<th>优惠</th>
+									<th>收银员</th>
+									<th>支付方式</th>
+									<th>支付时间</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="order-list">
+								
+							</tbody>
+						</table>
+					</div>
+					<div>&nbsp;</div>
+				</div>
+			</div>
+		</div>
+
+<script type="text/html" id="order-cashier-tpl">
+	{{each cashiers as value i}}
+	<li><a href="javascript:;" selectid="{{value.id}}">{{value.name}}</a></li>
+	{{/each}}
+</script>
+<script type="text/html" id="order-list-tpl">
+	{{if coun==0}}
+		无数据
+	{{else}}
+		{{each rows as value i}}
+		<tr>
+			<td>{{value.order_sn}}</td>
+			<td>{{value.title}}</td>
+			<td>{{value.total_amt}}</td>
+			<td>{{value.pay_amt}}</td>
+			<td>{{value.discount_amt}}</td>
+			<td>{{value.cashier_name}}</td>
+			<td>{{value.pay_method}}</td>
+			<td>{{value.payed_time}}</td>
+			<td>{{value.status_name}}</td>
+			<td>
+				{{if value.status_name=='已支付'}}
+				<a href="detail.html?id={{value.order_id}}">详情</a> 
+				<a href="javascript:;" val="{{value.order_id}}" class="btnPrint">补打</a>
+				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	{{/if}}
+</script>
+
+	</body>
+</html>
+

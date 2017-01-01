@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script src="../../corejs/jquery.min.js"></script>
+	<script src="../../corejs/fastclick.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><a href="index.html"><i class="left-arow"></i></a>我的隐私</h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<section>
+	<div class="content">
+
+		<div class="content-list" id="change_mobile">
+			<a href="../setting/index5.html">
+				修改手机号码
+				<i style="color:#999;" id="phone"><!--137****8214--></i>
+			</a>
+		</div>
+		<div class="content-list" id="bind_mobile" style="display:none;">
+			<a href="../wallet/bind.html">
+				绑定手机号码<i></i>
+			</a>
+		</div>
+		<div class="content-list" id="change_psd">
+			<a href="private2.html">
+				修改支付密码
+				<i></i>
+			</a>
+		</div>
+		<div class="content-list" id="set_psd" style="display:none;">
+			<a href="private5.html">
+				设置支付密码
+				<i></i>
+			</a>
+		</div>
+		<div class="content-list">
+			<a href="private3.html">
+				找回支付密码
+				<i></i>
+			</a>
+		</div>
+	</div>
+</section>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var token = get_user_token();
+		if(!token){
+			location.href = 'http://data.zooernet.com/api/wxauth/go?url=http://data.zooernet.com/wap/home/index.html';
+		}
+		FastClick.attach(document.body);
+		getUserInfo(resetUser);
+		function resetUser(user){
+			if(user){
+				var mobile=user.mobile;
+				if(mobile){
+					$("#change_mobile").show();
+					$("#bind_mobile").hide();
+					$("#phone").text(mobile);
+				}
+				else{
+					$("#change_mobile").hide();
+					$("#bind_mobile").show();
+				}
+				var state=user.paypwd_status;
+				if(state==0){
+					$("#set_psd").show();
+					$("#change_psd").hide();
+				}
+				else if(state==1){
+					$("#set_psd").hide();
+					$("#change_psd").show();
+				}
+			}
+		}
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,564 @@
+*{
+	position: relative;
+	margin: 0;
+	padding: 0;
+	line-height: 24px;
+	color: #333;
+}
+html,body{
+	font-family:'Microsoft YaHei',tahoma, Arial, Verdana, sans-serif;
+	font-size: 12px;
+	height: 100%;
+}
+
+/* ---------- common ---------- */
+.w700{width:700px;}
+.tl{
+	text-align: left;
+}
+
+.tc{
+	text-align: center;
+}
+
+.tr{
+	text-align: right;
+}
+
+img{
+	display: block;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+a.btn{
+	display: inline-block;
+	padding: 10px 20px;
+	border: 1px solid #000;
+	border-radius: 4px;
+	text-align: center;
+}
+
+a.btn.red{
+	border-color: #ff3d3c;
+	background: #ff3d3c;
+	color: #fff;
+}
+
+a.btn.gray{
+	border-color: #ccc;
+	background: #ccc;
+	color: #fff;
+}
+
+.container{
+	width: 100%;
+	height: 100%;
+}
+
+.ellipsis{
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+.c_gray{
+	color: #999;
+}
+
+.c_green{
+	color: #01c480;
+}
+
+.c_red{
+	color: #ff3d3c;
+}
+
+ul,li{
+	list-style-type: none;
+}
+input{
+	display: inline-block;
+	font-family:'Microsoft YaHei',tahoma, Arial, Verdana, sans-serif;
+	height: 20px;
+	line-height: 18px;
+	padding: 8px 10px;
+}
+
+select{
+	border: 1px solid #c6c6c6;
+	color: #333; 
+	padding: 10px 0;
+	height: 44px;
+	display: inline-block;
+}
+/* ---------- 下拉框模拟 ---------- */
+.divselect{
+	position:relative;
+	display: inline-block;
+	z-index: 1000;
+	background: #fff;
+	margin: 10px;
+	width: 150px;
+	*display:inline;
+ 	*zoom:1;
+ 	padding-right: 20px;
+}
+.divselect cite{
+	width: 130px;
+	height:20px;
+	line-height:18px;
+	padding: 8px 30px 8px 10px; 
+	display:block; color:#807a62; 
+	cursor:pointer;
+	border:1px solid #C6C6C6;
+	background:url(../img/icon6.png) no-repeat right center;
+	font-style: normal;
+}
+.divselect ul{
+	width:170px;
+	border:1px solid #C6C6C6; 
+	background-color:#ffffff; 
+	position:absolute; 
+	z-index:20000; 
+	margin-top:-1px; 
+	display:none;
+}
+.divselect ul li{
+	line-height:24px;
+}
+.divselect ul li a{
+	display:block; 
+	height:24px; 
+	color:#333333; 
+	text-decoration:none;
+	padding: 5px 10px;
+}
+.divselect ul li a:hover{
+	background-color:#CCC;
+}
+
+/* ---------- 导航和抬头 ---------- */
+.header{
+	position: relative;
+	width: 100%;
+	height: 91px;
+	background: #2a2d34;
+	z-index: 111;
+}
+
+.header .logo{
+	display: inline-block;
+	float: left;
+}
+
+.header h1{
+	text-align: center;
+	color: #fff;
+	font-weight: normal;
+	line-height: 91px;
+}
+
+.header h1 span{
+	color: #fff;
+}
+
+.header .user{
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+	top: 12px;
+    height: 67px;
+    line-height: 67px;
+	*top: -10px;
+}
+
+.header .user p{
+	display: inline-block;
+	color: #aaabae;
+	vertical-align: -5px;
+	margin-right: 20px;
+	float: left;
+    margin-top: 26px;
+}
+.header .user p span{
+	color: #aaabae;
+}
+
+.header .user i{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	vertical-align: -8px;
+	margin-right: 20px;
+	cursor: pointer;
+	float: left;
+	margin-top: 30px;
+}
+
+.header .user i.logoout{
+	background: url(../img/icon_1.png) no-repeat;
+}
+
+.header .user i.set{
+	background: url(../img/icon_2.png) no-repeat;
+}
+
+
+h1 .user_pic{
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	border: 3px solid #5f6267;
+	border-radius: 60px;
+	vertical-align: middle;
+	*border: none;
+	border: none\9; 
+}
+h1 .user_pic img{
+	width: 100%;
+	height: 100%;
+}
+
+.nav{
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+	width: 180px;
+	background: #2a2d34;
+	min-height: 100%;
+	overflow: auto;
+	z-index: 99;
+}
+.nav dl{
+	padding: 191px 0 0 0;
+}
+.nav dl dd{
+	height: 80px;
+	line-height: 80px;
+}
+
+.nav dl dd a{
+	display: block;
+	padding-left: 20px;
+	height: 80px;
+	line-height: 80px;
+}
+
+.nav dl dd.add_line:before{
+	content: "";  /*:before和:after必带技能，重要性为满5颗星*/
+    display: block;
+    position: absolute;  /*日常绝对定位*/
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 1px;
+    background: url(../img/icon_0.png) no-repeat;
+}
+
+.nav dl dd.add_line:after{
+	content: "";  /*:before和:after必带技能，重要性为满5颗星*/
+    display: block;
+    position: absolute;  /*日常绝对定位*/
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 1px;
+    background: url(../img/icon_0.png) no-repeat;
+}
+
+.nav dl dd.on{
+	background: url(../img/bg_nav.png) no-repeat;
+}
+
+.nav dl dd.on span{
+	color: #fff;
+}
+
+.nav dl dd img{
+	width: 28px;
+	display: inline-block;
+	vertical-align: -5px;
+	margin-right: 5px;
+}
+.nav dl dd span{
+	font-size: 22px;
+	line-height: 22px;
+	color: #929297;
+	display: inline-block;
+}
+
+.content{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.content .content_in{
+	margin-left: 210px;
+	margin-top: 100px;
+}
+
+
+
+
+/* ---------- getMoney.html ---------- */
+.get_money{
+	padding-left: 260px;
+}
+
+.get_money .get_money_con {
+	padding-top: 150px;
+	padding-bottom: 50px;
+	width: 700px;
+}
+
+.get_money .get_money_con label{
+	font-size: 24px;
+	width: 100px;
+	float: left;
+	line-height: 46px;
+}
+
+.get_money .get_money_con dl{
+	margin-left: 100px;
+	width: 560px;
+	overflow: auto;
+	margin-bottom: 45px;
+}
+
+.get_money .get_money_con dl dd{
+	border: 1px solid #999;
+	width: 58px;
+	color: #999;
+	font-size: 26px;
+	float: left;
+	padding: 10px 20px;
+	border-radius: 4px;
+	text-align: center;
+	margin: 0 20px 15px 20px;
+	cursor: pointer;
+}
+.get_money .get_money_con dl dd.on{
+	border: 1px solid #03c27f;
+	color: #03C27F;
+}
+
+.get_money .get_money_con input{
+	margin: 0 10px;
+	border: 1px solid #999;
+	width: 518px;
+	font-size: 16px;
+	height: 26px;
+	line-height: 26px;
+}
+
+.get_money .get_money_con a.btn{
+	width: 608px;
+	margin-top: 70px;
+}
+
+
+.get_money_sure{
+	padding-top: 150px;
+	padding-left: 240px;
+	padding-bottom: 20px;
+	display: none;
+}
+
+.get_money_sure .sure_code{
+	width: 125px;
+	height: 125px;
+	padding: 25px;
+	background: url(../img/icon_4.png) no-repeat;
+	background-position: center;
+	margin-left: 80px;
+	margin-bottom: 40px;
+}
+.get_money_sure .sure_scan{
+	padding: 30px 0;
+}
+
+.get_money_sure .sure_con{
+	padding-bottom: 50px;
+}
+
+.get_money_sure h3{
+	font-size: 24px;
+	color: #666;
+}
+.get_money_sure h3 b{
+	font-size: 48px;
+	color: #ff3d3c;
+}
+
+
+.get_money_sure p{
+	font-size: 18px;
+	padding-left: 30px;
+	height: 24px;
+	line-height: 24px;
+	background: url(../img/icon_5.png) no-repeat;
+	background-position: 2px center;
+	color: #666;
+}
+
+.get_money_sure input{
+	font-size: 18px;
+	width: 300px;
+	border: 2px solid #ff3d3c;
+	margin-top: 10px;
+	border-radius: 4px;
+}
+
+.get_money_sure a.btn{
+	position: absolute;
+	left: 0;
+	top: 100px;
+	font-size: 14px;
+}
+
+.get_money_done {
+	padding-top: 150px;
+	padding-left: 240px;
+	padding-bottom: 20px;
+	display:none;
+}
+
+/* ---------- order.html ---------- */
+.order_sel input{
+	width: 150px;
+	margin: 10px;
+}
+.order_sel .date{
+	width: 140px;
+	margin: 10px;
+}
+.order_sel select{
+	width: 150px;
+	margin: 10px;
+}
+.order_list {
+	padding-left: 10px;
+	margin-top: 45px;
+}
+
+.order_list .count p{
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.order_list .count p b{
+	margin-right: 50px;
+	color: #ff3d3c;
+}
+
+.order_list .count p b span{
+	color: #ff3d3c;
+}
+
+.order_list table{
+	width: 96%;
+	border-collapse:collapse;
+	border:none;
+	border:1px solid #ccc; 
+}
+
+.order_list table td,.order_list table th{ 
+	border:none;
+	border-bottom:1px solid #CCCCCC;
+	border-right:1px solid #CCCCCC; 
+	text-align:center;
+}
+
+.order_list table tbody{
+	background: #fff;
+}
+
+.order_sel a.btn{
+	background: #eee;
+	border: 1px solid #d8d8d8;
+	padding: 8px 30px;
+	*vertical-align: 2px;
+}
+
+
+
+
+/* ---------- refund.html ---------- */
+.refund{
+	
+}
+
+.refund .refund_con{
+	margin-top: 150px;
+	margin-left: 400px;
+	margin-bottom: 50px;
+}
+
+.refund .refund_code{
+	width: 125px;
+	background-position: center;
+	margin-bottom: 40px;
+}
+
+
+.refund p{
+	font-size: 18px;
+	padding-left: 30px;
+	height: 24px;
+	line-height: 24px;
+	background: url(../img/icon_5.png) no-repeat;
+	background-position: 2px center;
+	color: #666;
+}
+
+.refund input{
+	font-size: 18px;
+	width: 300px;
+	border: 2px solid #ff3d3c;
+	margin-left: 0;
+	margin-top: 30px;
+	border-radius: 4px;
+}
+
+.cancel-mask2{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000;
+	filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000,endcolorstr=#7F000000);
+}
+.cancel-mask2 .cancel-outMask10{position:fixed;width:80%;background:#fff;z-index:1001;border-radius:5px;}
+.cancel-mask2 .cancel-wrapper{padding:10px 20px;}
+.cancel-mask2 .cancel-outMask10 h3{text-align:center;font-size:16px;color:#000;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
+.cancel-mask2 .cancel-outMask10 .div1{padding:10px;}
+
+.cancel-mask2 .cancel-outMask10 .div1 .span1{float:left;display:inline-block;width:20%;}
+.cancel-mask2 .cancel-outMask10 .div1 .span1 img{width:80%;}
+.cancel-mask2 .cancel-outMask10 .div1 .span2{float:left;display:inline-block;width:80%;}
+.cancel-mask2 .cancel-outMask10 p{line-height:30px;text-align:center;}
+.cancel-mask2 .cancel-outMask10 .p1{padding:10px 0;margin-top:10px;}
+.cancel-mask2 .cancel-outMask10 .p1 button{display:inline-block;width:200px;border-radius:5px;border:0;height:40px;text-align:center;line-height:40px;margin:0 10px;}
+.cancel-mask2 .cancel-outMask10 .btn1{color:#fff;background:#ff3d23;}
+
+.cancel-mask{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;
+	filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000,endcolorstr=#7F000000);
+}
+.cancel-mask .cancel-outMask{position: fixed;width: 80%;background: #fff;z-index: 1001;border-radius: 5px;}
+.cancel-mask .cancel-wrapper{padding:10px;}
+.cancel-mask .cancel-outMask h3{text-align:center;font-size:16px;color:#000;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
+.cancel-mask .cancel-outMask .div1{padding:10px;font-size:14px;}
+.cancel-mask .cancel-outMask .div1 .span1{float:left;display:inline-block;width:20%;}
+.cancel-mask .cancel-outMask .div1 .span1 img{width:80%;}
+.cancel-mask .cancel-outMask .div1 .span2{float:left;display:inline-block;width:80%;}
+.cancel-mask .cancel-outMask p{line-height:30px;text-align:center;}
+.cancel-mask .cancel-outMask .p1{padding:10px 0;margin-top:10px;font-size:14px;}
+.cancel-mask .cancel-outMask .p1 button{display:inline-block;width:80px;border-radius:5px;border:0;height:40px;text-align:center;line-height:40px;margin:0 10px;}
+.cancel-mask .cancel-outMask .btn1{color:#999;background:#e5e5e5;}
+.cancel-mask .cancel-outMask .btn2{background:#ff3d23;color:#fff;}

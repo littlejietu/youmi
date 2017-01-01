@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/swiper.min.css">
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/main.css"/>
+
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;text-align:center;">
+		<h3 style="padding-left:0;">订单支付成功</h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<div class="success">
+	<div class="wrapper">
+		<div class="pic"><img src="../images/success.png"/></div>
+		<h3>订单支付成功</h3>
+		<p>订单金额：<i id="pay_num">￥205.00</i></p>
+		<p><a href="../../mine/order/order.html?type=0"><span>查看订单</span></a><a href="../index.html"><span>返回首页</span></a></p>
+		<p>安全提醒：平台不会以付款异常、卡单、系统升级为由，要求您点击任何连接进行退款操作，请勿泄露银行卡、手机验证码负责会造成钱款损失。</p>
+	</div>
+</div>
+</div>
+<script src="../../corejs/jquery.min.js"></script>
+<script src="../../corejs/zooer.utils.js"></script>
+<script src="../../corejs/fastclick.js"></script>
+<script>
+	$(function(){
+		$('#pay_num').text('￥'+getUrlParam('pay'));
+		FastClick.attach(document.body);
+	});
+</script>
+
+</body>
+</html>

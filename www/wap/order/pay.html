@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>加油站-确认订单</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+	<script type="text/javascript" src="../corejs/0.js"></script>
+
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script  type="text/javascript" src="../corejs/jquery.min.js"></script>
+	<script  type="text/javascript" src="../corejs/arttemplate.js"></script>
+	<script  type="text/javascript" src="../corejs/mirong.config.js"></script>
+	<script  type="text/javascript" src="../corejs/mirong.utils.js"></script>
+	<script  type="text/javascript" src="../corejs/weixin_share_common.js"></script>
+	<script  type="text/javascript" src="../corejs/fastclick.js"></script>
+	<script  type="text/javascript" src="../corejs/lib.js"></script>
+	<script  type="text/javascript" src="../js/order/pay.js"></script>
+	<style type="text/css">
+		.zhezhao{position:fixed;z-index:999;width:100%;height:100%;bottom:0px;left:0;background:rgba(0,0,0,0.6);}
+		.zhezhao{position:fixed;z-index:999;width:100%;height:100%;bottom:0px;left:0;background:rgba(0,0,0,0.6);}
+		.fucun{position:absolute;z-index:1000;width:100%;left:0;bottom:0px;background:#f9f9f9;}
+		.fucun h3{margin:0 10px;border-bottom:1px solid #eee;text-align:center;color:#000;position:relative;line-height:60px;font-size:16px;}
+		.fucun h3 i{display:inline-block;position:absolute;width:20px;height:20px;background:url("../images/close.png") no-repeat;background-size:20px 20px;top:20px;left:10px;}
+		.fucun .form{padding:20px;}
+		.fucun .form p{font-size:12px;color:#ff3d23;}
+		.fucun .form table td{height:50px;line-height:50px;border-right:1px solid #eee;background:#fff;}
+		.fucun .form table td input{font-size:20px;display:inline-block;width:100%;height:50px;line-height:50px;border:0;background:#fff;text-align:center;}
+		.fucun .tab{width:100%;}
+		.fucun .tab ul{width:100%;}
+		.fucun .tab ul li{background:#fff;float:left;text-align:center;box-sizing:border-box;width:33.33%;border-top:1px solid #eee;border-right:1px solid #eee;color:#000;font-size:16px;text-align:center;height:60px;line-height:60px;}
+		.fucun .tab ul li a{font-size:25px;color:#000;display:inline-block;width:100%;}
+		.fucun .tab ul li a:active{background:#eee;}
+		.fucun .tab ul li img{display:inline-block;width:60px;height:28px;vertical-align: middle;}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="cash">
+		<h3 id="site-name"></h3>
+		<div id="oil-info"></div>
+	</div>
+</div>
+
+<script type="text/html" id="oil-info-tpl">
+	{{if oil}}
+	<ul>
+		<li><p>{{oil.oil_name}}</p><span><b class="c_green">¥{{oil.oil_amt}}元</b></span></li>
+		{{if oil.discount_amt>0}}
+		<li><p>油品优惠</p><span><b class="c_red">¥{{oil.discount_amt}}元</b></span></li>
+		{{/if}}
+	</ul>
+	{{/if}}
+	<dl class="cash_type" id="paymethod">
+		<dd>支付方式</dd>
+		{{each paymethod as value i}}
+			{{if value.code==1}}
+				{{if user_amount*1 >= pay_amount*1}}
+					<dd class="type on" payType="{{value.code}}"><img src="../img/icon_19.png"><span>可用余额<b>￥{{user_amount}}</b>元</span></dd>
+				{{/if}}
+			{{else if value.code==30}}
+				<dd class="type" payType="{{value.code}}"><img src="../img/icon_20.png"><span>可用余油<b>￥{{user_oil}}L</b>L</span></dd>
+			{{else}}
+				<dd class="type" payType="{{value.code}}"><img src="../img/icon_pay_{{value.code}}.png"></dd>
+			{{/if}}
+		{{/each}}
+	</dl>
+	<a class="btn cash_sure" id="pay-btn" href="javascript:void(0);">确认 ￥{{pay_amount}}</a>
+</script>
+
+<div class="zhezhao" style="display:none;">
+	<div class="fucun">
+		<h3><i class="close"></i>输入支付密码</h3>
+		<div class="form">
+			<p id="text" style="display:none;">需填写六位，请重新输入</p>
+			<table>
+				<tr>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td><input type="password" disabled/></td>
+					<td style="border-right:0;"><input type="password" disabled/></td>
+				</tr>
+			</table>
+		</div>
+		<div class="tab">
+			<ul>
+				<li><a>1</a></li>
+				<li><a>2</a></li>
+				<li><a>3</a></li>
+				<li><a>4</a></li>
+				<li><a>5</a></li>
+				<li><a>6</a></li>
+				<li><a>7</a></li>
+				<li><a>8</a></li>
+				<li><a>9</a></li>
+				<li><a>0</a></li>
+				<li  id="delete_btn" ><img src="../images/black.png"/></li>
+				<li style="background:#ff3d23;color:#fff;" id="finish">完成</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

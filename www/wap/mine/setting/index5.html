@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<style>
+		.index5{text-align:left;line-height:60px;padding-left:10px;}
+		.index5 a{display:inline-block;color:#fff;}
+		.index5 button{float:right;display: inline-block;    padding:0 10px;  height: 30px;  line-height: 30px;  text-align: center;  background:#d4d4d4;  color: #fff;   border-radius: 5px;margin-top:15px;margin-right:10px;border:0;}
+	</style>
+	<script src="../../corejs/jquery.min.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+	<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;">
+		<h3><a href="javascript:window.history.go(-1);"><i class="left-arow"></i></a>修改手机号码</h3>
+	</div>
+</header>
+<div class="scroll" style="bottom:0;">
+<section id="first_step">
+	<div class="bind-2" style="margin-top:10px;">
+		<div class="private">
+			<div class="left active"><span style="background:#ff3d23;">1</span>&nbsp;&nbsp;身份验证</div>
+			<div class="right"><span>2</span>&nbsp;&nbsp;验证新手机</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="index5">当前:<span id="mobile_old"> <!-- 137****8214 --></span><button><a href="tel:0571-8888888">手机号遗失</a></button></div>
+	<div class="bind-2">
+		<div class="bind-list">
+			<label><!-- <input type="checkbox"> -->验证码</label>
+			<input type="text" placeholder="请输入短信验证码" style="padding-right:30%; " id="code_input" maxlength="6"/>
+			<button class="get_check" id="get_check_btn1">获取验证码</button>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="bind-3">
+		<button id="next_btn">下一步</button>
+	</div>
+</section>
+<section id="second_step" style="display:none;">
+	<div class="bind-2" style="margin-top:10px;">
+		<div class="private">
+			<div class="left "><span >1</span>&nbsp;&nbsp;身份验证</div>
+			<div class="right active"><span style="background:#ff3d23;">2</span>&nbsp;&nbsp;验证新手机</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="bind-2" style="margin-top:10px;">
+		<div class="bind-list">
+			<label>新号码</label>
+			<input type="text" placeholder="请输入新的手机号码" id="mobile_new" maxlength="11"/>
+			<div class="clear"></div>
+		</div>
+		<div class="bind-list">
+			<label>验证码</label>
+			<input type="text" placeholder="请输入短信验证码" style="padding-right:35%;" id="code_input2" maxlength="6"/>
+			<button class="get_check" id="get_check_btn2">获取验证码</button>
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+	<label id="error_label2" style="padding-left: 3%;color: #ff3d23;font-size: 12px;display:block;"></label>
+	<div class="bind-3">
+		<button id="submit">提交</button>
+	</div>
+</section>
+<script type="text/javascript">
+$(function(){
+	getIP();
+	// var codeData;
+	var countdown = 0;
+	var timeCount =0;
+	function setCountDown(){
+		if(countdown <=0){
+			$(".get_check").text('获取验证码');
+			$(".get_check").css({'border':'1px solid #ff3d23','color':'#ff3d23'});
+		}else{
+			$(".get_check").css({'border':'1px solid #ddd','color':'#ddd'});
+			$(".get_check").text('验证码（'+countdown+'）');
+
+			timeCount = setTimeout(setCountDown,1000);
+			countdown--;
+		}
+
+	}
+	var mobile;
+	getUserInfo(resetUser);
+	function resetUser(user){
+		if(user){
+			mobile=user.mobile;
+			$("#mobile_old").text(mobile);
+		}
+	}
+
+	// var mobile_old=$("mobile_old").text();
+	$('#get_check_btn1').click(function(){
+		if(countdown != 0){
+			return ;
+
+		}
+		sendPostData({mobile:$("#mobile_old").text(),type_id:4,ip:IPAdd},ApiUrl+'sms/send',function(result){
+			if(result.code ==1){
+				// codeData = result.data.code;
+				countdown = 60;
+				setCountDown();
+
+			}else{
+				tipsAlert(result.msg);
+			}
+			});
+	});
+
+	$('#next_btn').click(function(){
+		if ($.trim($("#code_input").val()) == "" && $("#code_input").val().length<6) {
+			$('#error_label').text('请输入正确的验证码');
+			return;
+		}
+		sendPostData({mobile:mobile,code:$("#code_input").val(),type_id:4}, ApiUrl + 'sms/check', function (result) {
+			if (result.code == 1) {
+				$("#first_step").hide();
+				$("#second_step").show();
+				countdown = 0;
+
+			} else {
+				tipsAlert(result.msg);
+			}
+		});
+	});
+
+	/*function getCodeSuccess(result){
+		if(result.code ==1){
+			codeData = result.data.code;
+
+		}else if(result.code == -1){
+			tipsAlert("验证码发送失败");
+		}else if(result.code == 105){
+			tipsAlert("手机格式错误");
+		}else if(result.code == 107){
+			tipsAlert("用户不存在(忘记密码)");
+		}else if(result.code == 109){
+			tipsAlert("用户已注册(注册、绑定时)");
+		}
+	}*/
+//	var mobile_new=$("#mobile_new").val();
+	$('#get_check_btn2').click(function(){
+		if(countdown != 0){
+			return ;
+
+		}
+		if (!testMobile($('#mobile_new').val())){
+			$('#error_label2').text('手机号码输入有误');
+
+			return;
+		}
+
+		sendPostData({mobile:$('#mobile_new').val(),type_id:5,ip:IPAdd,platform_id:1},ApiUrl+'sms/send',function(result){
+				if(result.code ==1){
+					// codeData = result.data.code;
+					countdown = 60;
+					setCountDown();
+
+				}else{
+					tipsAlert(result.msg);
+				}
+				});
+
+		});
+	
+	$('#submit').click(function(){
+		if (!testMobile($('#mobile_new').val())) {
+			$('#error_label2').text('手机号码输入有误');
+
+			return;
+		}
+		if ($.trim($("#code_input2").val()) == "" && $("#code_input2").val().length<6) {
+			$('#error_label2').text('请输入正确的验证码');
+			return;
+		}else{
+
+		}
+
+		sendPostData({mobile:$('#mobile_new').val(),platform_id:1,code:$("#code_input2").val()}, ApiUrl + 'm/user/mod_mobile', function (result) {
+				if (result.code == 1) {
+					getUserInfo(function(user){
+						if(user){
+							user.mobile = $('#mobile_new').val();
+							save_user_data_to_local('userInfo',user);
+							location.href = '../wallet/private.html';
+						}
+					});
+				} else {
+					tipsAlert(result.msg);
+				}
+			});
+	});
+
+
+});
+
+</script>
+</div>
+</body>
+</html>

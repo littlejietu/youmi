@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/swiper.min.css">
+	<link rel="stylesheet" href="../../corecss/animate.min.css">
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/main.css"/>
+
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;text-align:center;">
+		<h3 style="padding-left:0;"><a href="javascript:window.history.go(-1);"><i class="left-arow"></i></a>确认订单</h3>
+	</div>
+</header>
+<div class="scroll">
+<section>
+	<div class="confirm-1" id="address">
+		<!-- <a id="arow">
+			<div class="wrapper">
+				<h3>张小紫<span>137****8214</span></h3>
+				<p><span>默认</span> 浙江 杭州 西湖区 古墩路萍水西街优盘时代1号楼13层</p>
+			</div>
+			<div class="arow"></div>
+			<div class="images"></div>
+	    </a> -->
+	</div>
+</section>
+<section>
+	<div class="goods-wrapper" style="margin-top:10px;" id="goods_list">
+		
+		<!-- <div class="goods-list">
+			<div class="goods-pic"><a><img src="../images/5.png"/></a></div>
+			<div class="goods-text">
+				<h3><a href="#">毛衣毛衣毛衣毛衣毛衣毛衣毛衣毛衣毛衣毛衣毛衣毛衣</a></h3>
+				<p class="font4">颜色：蓝色  尺码：L</p>
+				<p><span>&yen;100.00</span><i>x1</i></p>
+			</div>
+			<div class="clear"></div>
+		</div> -->
+	</div>
+</section>
+<div class="confirm-4">
+	<div class="wrapper" style="padding-right:10px;padding-bottom:10px;">
+		<p>
+			<span class="span1">支付方式</span>
+			<span class="span3">在线支付</span>
+		</p>
+	</div>
+</div>
+<section>
+	<div class="confirm-3" style="margin-top:0;">
+		<div class="wrapper" style="padding-right:10px;padding-bottom:10px;">
+			<div class="left"><p>配送方式</p></div>
+			<div class="right" id="delivery">
+				<!-- <p>九号街区配送</p> -->
+				<!-- <p>+快递配送</p> -->
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+</section>
+<section>
+	<div class="confirm-4" style="margin-top:0;">
+		<a id="arow2">
+			<div class="wrapper">
+				<p>
+					<span class="span1">优惠劵</span>
+					<span class="span2" id="coupon_num">3张可用</span>
+					<span class="span3" id="coupon_name">未使用</span>
+				</p>
+			</div>
+			<div class="arow"></div>
+		</a>
+	</div>
+</section>
+<section>
+	<div class="confirm-5">
+		<div class="wrapper" id="amount" style="padding-right:10px;padding-bottom:10px;">
+			<!-- <p>商品金额<span>&yen;200.00</span></p>
+			<p>运费<span>+&yen;5.00</span></p> -->
+		</div>
+	</div>
+</section>
+</div>
+<footer>
+	<div class="confirm-footer">
+		<span>合计:&nbsp;<i>&yen;<small id="total" style="font-size:16px;"><!-- 205.00 --></small></i></span>
+		<a onclick="confirmOrder();">确认</a>
+	</div>
+</footer>
+<!-- <div class="confirm-zhezhao"></div>
+<div class="confirm-fucun">
+	<h3>配送方式</h3>
+	<div id="dist">
+		<div class="list">
+			<img src="../images/case1.png"/>
+			<span class="dist1">由九号街区为您配送</span>
+		</div>
+		<div class="list">
+			<img src="../images/case1.png"/>
+			<span>由九号街区为您配送</span>
+		</div>
+	</div>
+	<div class="div1" id="confirm">确定</div>
+</div> -->
+
+
+<div class="zhezhao2" id="zhezhao" style="display: none">
+	<div class="zhezhao-inner2" style="background:#eee;">
+		<header>
+		<div class="header-title" style="position:absolute;background:#fff;left:20%;width:80%;">
+			<h3><a class="close3"><i class="left-arow"></i></a>我的收货地址 <span onclick="addAddressNow()">添加</span></h3>
+		</div>
+		</header>
+		<div class="scroll" style="bottom:0;left:20%;width:80%;">
+		<section>
+			<div class="address2">
+				<!--<div class="wrapper">-->
+					<!--<h3>张三&nbsp;&nbsp;13732214457</h3>-->
+					<!--<p>浙江省杭州市西湖区古墩路120号杭州市西湖区古墩路120号</p>-->
+				<!--</div>-->
+				<!--<div class="wrapper">-->
+					<!--<h3>张三&nbsp;&nbsp;13732214457</h3>-->
+					<!--<p>浙江省杭州市西湖区古墩路120号杭州市西湖区古墩路120号</p>-->
+				<!--</div>-->
+			</div>
+		</section>
+		</div>
+	</div>
+</div>
+<div class="zhezhao2" id="zhezhao2" style="display: none">
+<div class="zhezhao-inner2" style="background:#eee;">
+	<header>
+	<div class="header-title" style="position:absolute;background:#fff;left:20%;width:80%;">
+		<h3><a class="close3"><i class="left-arow"></i></a>我的优惠劵</h3>
+	</div>
+	</header>
+	<div class="line2"></div>
+		<div class="coupon-2">
+			<!--<div class="list">-->
+				<!--<div class="left"><div><img src="../images/num.png"/></div></div>-->
+				<!--<div class="right">-->
+					<!--<h3>全品类</h3>-->
+					<!--<ul>-->
+						<!--<li>满99元使用</li>-->
+						<!--<li>限尾号8214的手机使用</li>-->
+						<!--<li>2016-1-14至2016-03-14</li>-->
+					<!--</ul>-->
+				<!--</div>-->
+				<!--<div class="clear"></div>-->
+				<!--<i></i>-->
+			<!--</div>-->
+		</div>
+	</div>
+</div>
+<div class="address-mask" style="display: none">
+	<div class="address-outMask">
+		<h3>温馨提示</h3>
+		<div class="text">
+			<img src="../images/pic.png"/>
+			<span>呀~没有发现你的地址赶快去添加吧！</span>
+			<div class="clear"></div>
+		</div>
+		<p><button  onclick="addAddressNow();">立即添加地址</button></p>
+	</div>
+</div>
+<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+<script type="text/javascript" src="../js/main.js"></script>
+<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+<script type="text/javascript" src="../js/confirm_order.js"></script>
+</body>
+</html>

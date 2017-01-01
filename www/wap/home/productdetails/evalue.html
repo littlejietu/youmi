@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>九号街区</title>
+	<meta charset="utf-8" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript" src="../../corejs/0.js"></script>
+	<link rel="stylesheet" href="../../corecss/idangerous.swiper2.7.css">
+	<link rel="stylesheet" href="../../corecss/reset.css"/>
+	<link rel="stylesheet" href="../css/main.css"/>
+    <style>
+       .swiper-slide{
+           width: 100%;
+       }
+       /*.pic span.bigImage{position:fixed;width:320px;height:320px;left:20px;top:60px;border:1px solid #eee;background:#eee;z-index:999;margin-right:0;}*/
+    </style>
+
+
+</head>
+<body>
+<header>
+	<div class="header-title" style="background:#fff;text-align:center;">
+		<h3 style="padding-left:0;"><a href="javascript:window.history.go(-1);"><i class="left-arow"></i></a>用户评价</h3>
+	</div>
+</header>
+<div class="line2"></div>
+<section>
+	<div class="evalue" style="position:absolute;top:49px;left:0;border-bottom:1px solid #eee;width:100%;">
+		<table>
+			<tr>
+				<td><a onclick="commentClick(event)" class="color2" id="all_0">全部评价<br/></a></td>
+				<td><a onclick="commentClick(event)" id="positive_1">好评<br/></a></a></td>
+				<td><a onclick="commentClick(event)" id="neutral_2">中评<br/></a></a></td>
+				<td><a onclick="commentClick(event)" id="negative_3">差评<br/></a></a></td>
+				<td><a onclick="commentClick(event)" id="haspic_4">晒图<br/></a></a></td>
+			</tr>
+		</table>
+	</div>
+<div style="position:absolute;top:112px;left:0;bottom:0;width:100%;overflow: auto;">
+    <div class="swiper-container" id="evalue_swiper"style="width: 100%;height:100%;position:relative">
+        <div class="swiper-wrapper">
+        </div>
+    </div>
+</div>
+</section>
+<div class="re-top"><img src="../images/re-top.png"/></div>
+<script type="text/javascript" src="../../corejs/jquery.min.js"></script>
+<script type="text/javascript" src="../../corejs/intense.min.js"></script>
+<script type="text/javascript" src="../../corejs/zooer.config.js"></script>
+<script type="text/javascript" src="../../corejs/zooer.utils.js"></script>
+<script type="text/javascript" src="../../corejs/idangerous.swiper.min.js"></script>
+<script type="text/javascript" src="../../corejs/arttemplate.js"></script>
+<script type="text/javascript" src="../js/evalue.js"></script>
+</body> </html>
