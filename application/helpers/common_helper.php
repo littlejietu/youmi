@@ -147,6 +147,23 @@ function _is_empty($val)
 		return $val;
 }
 
+function random($length, $numeric = FALSE) {
+	$seed = base_convert(md5(microtime() . $_SERVER['DOCUMENT_ROOT']), 16, $numeric ? 10 : 35);
+	$seed = $numeric ? (str_replace('0', '', $seed) . '012340567890') : ($seed . 'zZ' . strtoupper($seed));
+	if ($numeric) {
+		$hash = '';
+	} else {
+		$hash = chr(rand(1, 26) + rand(0, 1) * 32 + 64);
+		$length--;
+	}
+	$max = strlen($seed) - 1;
+	for ($i = 0; $i < $length; $i++) {
+		$hash .= $seed{mt_rand(0, $max)};
+	}
+	$hash=strtoupper($hash);
+	return $hash;
+}
+
 function _aes_encode($data,$privateKey){
 	$encrypted = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $privateKey, $data, MCRYPT_MODE_CBC,_get_config('AESAPPCLIENT_KEY') );
 	return rtrim((base64_encode($encrypted)));
@@ -156,6 +173,13 @@ function _aes_decode($data,$privateKey){
 	$encryptedData = base64_decode($data);
 	$decrypted = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $privateKey, $encryptedData, MCRYPT_MODE_CBC,_get_config('AESAPPCLIENT_KEY') );
 	return rtrim($decrypted);
+}
+
+if (!function_exists('getimagesizefromstring')) {
+	function getimagesizefromstring($string_data) {
+		$uri = 'data://application/octet-stream;base64,'  . base64_encode($string_data);
+		return getimagesize($uri);
+	}
 }
 
 /**

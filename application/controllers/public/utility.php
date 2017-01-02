@@ -9,5 +9,4 @@ class Utility extends CI_Controller {
 		$this->load->view('public/utility/emoji.html');
 	}
 
-
 }
