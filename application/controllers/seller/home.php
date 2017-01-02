@@ -168,8 +168,9 @@ class Home extends BaseSellerController {
 						//array('args'=>',message,setting',								'text'=>lang('nc_message_set').'模板'),
 						//array('args'=>',payment,setting',								'text'=>lang('nc_pay_method')),
 						array('args'=>'onekey,bind,setting',							'text'=>'一键绑定'),
-						array('args'=>'txt_add,wxreply,setting',							'text'=>'文本回复'),
-						array('args'=>'imgtxt_add,wxreply,setting',							'text'=>'图文回复'),
+						array('args'=>'txt_add,reply,setting',							'text'=>'文本回复'),
+						array('args'=>'imgtxt_add,reply,setting',							'text'=>'图文回复'),
+						array('args'=>'add,menu,setting',							'text'=>'自定义菜单'),
 						array('args'=>',admin,setting',									'text'=>lang('nc_limit_manage')),
 						
 						// array('args'=>'index,express,setting',						'text'=>lang('nc_admin_express_set')),
