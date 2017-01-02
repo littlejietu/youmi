@@ -38,13 +38,13 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-9 col-lg-10">
 			<ul class="nav nav-tabs">
-				<li><a href="./index.php?c=platform&a=reply&m=basic">管理基本文字回复</a></li>
+				<li><a href="<?php echo SELLER_SITE_URL.'/reply/index';?>">管理基本文字回复</a></li>
 				<li class="active"><a href="./index.php?c=platform&a=reply&do=post&m=basic"><i class="fa fa-plus"></i> 添加基本文字回复</a></li>
 			</ul>
 			
 	<?php $this->load->view('seller/wx/inc/reply_js');?>
 <div class="clearfix ng-cloak" id="js-reply-form" ng-controller="replyForm">
-	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/wxreply/txt_save';?>" method="post" enctype="multipart/form-data">
+	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/reply/txt_save';?>" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			<?php $this->load->view('seller/wx/inc/reply_inc');?>
 		</div>
@@ -59,7 +59,7 @@
 		<li class="row list-group-item" ng-repeat="item in context.items">
 			<div class="block">
 				<div class="col-xs-12 col-sm-12">
-					<textarea class="form-control content" ng-hide="item.saved" placeholder="添加要回复的内容" ng-model="item.content" rows="4" onkeyup="if (this.value.split('\n').length>4) this.rows=this.value.split('\n').length;"></textarea>
+					<textarea class="form-control content" ng-hide="item.saved"  placeholder="添加要回复的内容" ng-model="item.content" rows="4" onkeyup="if (this.value.split('\n').length>4) this.rows=this.value.split('\n').length;"></textarea>
 					<p class="form-control-static" ng-show="item.saved" ng-bind-html="item.content | nl2br"></p>
 				</div>
 				<div class="col-xs-12 col-sm-12 help-block">您还可以使用表情和链接。<a class="emotion-triggers" href="javascript:;" ng-init="initEmotion(this);"><i class="fa fa-github-alt"></i> 表情</a> <a class="emoji-triggers" href="javascript:;" ng-click="selectEmoji(this)" title="添加表情"><i class="fa fa-github-alt"></i> Emoji</a></div>

@@ -43,7 +43,7 @@
 		</ul>
 <?php $this->load->view('seller/wx/inc/reply_js');?>
 <div class="clearfix ng-cloak" id="js-reply-form" ng-controller="replyForm">
-	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/wxreply/txt_save';?>" method="post" enctype="multipart/form-data">
+	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/reply/txt_save';?>" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			<div class="col-sm-12">
 				<?php $this->load->view('seller/wx/inc/reply_inc');?>

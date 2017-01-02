@@ -6,7 +6,7 @@
 							<div class="form-group">
 								<label class="col-xs-12 col-sm-3 col-md-2 control-label">回复规则名称</label>
 								<div class="col-sm-6 col-md-8 col-xs-12">
-									<input type="text" class="form-control" placeholder="请输入回复规则的名称" name="name" value="" />
+									<input type="text" class="form-control" placeholder="请输入回复规则的名称" name="name" value="<?php echo !empty($info)?$info['name']:'';?>" />
 								</div>
 								<div class="col-sm-3 col-md-2">
 									<div class="checkbox">
@@ -50,7 +50,7 @@
 							<div class="form-group">
 								<label class="col-xs-12 col-sm-3 col-md-2 control-label">触发关键字</label>
 								<div class="col-sm-6 col-md-8 col-xs-12">
-									<input type="hidden" name="rid" value="0" />
+									<input type="hidden" name="id" value="<?php echo !empty($info)?$info['id']:'0';?>" />
 									<input type="text" class="form-control keyword" placeholder="请输入触发关键字" ng-model="trigger.items.default" id="keywordinput" onblur="checkKeyWord($(this));" />
 									<span class="help-block"></span>
 									<input type="hidden" name="keywords"/>
