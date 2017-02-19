@@ -9,23 +9,25 @@ class Site_config_model extends XT_Model {
 
 	public function getPayConfig($site_id, $company_id, $type='wx'){
 		$info = $this->get_by_id($site_id);
-		$arr = null;
+		$arr = C('PayConfig.WXPAY3');
 		if(!empty($info)){
 			if($type=='wx'){
 				if($info['is_agent']==1)
-					$arr = C('PayConfig.WXPAY');
+					$arrSub = C('PayConfig.WXPAY');
 				else if($info['is_agent']==2){
 					//公司支付
-					$arr = M('oil/Company_config')->getPayConfig($company_id, $type);
+					$arrSub = M('oil/Company_config')->getPayConfig($company_id, $type);
 				}else{
-					$arr = array('APPID'=>$info['wx_appid'],'MCHID'=>$info['wx_mchid'],
-							'KEY'=>$info['wx_key'],'APPSECRET'=>$info['wx_appsecret'],
-							'TOKEN'=>$info['wx_token'],
+					$arrSub = array('wx_appid'=>$info['wx_appid'],'wx_mchid'=>$info['wx_mchid'],
+							'wx_key'=>$info['wx_key'],'wx_appsecret'=>$info['wx_appsecret'],
+							'wx_token'=>$info['wx_token'],'site_id'=>$site_id, 'company_id'=>$company_id,
+							'ali_appid'=>$info['ali_appid'],'ali_auth_token'=>$info['ali_auth_token'],
 						);
 				}
+				$arr = array_merge($arr, $arrSub);
 			}
 		}else{
-			$arr = M('oil/Company_config')->getPayConfig($company_id, $type);
+			$arr = M('oil/Company_config')->getPayConfig($site_id, $company_id, $type);
 		}
 
 		return $arr;

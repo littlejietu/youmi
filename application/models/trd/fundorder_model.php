@@ -338,6 +338,10 @@ class FundOrder_model extends XT_Model {
 				if($arrFundOrder['netpay_amt'] > 0){
 					$data_log = array('fund_order_id'=>$arrFundOrder['fund_order_id'],
 									'fund_order_sn'=>$arrFundOrder['fund_order_sn'],
+									'site_id'=>$arrFundOrder['site_id'],
+									'company_id'=>$arrFundOrder['company_id'],
+									'total_amt'=>$arrFundOrder['netpay_amt'],
+									'refund_amt'=>$arrFundOrder['netpay_amt'],
 									'order_id'=>$arrFundOrder['order_id'],
 									'order_sn'=>$arrFundOrder['order_sn'],
 									'netpay_method'=>$arrFundOrder['netpay_method'],
@@ -374,6 +378,10 @@ class FundOrder_model extends XT_Model {
 				if($arrFundOrder['netpay_amt'] > 0){
 					$data_log = array('fund_order_id'=>$arrFundOrder['fund_order_id'],
 									'fund_order_sn'=>$arrFundOrder['fund_order_sn'],
+									'site_id'=>$arrFundOrder['site_id'],
+									'company_id'=>$arrFundOrder['company_id'],
+									'total_amt'=>$arrFundOrder['netpay_amt'],
+									'refund_amt'=>$arrFundOrder['netpay_amt'],
 									'order_id'=>$arrFundOrder['order_id'],
 									'order_sn'=>$arrFundOrder['order_sn'],
 									'netpay_method'=>$arrFundOrder['netpay_method'],

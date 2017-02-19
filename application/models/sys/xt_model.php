@@ -63,7 +63,7 @@ class XT_Model extends CI_Model {
 	/**
 	*根据条件查询,支持多表
 	*/
-	public function get_by_where($where, $fields='*', $order_by='', $tb=''){
+	public function get_by_where($where, $fields='*', $order_by='', $tb='', $group_by=''){
 		if(empty($tb))
 			$tb = $this->mTable;
 
@@ -86,10 +86,10 @@ class XT_Model extends CI_Model {
 			}
 		}
 
+		if ($group_by)
+			$this->db->group_by($group_by);
 		if ($order_by)
-		{
 			$this->db->order_by($order_by);
-		}
 
 		$result = $this->db->limit(1)->get()->row_array();
 		return $result;
@@ -336,9 +336,9 @@ class XT_Model extends CI_Model {
 	 * @param string $order_by 排序方式
 	 * @param number $limit 取出的记录数
 	 */
-	public function get_list($where=array(), $fields='*', $order_by='', $limit = 0, $tb='')
+	public function get_list($where=array(), $fields='*', $order_by='', $limit = 0, $tb='',$group_by='')
 	{
-		return $this->fetch_rows($where, $fields, $order_by, $limit, $tb);
+		return $this->fetch_rows($where, $fields, $order_by, $limit, $tb, $group_by);
 	}
 	
 	public function fetch_row($where, $fields='*', $order_by='')
@@ -363,7 +363,7 @@ class XT_Model extends CI_Model {
 		return $arr[$field];
 	} 
 	
-	public function fetch_rows($where=array(), $fields='*', $order_by='', $limit=0, $tb='')
+	public function fetch_rows($where=array(), $fields='*', $order_by='', $limit=0, $tb='', $group_by='')
 	{
 		if(empty($tb))
 			$tb = $this->mTable;
@@ -386,10 +386,11 @@ class XT_Model extends CI_Model {
 			}
 		}
 
+		if ($group_by)
+			$this->db->group_by($group_by);
 		if ($order_by)
-		{
 			$this->db->order_by($order_by);
-		}
+		
 		if ($limit)
 		{
 			if (is_array($limit))
@@ -413,10 +414,11 @@ class XT_Model extends CI_Model {
 	 * @param string $order_by 排序方式
 	 * @param string $tb 
 	 */
-	public function fetch_page($page=1, $pagesize=10, $where=array(), $fields='*', $order_by='', $tb = '')
+	public function fetch_page($page=1, $pagesize=10, $where=array(), $fields='*', $order_by='', $tb = '', $group_by='')
 	{
 		if(!$tb) $tb = $this->mTable;
-		$order_by = $order_by ? $order_by : $this->mPkId.' DESC';
+		if(!is_null($order_by))
+			$order_by = $order_by ? $order_by : $this->mPkId.' DESC';
 		$fields_count = 'COUNT(1) AS count';
 		$this->db->select($fields_count, FALSE)
 					->from($tb);
@@ -451,7 +453,8 @@ class XT_Model extends CI_Model {
 		{
 		    $sql = $this->db->last_query();
 			$sql =  str_replace($fields_count, $fields, $sql);
-			$sql .= ' ORDER BY '.$order_by;
+			if($group_by) $sql.=' GROUP BY '.$group_by;
+			if($order_by) $sql .= ' ORDER BY '.$order_by;
 			$sql .= ' LIMIT '.(($page-1)*$pagesize).','.$pagesize;
 			$result['rows'] = $this->db->query($sql)->result_array();
 		}
