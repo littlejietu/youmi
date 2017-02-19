@@ -34,6 +34,12 @@ class fundOrder_service
 			$obj = new WeixinPayMicro();
 		}
 
+		if($payMethod==23)
+		{
+			$this->ci->load->library('AlipayBar');
+			$obj = new AlipayBar();
+		}
+
 		return $obj;
 	}
 
@@ -222,7 +228,7 @@ class fundOrder_service
 			$totalAmt = $arrFundOrder['balance_amt'];
 		if($arrFundOrder['type_id']==C('OrderType.AfterSalesRefund'))
 			$totalAmt = $arrFundOrder['refund'];
-		if(bccomp(floatval($arrFundOrder['total_amt']),floatval($totalAmt),2 )!==0)	//$arrFundOrder['total_amt']!=$totalAmt
+		if(intval($arrFundOrder['total_amt']*100)!=intval($totalAmt*100))	//$arrFundOrder['total_amt']!=$totalAmt
 		{
 			$arrReturn['code'] = 'Failure';
 			$arrReturn['errInfo'] = '订单总金额与需支付的金额不一致';
@@ -353,7 +359,7 @@ class fundOrder_service
 				//支付配置参数
 				$this->ci->load->model('oil/Site_config_model');
 				$aPayConfig = $this->ci->Site_config_model->getPayConfig($aFundOrder['site_id'],$aFundOrder['company_id']);
-				if(empty($aPayConfig) || empty($aPayConfig['APPID'])){
+				if(empty($aPayConfig) || empty($aPayConfig['wx_appid'])){
 					$arrReturn['code'] = C('OrderResultError.Failure');
 					$arrReturn['errInfo'] = '支付配置参数未配置';
 					return $arrReturn;
@@ -381,14 +387,16 @@ class fundOrder_service
 				if(empty($urlOrPage))
 					$arrReturn['code'] = C('OrderResultError.Failure');
 				else{
+					$arrReturn['code'] = C('OrderResultError.Success');
 					$arrReturn['errInfo'] = $urlOrPage;
 
-					if(!is_array($urlOrPage) && strpos($urlOrPage, 'http://')===false)
+					if(!is_array($urlOrPage) && strpos($urlOrPage, 'http://')===false && strpos($urlOrPage, '{')===false)
 						$arrReturn['code'] = C('OrderResultError.Failure');
 					else{
-						if($aFundOrder['netpay_method']==13){
+
+						if($aFundOrder['netpay_method']==13 || $aFundOrder['netpay_method']==23){
 							//修改资金订单状态
-							$arrJmpReturn = $this->jump(13,$urlOrPage);
+							$arrJmpReturn = $this->jump($aFundOrder['netpay_method'],$urlOrPage);
 							$arrReturn['code'] = $arrJmpReturn['code'];
 							if($arrReturn['code'] != C('OrderResultError.Success'))
 								$arrReturn['errInfo'] = $arrJmpReturn['errInfo'];
@@ -940,7 +948,7 @@ class fundOrder_service
 
 		$aFundOrder = $this->ci->Fundorder_model->get_by_id($payNoticeResult['fund_order_id']);
 		$aPayConfig = $this->ci->Site_config_model->getPayConfig($aFundOrder['site_id'],$aFundOrder['company_id']);
-		if(empty($aPayConfig) || empty($aPayConfig['APPID'])){
+		if(empty($aPayConfig) || empty($aPayConfig['wx_appid'])){
 			$arrReturn['code'] = C('OrderResultError.Failure');
 			$arrReturn['errInfo'] = '支付配置参数未配置.';
 			return $arrReturn;

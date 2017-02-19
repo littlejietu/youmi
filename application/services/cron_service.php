@@ -170,7 +170,7 @@ class Cron_service
     
     //打印推送
     public function print_push(){
-        $this->ci->load->model('Orderprint_log_model');
+        $this->ci->load->model('inter/Orderprint_log_model');
         $this->ci->load->service('printapi_service');
 
         $time = time() - PRINT_SPAN_MINUTE*60;
@@ -183,6 +183,88 @@ class Cron_service
 
         if(!empty($arrOrderId))
             $this->ci->Orderprint_log_model->update_by_where(array('order_id'=>$arrOrderId), array('status'=>2));
+    }
+
+    public function third_refund(){
+        $this->ci->load->model('trd/Third_refund_log_model');
+        $this->ci->load->model('oil/Site_config_model');
+        
+        $time = strtotime('today-3');
+        $list = $this->ci->Third_refund_log_model->get_list(array('status'=>0,'addtime>'=>$time,'netpay_method'=>array(11,12,13)));
+        if(!empty($list)){
+            $this->ci->load->library('WxPayApi');
+            $input = new WxPayRefund();
+            foreach ($list as $key => $a) {
+                $wxConfig = $this->ci->Site_config_model->getPayConfig($a['site_id'], $a['company_id']);
+                $input->SetOut_trade_no($a['fund_order_id']);
+                $input->SetTotal_fee($a['total_amt']*100);
+                $input->SetRefund_fee($a['refund_amt']*100);
+                $input->SetOut_refund_no($wxConfig['MCHID'].$a['fund_order_id']);
+                $input->SetOp_user_id($wxConfig['MCHID']);
+                $result = WxPayApi::refund($input, $wxConfig);
+                print_r($result);
+            }
+        }
+
+        $list = $this->ci->Third_refund_log_model->get_list(array('status'=>0,'addtime>'=>$time,'netpay_method'=>array(21,22,23)));
+        if(!empty($list)){
+            require_once APPPATH.'/libraries/alipay-sdk/model/builder/AlipayTradeRefundContentBuilder.php';
+            require_once APPPATH.'/libraries/AlipayTradeService.php';
+            $config = C('PayConfig.ALIPAY3');
+            $refundResponse = new AlipayTradeService($config);
+            foreach ($list as $key => $a) {
+                $aliConfig = $this->ci->Site_config_model->getPayConfig($a['site_id'], $a['company_id']);
+                $refundRequestBuilder = new AlipayTradeRefundContentBuilder();
+                $refundRequestBuilder->setOutTradeNo($a['fund_order_id']);
+                $refundRequestBuilder->setRefundAmount($a['total_amt']);
+                //$refundRequestBuilder->setOutRequestNo($out_request_no);
+
+                $refundRequestBuilder->setAppAuthToken($aliConfig['ali_auth_token']);
+
+                $result = $refundResponse->refund($refundRequestBuilder);
+                print_r($result);
+            }
+        }
+
+    }
+
+    public function stat_customer(){
+        // $this->ci->load->model('trd/Order_model');
+        $this->ci->load->model('rpt/Rpt_customer_model');
+        $prefix = $this->ci->Rpt_customer_model->prefix();
+        $time1 = 1479484800;//strtotime('today');
+        $time2 = 1479571200;//strtotime('today+1');
+        
+        $info = $this->ci->Rpt_customer_model->get_by_where(array('stat_date'=>$time1));
+        if(empty($info)){
+            $field = $time1.',site_id,company_id,count(1) as payed_order_num,sum(pay_amt) as payed_amt, sum(case when (netpay_method>10 and netpay_method<20) then pay_amt else 0 end) as wxpay_amt,sum(case when (netpay_method>20 and netpay_method<30) then pay_amt else 0 end) as alipay_amt,count(distinct(buyer_userid)) as payed_person_num,count(distinct(case when (netpay_method>10 and netpay_method<20) then buyer_userid else null end)) as wxpay_person_num,count(distinct(case when (netpay_method>20 and netpay_method<30) then buyer_userid else null end)) as alipay_person_num';
+            $sql = 'insert '.$prefix.'rpt_customer(stat_date,site_id,company_id,payed_order_num,payed_amt,wxpay_amt,alipay_amt,payed_person_num,wxpay_person_num,alipay_person_num) '.
+                    'select '.$field.' from '.$prefix.'trd_order where status="Finished" and payed_time>='.$time1.' and payed_time<'.$time2.' group by site_id';
+            $this->ci->Rpt_customer_model->execute($sql);
+        }
+        /*
+        $arrWhere = array('status'=>"'Finished'",'payed_time>='=>$time1,'payed_time<'=>$time2);
+            $list = $this->ci->Order_model->get_list($arrWhere, $field,'',0,'','site_id');
+        print_r($list);die;
+        */
+
+    }
+
+    public function stat_customer_oil(){
+        // $this->ci->load->model('trd/Order_oil_model');
+        $this->ci->load->model('rpt/Rpt_customer_oil_model');
+        $prefix = $this->ci->Rpt_customer_oil_model->prefix();
+        $time1 = 1479484800;//strtotime('today');
+        $time2 = 1479571200;//strtotime('today+1');
+        $info = $this->ci->Rpt_customer_oil_model->get_by_where(array('stat_date'=>$time1));
+        if(empty($info)){
+            $field = $time1.',oil_no,site_id,company_id,count(1) as oil_payed_order_num,sum(oil_amt) as oil_payed_amt, sum(case when (netpay_method>10 and netpay_method<20) then oil_amt else 0 end) as wxpay_amt,sum(case when (netpay_method>20 and netpay_method<30) then oil_amt else 0 end) as alipay_amt,count(distinct(buyer_userid)) as oil_payed_person_num,count(distinct(case when (netpay_method>10 and netpay_method<20) then buyer_userid else null end)) as wxpay_person_num,count(distinct(case when (netpay_method>20 and netpay_method<30) then buyer_userid else null end)) as alipay_person_num';
+            $sql = 'insert '.$prefix.'rpt_customer_oil(stat_date,oil_no,site_id,company_id,oil_payed_order_num,oil_payed_amt,wxpay_amt,alipay_amt,oil_payed_person_num,wxpay_person_num,alipay_person_num) '.
+                    'select '.$field.' from '.$prefix.'trd_order_oil where payed_status=1 and addtime>='.$time1.' and addtime<'.$time2.' group by site_id,oil_no';
+            $this->ci->Rpt_customer_oil_model->execute($sql);
+        }
+
+
     }
     
    

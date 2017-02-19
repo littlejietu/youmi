@@ -494,6 +494,8 @@ class Order_service
 					}else{
 						//修改订单支付方式
 						$this->ci->Order_model->update_by_id($orderId, array('netpay_method'=>$netpayMethod));
+						$this->ci->Order_oil_model->update_by_id($orderId, array('netpay_method'=>$netpayMethod));
+						$this->ci->Order_goods_model->update_by_id($orderId, array('netpay_method'=>$netpayMethod));
 
 						$arrReturn[$orderId] = $this->pay($orderId);
 
@@ -655,7 +657,8 @@ class Order_service
 			return $arrReturn;
 
 		// 金额是否一致
-		if(bccomp(floatval($arrTrdOrder['total_amt']),floatval($total_amt),2 )!==0 )
+		//if(bccomp(floatval($arrTrdOrder['total_amt']),floatval($total_amt),2 )!==0 )
+		if( intval($arrTrdOrder['total_amt']*100)!=intval($total_amt*100) )
 		{
 			$arrReturn['code'] = 'Failure';
 			$arrReturn['errInfo'] = '订单金额与商品数量计算所得金额不一致';
@@ -683,6 +686,17 @@ class Order_service
 			return false;
 
 		$result = $this->ci->Order_model->updateStatus($arrTrdOrder['order_id'],$statusFrom, $statusTo);
+		if($result>0){
+			$data = array();
+			if($statusTo==C('OrderStatus.Finished'))
+				$data = array('payed_status'=>1);
+			elseif($statusTo==C('OrderStatus.Refunded'))
+				$data = array('payed_status'=>2);
+			if(!empty($data)){
+				$this->ci->Order_oil_model->update_by_id($arrTrdOrder['order_id'], $data);
+				$this->ci->Order_goods_model->update_by_id($arrTrdOrder['order_id'], $data);
+			}
+		}
 
 		return $result>0;
 	}
@@ -769,9 +783,11 @@ class Order_service
 			return $arrReturn;
 		}
 
+		if($aOrder['status']==C('OrderStatus.Create') || $aOrder['status']==C('OrderStatus.WaitPay'))
+			$this->close($orderId);
+
 		$data = array('delete_status'=>-1);
 		$where = array('order_id'=>$orderId);
-
 		return $this->ci->Order_model->update_by_where($where,$data);
 	}
 

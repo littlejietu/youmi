@@ -192,7 +192,6 @@ class User_service
             'user_name' => $arrUserData['user_name'],
             'pwd' => md5($arrUserData['pwd']),
             'status' => 1,
-            'site_id' => $arrUserData['site_id'],
             'platform_id' => 1,
         );
 
@@ -207,7 +206,7 @@ class User_service
                 'reg_ip' => $arrUserData['reg_ip'],
                 'update_time' => time(),
                 'status' => 1,
-                'site_id' => $arrUserData['site_id'],
+                'reg_site_id' => $arrUserData['site_id'],
                 'platform_id' => 1,
             );
             if(!empty($arrUserData['name']))
@@ -230,7 +229,7 @@ class User_service
 
             
 
-            $arrReturn  = array('code'=>'SUCCESS','message'=>'注册成功','data'=>$user_id);
+            $arrReturn  = array('code'=>'SUCCESS','message'=>'注册成功','data'=>$data);
             return $arrReturn;
         }
         else 
@@ -247,7 +246,7 @@ class User_service
     public function get_userid($token)
     {
         $arrRes = array('data'=>'','code' =>'','msg'=>'');
-        $a['token'] = "'".$token."'";
+        $a['token'] = "$token";
         $loginUser = $this->ci->User_token_model->get_by_where($a);
         if (empty($loginUser))
         {
