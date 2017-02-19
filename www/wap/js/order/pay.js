@@ -4,7 +4,7 @@ $(function(){
     if(typeof FastClick != 'undefined') FastClick.attach(document.body);
 
     var site_id = get_string_fromlocal('site_id'); 
-    initWx(['chooseWXPay'],null,location.href, site_id);
+    initWxYm(['chooseWXPay'],null,location.href, site_id);
 
     var ids = getUrlParam('order_ids');
     $('#site-name').html(get_string_fromlocal('site_name'));
@@ -79,6 +79,8 @@ $(function(){
         }
     });
 
+
+
     function payresult(result){
         if(result.code ==1 || result.code=='SUCCESS'){
             location.href = ('success.html?pay='+pay_amount);
@@ -87,6 +89,8 @@ $(function(){
         }
 
     }
+
+
 });
 var pay_amount;
 function getDataResult(result){
@@ -128,12 +132,11 @@ function getDataResult(result){
         location.href = '../../mine/wallet/private5.html?url='+encodeURI(location.href);
     }
 
-
     $("#pay-btn").click(function(){
         if(pay_code=='12'){
-            sendPostData({"order_ids":ids,"paymethod":pay_code},ApiUrl+'m/order/paying',function(result){
-                console.log(result);
-                if(result.code ==1 ){
+            var order_ids = getUrlParam('order_ids');
+            sendPostData({"order_ids":order_ids,"paymethod":pay_code},ApiUrl+'m/order/paying',function(result){
+                if(result.code ==1 || result.code =="SUCCESS" ){
                     wxpay(JSON.parse(result.data.errInfo),success);
                 }else{
                     tipsAlert(result.msg)
@@ -149,5 +152,8 @@ function getDataResult(result){
 
     });
 
-
+    function success(res){
+        //show_tips_content2()
+        location.href = ('success.html?pay='+pay_amount);
+    }
 }

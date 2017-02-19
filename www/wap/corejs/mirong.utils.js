@@ -2,6 +2,7 @@
  * Created by tong on 2016/3/24.
  */
 var CONFIG_DEBUG = true;
+var IS_DEBUG = true;
 
 if (CONFIG_DEBUG) {
     //document.write("<script src='http://www.xshop.com/wap/corejs/testData.js'></script>");
@@ -179,6 +180,7 @@ function get_user_token() {
     if (getTokenFromUrl()) {
         return urlToken;
     }
+    if(IS_DEBUG) return 'mirong';
     return get_user_data_from_local('token');
 }
 
@@ -308,7 +310,7 @@ function get_user_data_from_local(key) {
     }
 }
 function get_my_open_id() {
-    var key = get_string_fromlocal('number9streetkey');
+    var key = get_string_fromlocal('youmikey');
     return key;
 }
 
@@ -355,16 +357,12 @@ function isWeixinBrowser(){
 function sendPostData(obj, url, fun, errfun) {
     //$('#loading_inmation').show();
     var temp = url.split('/api/')[1];
-    if (temp == 'discount_goods') {
-        //alert(url);
-        if (location.href.indexOf('site_id') < 0) {
-            obj.site_id = get_string_fromlocal('site_id')
-        } else {
-            obj.site_id = getUrlParam("site_id");
-        }
-        //return ;
-
+    if (location.href.indexOf('site_id') < 0) {
+        obj.site_id = get_string_fromlocal('site_id')
+    } else {
+        obj.site_id = getUrlParam("site_id");
     }
+    
     var time = new Date().getTime();
     var sign = get_sign_str(obj, time, isNeedToken(url))
     obj.sign = sign;
@@ -383,7 +381,7 @@ function sendPostData(obj, url, fun, errfun) {
                 return ;
             }
             if ( res.code == 'NeedLogin') {
-                location.href = ApiUrl+'/wxauth/go?url='+WapSiteUrl;
+                location.href = ApiUrl+'/wxauth/go?url='+WapSiteUrl+'/index.html?site_id='+obj.site_id;
                 return;
             }
             fun(res);

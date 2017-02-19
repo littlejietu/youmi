@@ -9,6 +9,9 @@ $(function() {
     var site_id = getUrlParam("site_id");
     if(site_id==null||site_id=='')
         site_id = get_string_fromlocal('site_id');
+    else
+        save_string_tolocal('site_id', site_id);
+
     if(isWeixinBrowser()){
         initWx(['onMenuShareTimeline','onMenuShareAppMessage'],function(res){
             getHomeData();
@@ -39,7 +42,7 @@ $(function() {
             site_id = result.data.site.site_id;
             save_string_tolocal('site_id', result.data.site.site_id);
             save_string_tolocal('site_name', result.data.site.site_name);
-           
+            document.title = result.data.site.site_name;
             gun_oil_no = result.data.site.gun_oil_no;
             getDataResult(result.data);
         }else{

@@ -2,12 +2,12 @@ var weixinChecked = 0,checkTime=0;
 //分享
 var app_path = window.location.href;
 //app_baseUrl = app_path.substr(0, app.path.lastIndexOf("/") + 1),
-var debug = 1;
+var debug = 0;
 var myAppId;
 var shareObj  = {};
 shareObj.imgUrl = WapSiteUrl+'/images/108X108-icon.png';
-shareObj.desc = '九号街区';
-shareObj.title = '九号街区';
+shareObj.desc = document.getElementsByTagName('meta')[0]['content'];
+shareObj.title = document.title;
 function showAlert(res){
     if(debug){
         if(typeof res == 'string'){
@@ -23,7 +23,7 @@ function showAlert(res){
 function weixinInit(e,list,fun) {
     myAppId = e.appId;
     wx.config({
-        debug:0,
+        debug: 0,
         appId: e.appId,
         timestamp: e.timestamp,
         nonceStr: e.nonceStr,
@@ -83,7 +83,11 @@ function wxpay(obj,success){
         package: obj.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
         signType: obj.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
         paySign: obj.paySign, // 支付签名
-        success: success
+        success: success,
+        fail: function(res){// 支付失败回调函数
+            alert('pay fail');
+            alert(JSON.stringify(res));
+        }
     });
 }
 
@@ -287,5 +291,26 @@ function initWx(list,fun,url,site_id){
         //alert(XMLHttpRequest.status);
         //alert(XMLHttpRequest.readyState);
         //alert(textStatus+'dd');
+    });
+}
+
+function initWxYm(list,fun,url,site_id){
+
+    sendPostData({url:url,site_id:site_id},ApiUrl+'wxauth/jsapi?type=2',
+        function(e){
+            if(e.code == 1 || e.code == 'SUCCESS'){
+                if(e.data.timestamp && e.data.nonceStr && e.data.signature){
+                    weixinInit(e.data,list,fun);
+                }
+            }else{
+                if(fun)
+                    fun(2);
+            }
+
+        },
+        function(XMLHttpRequest, textStatus, errorThrown){
+            showAlert('errorThrown:'+errorThrown);
+            if(fun)
+                fun(2);
     });
 }

@@ -258,6 +258,7 @@
 				$.get(content[0]).success(embed);
 			}
 		}
+		//console.log(modalobj);
 		return modalobj;
 	};
 	
@@ -449,7 +450,7 @@
 	
 	util.linkBrowser = function(callback){
 		var footer = '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>';
-		var modalobj = util.dialog('请选择链接',['./index.php?c=utility&a=link&callback=selectLinkComplete'],footer,{containerName:'link-container'});
+		var modalobj = util.dialog('请选择链接',['/public/utility/link'],footer,{containerName:'link-container'});
 		modalobj.modal({'keyboard': false});
 		modalobj.find('.modal-body').css({'height':'300px','overflow-y':'auto' });
 		modalobj.modal('show');
@@ -463,7 +464,7 @@
 	}; // end of icon dialo
 	util.pageBrowser = function(callback, page){
 		var footer = '';
-		var modalobj = util.dialog('',['./index.php?c=utility&a=link&do=page&callback=pageLinkComplete&page='+ page],footer,{containerName:'link-container'});
+		var modalobj = util.dialog('',['/public/utility/page?callback=pageLinkComplete&page='+ page],footer,{containerName:'link-container'});
 		modalobj.modal({'keyboard': false});
 		modalobj.find('.modal-body').css({'height':'700px','overflow-y':'auto' });
 		modalobj.modal('show');
@@ -479,7 +480,7 @@
 	};
 	util.newsBrowser = function(callback, page){
 		var footer = '';
-		var modalobj = util.dialog('',['./index.php?c=utility&a=link&do=news&callback=newsLinkComplete&page='+ page],footer,{containerName:'link-container'});
+		var modalobj = util.dialog('',['/public/utility/news?callback=newsLinkComplete&page='+ page],footer,{containerName:'link-container'});
 		modalobj.modal({'keyboard': false});
 		modalobj.find('.modal-body').css({'height':'700px','overflow-y':'auto' });
 		modalobj.modal('show');
@@ -495,7 +496,7 @@
 	};
 	util.articleBrowser = function(callback, page){
 		var footer = '';
-		var modalobj = util.dialog('',['./index.php?c=utility&a=link&do=article&callback=articleLinkComplete&page='+ page],footer,{containerName:'link-container'});
+		var modalobj = util.dialog('',['/public/utility/link?do=article&callback=articleLinkComplete&page='+ page],footer,{containerName:'link-container'});
 		modalobj.modal({'keyboard': false});
 		modalobj.find('.modal-body').css({'height':'700px','overflow-y':'auto' });
 		modalobj.modal('show');
@@ -512,7 +513,7 @@
 
 	util.phoneBrowser = function(callback, page){
 		var footer = '';
-		var modalobj = util.dialog('一键拨号',['./index.php?c=utility&a=link&do=phone&callback=phoneLinkComplete&page='+ page],footer,{containerName:'link-container'});
+		var modalobj = util.dialog('一键拨号',['/public/utility/link?do=phone&callback=phoneLinkComplete&page='+ page],footer,{containerName:'link-container'});
 		modalobj.modal({'keyboard': false});
 		modalobj.find('.modal-body').css({'height':'120px','overflow-y':'auto' });
 		modalobj.modal('show');
@@ -529,7 +530,7 @@
 
 	util.showModuleLink = function(callback){
 		var footer = '';
-		var modalobj = util.dialog('模块链接选择',['./index.php?c=utility&a=link&do=modulelink&callback=moduleLinkComplete'], '');
+		var modalobj = util.dialog('模块链接选择',['/public/utility/link?do=modulelink&callback=moduleLinkComplete'], '');
 		modalobj.modal({'keyboard': false});
 		modalobj.find('.modal-body').css({'height':'700px','overflow-y':'auto' });
 		modalobj.modal('show');
