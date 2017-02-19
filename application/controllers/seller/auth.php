@@ -60,8 +60,8 @@ class Auth extends BaseSellerController {
 				'wx_level' => $level,
 				'wx_appid' => $auth_appid,
 				'wx_auth_refresh_token' => $auth_refresh_token,
-				// 'wx_encodingaeskey' => $weixin->encodingaeskey,
-				// 'wx_token' => $weixin->token,
+				'wx_encodingaeskey' => $weixin->encodingaeskey,
+				'wx_token' => $weixin->token,
 				'company_id'=>$company_id,
 			);
 		$this->Company_config_model->insert($data);

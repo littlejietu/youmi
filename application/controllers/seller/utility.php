@@ -11,7 +11,7 @@ class Utility extends BaseSellerController {
         $admin_id = $sellerInfo['admin_id'];
 
         $this->load->model('wx/Attach_model');
-        $this->load->helper('file');
+        $this->load->helper('ifile');
 
 		$do = $this->input->get('do');
 		if (!in_array($do, array('upload', 'fetch', 'browser', 'delete', 'local'))) {
@@ -241,7 +241,7 @@ class Utility extends BaseSellerController {
 					$starttime = strtotime("{$year}-{$month}-01");
 					$endtime = strtotime("+1 month", $starttime);
 				}
-				$condition .= ' AND createtime >= :starttime AND createtime <= :endtime';
+				//$condition .= ' AND createtime >= :starttime AND createtime <= :endtime';
 				$arrWhere['createtime>='] = $starttime;
 				$arrWhere['createtime<='] = $endtime;
 				$arrParam['starttime'] = $starttime;
@@ -253,13 +253,14 @@ class Utility extends BaseSellerController {
 			$pagesize = $this->input->post_get('pagesize') ? intval($this->input->post_get('pagesize')) : 32;
 			$list = $this->Attach_model->fetch_page($page, $pagesize, $arrWhere,'*', 'id desc');
 
-			foreach ($list['rows'] as &$item) {
-				$item['url'] = tomedia($item['attach']);
+			$data = array();
+			foreach ($list['rows'] as $item) {
+				$item['url'] = BASE_SITE_URL.'/'.$item['attach'];//tomedia($item['attach']);
 				$item['createtime'] = date('Y-m-d', $item['createtime']);
+				$data[$item['id']]=$item;
 			}
-			
-			$json = json_encode( array('message'=>array('page'=> pagination($list['count'], $page, $pagesize, '', array('before' => '2', 'after' => '2', 'ajaxcallback'=>'null')), 'items' => $list['rows'])) );
-			exit($json);
+
+			message(array('page'=> pagination($list['count'], $page, $pagesize, '', array('before' => '2', 'after' => '2', 'ajaxcallback'=>'null')), 'items' => $data), '', 'ajax');
 		}
 
 	}
