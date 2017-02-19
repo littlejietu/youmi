@@ -20,10 +20,10 @@
 								<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
 								<div class="col-sm-9">
 									<label class="radio-inline">
-										<input type="radio" name="status" value="1"  checked="checked" /> 启用
+										<input type="radio" name="status" value="1" <?php echo empty($info)||$info['status']==1?'checked="checked"':'';?> /> 启用
 									</label>
 									<label class="radio-inline">
-										<input type="radio" name="status" value="2"  /> 禁用
+										<input type="radio" name="status" value="2" <?php echo !empty($info)&&$info['status']==2?'checked="checked"':'';?> /> 禁用
 									</label>
 									<span class="help-block">您可以临时禁用这条回复.</span>
 								</div>
@@ -32,10 +32,10 @@
 								<label class="col-xs-12 col-sm-3 col-md-2 control-label">置顶回复</label>
 								<div class="col-sm-9">
 									<label class="radio-inline">
-										<input type="radio" name="is_top" ng-model="reply.entry.istop" ng-value="1" value="1"  /> 置顶
+										<input type="radio" name="is_top"  ng-value="1" value="1"  <?php echo !empty($info)&&$info['is_top']==1?'checked="checked"':'';?>  /> 置顶
 									</label>
 									<label class="radio-inline">
-										<input type="radio" name="is_top" ng-model="reply.entry.istop" ng-value="0" value="0"  checked="checked" /> 普通
+										<input type="radio" name="is_top"  ng-value="0" value="0" <?php echo empty($info)||$info['is_top']==0?'checked="checked"':'';?> /> 普通
 									</label>
 									<span class="help-block">“置顶”时无论在什么情况下均能触发且使终保持最优先级</span>
 								</div>

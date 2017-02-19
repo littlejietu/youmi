@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>菜单设计器 - 自定义菜单</title>
-	<?php echo _get_html_cssjs('resource_css','bootstrap.min.css,font-awesome.min.css,common.css?v=20161011','css');?>
+	<?php echo _get_html_cssjs('resource_css','bootstrap.min.css,font-awesome.min.css,common.css?v=20161011,app.css','css');?>
 	<script type="text/javascript">
 	if(navigator.appName == 'Microsoft Internet Explorer'){
 		if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
@@ -28,169 +28,17 @@
 		
 	};
 	</script>
-	<script>var require = { urlArgs: 'v=20161012' };</script>
+	<script>var require = { urlArgs: 'v=20160102' };</script>
 	<?php echo _get_html_cssjs('resource_js','lib/jquery-1.11.1.min.js,app/util.js,require.js,app/config.js','js');?>
 </head>
 <body>
 
-	<div class="row" style="border-top: 4px solid #44b549;border-bottom: 1px solid #d9dadc;">
-		<div class="col-xs-12 col-sm-9 col-lg-12">
-			<div class="navbar navbar-default" style="margin-bottom: 0px;background-color: #FFFFFF;border-color: #FFFFFF;border: 0px solid transparent;">
-				<div class="container-fluid">
-				<ul class="nav navbar-nav">
-				<li><a href="./?refresh"><i class="fa fa-reply-all"></i>返回系统</a></li>
-													<li class="active"><a href="./index.php?c=home&a=welcome&do=platform&"><i class="fa fa-cog"></i>基础设置</a></li>									<li><a href="./index.php?c=home&a=welcome&do=site&"><i class="fa fa-life-bouy"></i>微站功能</a></li>									<li><a href="./index.php?c=home&a=welcome&do=mc&"><i class="fa fa-gift"></i>粉丝营销</a></li>									<li><a href="./index.php?c=home&a=welcome&do=setting&"><i class="fa fa-umbrella"></i>功能选项</a></li>									<li><a href="./index.php?c=home&a=welcome&do=ext&"><i class="fa fa-cubes"></i>扩展功能</a></li>									<li><a href="./index.php?c=home&a=welcome&do=members&"><i class="fa fa-cubes"></i>应用商店</a></li>									<li><a href="./index.php?c=home&a=welcome&do=fournet&"><i class="fa fa-cubes"></i>四网融合</a></li>								<li >
-					<a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="fa fa-mobile"></i> 模拟测试</a>
-				</li>
-			    </ul>
-				<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown topbar-notice">
-					<a type="button" data-toggle="dropdown">
-						<i class="fa fa-bell"></i>
-						<span class="badge" id="notice-total">0</span>
-					</a>
-					<div class="dropdown-menu" aria-labelledby="dLabel">
-						<div class="topbar-notice-panel">
-							<div class="topbar-notice-arrow"></div>
-							<div class="topbar-notice-head">
-								<span>系统公告</span>
-								<a href="./index.php?c=article&a=notice-show&do=list&" class="pull-right">更多公告>></a>
-							</div>
-							<div class="topbar-notice-body">
-								<ul id="notice-container"></ul>
-							</div>
-						</div>
-					</div>
-				</li>
-					<li class="dropdown">
-					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; "><i class="fa fa-comments"></i> 米荣科技 <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-														<li><a href="./index.php?c=account&a=post&uniacid=3" target="_blank"><i class="fa fa-weixin fa-fw"></i> 编辑当前账号资料</a></li>
-														<li><a href="./index.php?c=account&a=display&" target="_blank"><i class="fa fa-cogs fa-fw"></i> 管理其它公众号</a></li>
-							<li><a href="./index.php?c=utility&a=emulator&" target="_blank"><i class="fa fa-mobile fa-fw"></i> 模拟测试</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="display:block; max-width:185px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; "><i class="fa fa-user"></i>  admin (系统管理员) <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="./index.php?c=user&a=profile&do=profile&" target="_blank"><i class="fa fa-weixin fa-fw"></i> 我的账号</a></li>
-													<li class="divider"></li>
-							<li><a href="./index.php?c=system&a=welcome&" target="_blank"><i class="fa fa-sitemap fa-fw"></i> 系统选项</a></li>
-							<li><a href="./index.php?c=system&a=welcome&" target="_blank"><i class="fa fa-cloud-download fa-fw"></i> 自动更新</a></li>
-							<li><a href="./index.php?c=system&a=updatecache&" target="_blank"><i class="fa fa-refresh fa-fw"></i> 更新缓存</a></li>
-							<li class="divider"></li>
-														<li><a href="./index.php?c=user&a=logout&"><i class="fa fa-sign-out fa-fw"></i> 退出系统</a></li>
-						</ul>
-					</li>
-				</ul>
-				</div>
-			</div>
-</div>
-</div>
-			<div class="container-fluid" style="margin-top: 36px;margin-bottom: 88px;min-height: 700px;max-width: 1400px;">
-				<div class="row">
-										<div class="col-xs-12 col-sm-3 col-lg-2 big-menu" style="padding-right: 0px;">
-					<div id="search-menu">
-						<input class="form-control input-lg" style="border-radius:0; font-size:14px; height:43px;" type="text" placeholder="输入菜单名称可快速查找">
-					</div>
-															<div class="panel panel-default">
-						<div class="panel-heading" style='padding: 14px 15px;'>
-							<h4 class="panel-title"><i class="fa fa-th-large"></i> 基本功能</h4>
-							<a class="panel-collapse collapsed" data-toggle="collapse" href="#frame-0">
-								<i class="fa fa-chevron-circle-down"></i>
-							</a>
-						</div>
-						<ul class="list-group collapse in" id="frame-0">
-																													<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=basic';" style="cursor:pointer;padding-left: 33px;" kw="文字回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=basic"><i class="fa fa-plus"></i></a>
-									文字回复								</li>
-																																												<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=news';" style="cursor:pointer;padding-left: 33px;" kw="图文回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=news"><i class="fa fa-plus"></i></a>
-									图文回复								</li>
-																																												<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=music';" style="cursor:pointer;padding-left: 33px;" kw="音乐回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=music"><i class="fa fa-plus"></i></a>
-									音乐回复								</li>
-																																												<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=images';" style="cursor:pointer;padding-left: 33px;" kw="图片回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=images"><i class="fa fa-plus"></i></a>
-									图片回复								</li>
-																																												<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=voice';" style="cursor:pointer;padding-left: 33px;" kw="语音回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=voice"><i class="fa fa-plus"></i></a>
-									语音回复								</li>
-																																												<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=video';" style="cursor:pointer;padding-left: 33px;" kw="视频回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=video"><i class="fa fa-plus"></i></a>
-									视频回复								</li>
-																																												<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=userapi';" style="cursor:pointer;padding-left: 33px;" kw="自定义接口回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=userapi"><i class="fa fa-plus"></i></a>
-									自定义接口回复								</li>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=special&do=display&" kw="系统回复" style="padding-left: 33px;">系统回复</a>
-																																												<li class="list-group-item " onclick="window.location.href = './index.php?c=platform&a=reply&m=wxcard';" style="cursor:pointer;padding-left: 33px;" kw="微信卡券回复">
-									<a class="pull-right" href="./index.php?c=platform&a=reply&do=post&m=wxcard"><i class="fa fa-plus"></i></a>
-									微信卡券回复								</li>
-																												</ul>
-					</div>
-										<div class="panel panel-default">
-						<div class="panel-heading" style='padding: 14px 15px;'>
-							<h4 class="panel-title"><i class="fa fa-th-large"></i> 高级功能</h4>
-							<a class="panel-collapse collapsed" data-toggle="collapse" href="#frame-1">
-								<i class="fa fa-chevron-circle-down"></i>
-							</a>
-						</div>
-						<ul class="list-group collapse in" id="frame-1">
-																															<a class="list-group-item " href="./index.php?c=platform&a=service&do=switch&" kw="常用服务接入" style="padding-left: 33px;">常用服务接入</a>
-																																														<a class="list-group-item  active" href="./index.php?c=platform&a=menu&" kw="自定义菜单" style="padding-left: 33px;">自定义菜单</a>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=special&do=message&" kw="特殊消息回复" style="padding-left: 33px;">特殊消息回复</a>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=qr&" kw="二维码管理" style="padding-left: 33px;">二维码管理</a>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=reply&m=custom" kw="多客服接入" style="padding-left: 33px;">多客服接入</a>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=url2qr&" kw="长链接二维码" style="padding-left: 33px;">长链接二维码</a>
-																												</ul>
-					</div>
-										<div class="panel panel-default">
-						<div class="panel-heading" style='padding: 14px 15px;'>
-							<h4 class="panel-title"><i class="fa fa-th-large"></i> 数据统计</h4>
-							<a class="panel-collapse collapsed" data-toggle="collapse" href="#frame-2">
-								<i class="fa fa-chevron-circle-down"></i>
-							</a>
-						</div>
-						<ul class="list-group collapse in" id="frame-2">
-																															<a class="list-group-item " href="./index.php?c=platform&a=stat&do=history&" kw="聊天记录" style="padding-left: 33px;">聊天记录</a>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=stat&do=rule&" kw="回复规则使用情况" style="padding-left: 33px;">回复规则使用情况</a>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=stat&do=keyword&" kw="关键字命中情况" style="padding-left: 33px;">关键字命中情况</a>
-																																														<a class="list-group-item " href="./index.php?c=platform&a=stat&do=setting&" kw="参数" style="padding-left: 33px;">参数</a>
-																												</ul>
-					</div>
-										<script type="text/javascript">
-						require(['bootstrap'], function(){
-							$('.ext-type').click(function(){
-								var id = $(this).data('id');
-								util.cookie.del('ext_type');
-								util.cookie.set('ext_type', id, 8640000);
-								location.reload();
-								return false;
-							});
 
-							$('#search-menu input').keyup(function() {
-								var a = $(this).val();
-								$('.big-menu .list-group-item, .big-menu .panel-heading').hide();
-								$('.big-menu .list-group-item').each(function() {
-									$(this).css('border-left', '0');
-									if(a.length > 0 && $(this).attr('kw').indexOf(a) >= 0) {
-										$(this).parents(".panel").find('.panel-heading').show();
-										$(this).show().css('border-left', '3px #428bca double');
-									}
-								});
-								if(a.length == 0) {
-									$('.big-menu .list-group-item, .big-menu .panel-heading').show();
-								}
-							});
-						});
-					</script>
-				</div>
-				<div class="col-xs-12 col-sm-9 col-lg-10">
-										<link href="./resource/css/app.css" rel="stylesheet">
-<ul class="nav nav-tabs">
-	<li class="active"><a href="./index.php?c=platform&a=menu&do=display&status=normal">自定义菜单</a></li>
-	<li class=""><a href="./index.php?c=platform&a=menu&do=display&status=history">历史菜单</a></li>
-</ul>
+<div class="container-fluid" style="margin-top: 36px;margin-bottom: 88px;min-height: 700px;max-width: 1400px;">
+	<div class="row">
+										
+		<div class="col-xs-12 col-sm-9 col-lg-10">
+
 
 <div class="conditionMenu" ng-controller="conditionMenuDesigner" id="conditionMenuDesigner">
 	<div class="app clearfix">
@@ -247,7 +95,7 @@
 													<label class="control-label col-xs-2">标题</label>
 													<div class="col-xs-10">
 														<input type="text" class="form-control" ng-model="context.group.title" ng-disabled="context.group.disabled"/>
-														<span class="help-block">仅用于区分个性化菜单</span>
+														
 													</div>
 												</div>
 											</div>
@@ -284,6 +132,7 @@
 													<label class="radio-inline">
 														<input type="radio" name="ipt" ng-model="context.activeItem.type" value="click" ng-disabled="context.group.disabled"> 触发关键字
 													</label>
+													<!--
 													<label class="radio-inline">
 														<input type="radio" name="ipt" ng-model="context.activeItem.type" value="scancode_push" ng-disabled="context.group.disabled"> 扫码
 													</label>
@@ -308,7 +157,7 @@
 													</label>
 													<label class="radio-inline">
 														<input type="radio" name="ipt" ng-model="context.activeItem.type" value="view_limited" ng-disabled="context.group.disabled"> 跳转图文
-													</label>
+													</label>-->
 													<div ng-show="context.activeItem.type == 'view';">
 														<hr />
 														<div class="input-group">
@@ -341,8 +190,8 @@
 														<div id="key-result" style="width:100%;position:absolute;top:55px;left:0px;display:none;z-index:10000">
 															<ul class="dropdown-menu" style="display:block;width:88%;"></ul>
 														</div>
-														<span class="help-block">指定点击此菜单时要执行的操作, 你可以在这里输入关键字, 那么点击这个菜单时就就相当于发送这个内容至微赞系统</span>
-														<span class="help-block"><strong>这个过程是程序模拟的, 比如这里添加关键字: 优惠券, 那么点击这个菜单是, 微赞系统相当于接受了粉丝用户的消息, 内容为"优惠券"</strong></span>
+														<span class="help-block">指定点击此菜单时要执行的操作, 你可以在这里输入关键字, 那么点击这个菜单时就就相当于发送这个内容至油蜜系统</span>
+														<span class="help-block"><strong>这个过程是程序模拟的, 比如这里添加关键字: 优惠券, 那么点击这个菜单是, 油蜜系统相当于接受了粉丝用户的消息, 内容为"优惠券"</strong></span>
 													</div>
 												</div>
 											</div>
@@ -356,12 +205,17 @@
 			</div>
 		</div>
 	</div>
-			<div class="shop-preview col-xs-12 col-sm-9 col-lg-10">
+		<div class="shop-preview col-xs-12 col-sm-9 col-lg-10">
+			
 			<div class="text-center alert alert-warning" style="background:#faebcc">
-									<span class="btn btn-primary" id="btn-submit" ng-click="context.submit();">上架</span>
-							</div>
+				<?php if($params['type']==1):?>
+					<span class="btn btn-primary" id="btn-submit" ng-click="context.submit();">上架</span>
+				<?php endif?>
+				<a href="<?php echo SELLER_SITE_URL.'/menu'?>" class="btn btn-primary" >返回</a>
+			</div>
+			
 		</div>
-		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -377,7 +231,7 @@ require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict']
 	});
 	angular.module('app', []).controller('conditionMenuDesigner', function($scope, $http){
 		$scope.context = {};
-		$scope.context.group = null;
+		$scope.context.group = <?php echo !empty($params) ? json_encode($params) : "null";?>;
 				if(!$scope.context.group) {
 			$scope.context.group = {
 				title: '标题',
@@ -469,12 +323,12 @@ require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict']
 				return;
 			}
 			$('#btn-submit').attr('disabled', true);
-			$http.post(location.href, {group: group, method: 'save'}).success(function(dat){
+			$http.post('/seller/menu/save', {group: group}).success(function(dat){
 				if(dat.message.errno != 0) {
 					$('#btn-submit').attr('disabled', false);
 					util.message(dat.message.message, '', 'error');
 				} else {
-					util.message('创建菜单成功. ', "./index.php?c=platform&a=menu&do=display&", 'success');
+					util.message('创建菜单成功. ', "/seller/menu", 'success');
 				}
 			});
 		}
@@ -571,13 +425,12 @@ require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict']
 		$scope.context.select_link = function(){
 			var ipt = $(this).parent().prev();
 			util.linkBrowser(function(href){
-				var site_url = "http://www.weizan1.com/";
+				var site_url = "<?php echo BASE_SITE_URL;?>";
 				if(href.substring(0, 4) == 'tel:') {
 					util.message('自定义菜单不能设置为一键拨号');
 					return;
 				} else if(href.indexOf("http://") == -1 && href.indexOf("https://") == -1) {
-					href = href.replace('./index.php?', '/index.php?');
-					href = site_url + 'app' + href;
+					href = site_url + '/wap' + href;
 				}
 				$scope.context.activeItem.url = href;
 				$scope.$digest();
@@ -586,7 +439,7 @@ require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict']
 
 		$scope.context.search = function(){
 			var search_value = $('#ipt-forward').val();
-			$.post("./index.php?c=platform&a=menu&do=search_key&", {'key_word' : search_value}, function(data){
+			$.post("/seller/reply/search_key", {'key_word' : search_value}, function(data){
 				var data = $.parseJSON(data);
 				var total = data.length;
 				var html = '';
@@ -646,6 +499,7 @@ require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict']
 		</div>
 	</div>
 	<script>
+	/*
 		function subscribe(){
 			$.post("./index.php?c=utility&a=subscribe&", function(){
 				setTimeout(subscribe, 5000);
@@ -660,35 +514,24 @@ require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict']
 			subscribe();
 			sync();
 		});
-					function checknotice() {
-				$.post("./index.php?c=utility&a=notice&", {}, function(data){
-					var data = $.parseJSON(data);
-					$('#notice-container').html(data.notices);
-					$('#notice-total').html(data.total);
-					if(data.total > 0) {
-						$('#notice-total').css('background', '#ff9900');
-					} else {
-						$('#notice-total').css('background', '');
-					}
-					setTimeout(checknotice, 60000);
-				});
-			}
-			checknotice();
+		function checknotice() {
+			$.post("./index.php?c=utility&a=notice&", {}, function(data){
+				var data = $.parseJSON(data);
+				$('#notice-container').html(data.notices);
+				$('#notice-total').html(data.total);
+				if(data.total > 0) {
+					$('#notice-total').css('background', '#ff9900');
+				} else {
+					$('#notice-total').css('background', '');
+				}
+				setTimeout(checknotice, 60000);
+			});
+		}
+		checknotice();*/
 					</script>
 	<script type="text/javascript">
 		require(['bootstrap']);
-		$('.js-clip').each(function(){
-			util.clip(this, $(this).attr('data-url'));
-		});
-	</script>
-	<div class="container-fluid footer" role="footer">
-		<div class="page-header"></div>
-		<span class="pull-left">
-			<p>powered by 012wz.com</p>
-		</span>
-		<span class="pull-right">
-			<p><a href="http://chat.idear7.cn">关于微赞</a>&nbsp; &nbsp; <a href="http://chat.idear7.cn">微赞帮助</a></p>
-		</span>
-	</div>
+	</script>				
+
 	</body>
 </html>

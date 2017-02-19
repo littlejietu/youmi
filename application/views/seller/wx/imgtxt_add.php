@@ -23,7 +23,7 @@
 		'attachurl_remote': '',
 		'cookie' : {'pre': '_mr'}
 		//,
-		//<?php if(!empty($info)):?>'account' : <?php echo json_encode($info);?><?php endif;?>
+		//<?php if(!empty($info)):?>'account' : <?php //echo json_encode($info);?><?php endif;?>
 		
 	};
 	</script>
@@ -43,7 +43,9 @@
 		</ul>
 <?php $this->load->view('seller/wx/inc/reply_js');?>
 <div class="clearfix ng-cloak" id="js-reply-form" ng-controller="replyForm">
-	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/reply/txt_save';?>" method="post" enctype="multipart/form-data">
+	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/reply/save';?>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="<?php echo !empty($info)?$info['id']:0;?>" />
+		<input type="hidden" name="item_type" value="2" />
 		<div class="form-group">
 			<div class="col-sm-12">
 				<?php $this->load->view('seller/wx/inc/reply_inc');?>
@@ -93,7 +95,7 @@
 								} else if (imgs.length == 1) {
 									editor.execCommand('insertimage', {
 										'src' : imgs[0]['url'],
-										'_src' : imgs[0]['attachment'],
+										'_src' : imgs[0]['attach'],
 										'width' : '100%',
 										'alt' : imgs[0].filename
 									});
@@ -102,7 +104,7 @@
 									for (i in imgs) {
 										imglist.push({
 											'src' : imgs[i]['url'],
-											'_src' : imgs[i]['attachment'],
+											'_src' : imgs[i]['attach'],
 											'width' : '100%',
 											'alt' : imgs[i].filename
 										});
@@ -281,7 +283,7 @@
 <script>
 	window.initReplyController = function($scope, $http) {
 		$scope.context = {};
-		$scope.context.groups = [];
+		$scope.context.groups = <?php echo !empty($info['replies'])?htmlspecialchars_decode($info['replies']):'null';?>;
 		if(!$.isArray($scope.context.groups)) {
 			$scope.context.groups = [];
 		}
@@ -468,7 +470,7 @@
 			html['articleitem'] =
 					'<%_.each(list, function(item) {%> \n' +
 					'<tr>\n' +
-					'	<td><a href="#" data-cover-attachment-url="<%=item.attachment%>" title="<%=item.title%>"><%=item.title%></a></td>\n' +
+					'	<td><a href="#" data-cover-attachment-url="<%=item.attach%>" title="<%=item.title%>"><%=item.title%></a></td>\n' +
 					'	<td><%=item.createtime%></td>\n' +
 					'	<td class="text-right">\n' +
 					'		<button class="btn btn-default js-btn-select" js-id="<%=item.id%>">选取</button>\n' +
@@ -551,7 +553,6 @@
 		<div class="form-group">
 			<div class="col-sm-12">
 				<input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1" />
-				<input type="hidden" name="token" value="8a4abc8c" />
 			</div>
 		</div>
 	</form>

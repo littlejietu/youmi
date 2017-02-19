@@ -21,27 +21,27 @@
 <div class="page">
   <div class="fixed-bar">
     <div class="item-title">
-      <h3>油品管理</h3>
+      <h3>自定义菜单管理</h3>
       <ul class="tab-base">
-      <li><a href="<?php echo SELLER_SITE_URL.'/site';?>"><span>返回加油站</span></a></li>
-      <li><a href="JavaScript:void(0);" class="current"><span>油品列表</span></a></li>
-      <li><a href="<?php echo SELLER_SITE_URL.'/price/add?site_id='.$arrParam['site_id'];?>"><span>添加油品</span></a></li>
+      <li><a href="JavaScript:void(0);" class="current"><span>自定义菜单列表</span></a></li>
+      <?php if(empty($default_menu)):?>
+        <li><a href="<?php echo SELLER_SITE_URL.'/reply/txt_add';?>"><span>添加自定义菜单</span></a></li>
+      <?php endif;?>
       </ul>
     </div>
   </div>
   <div class="fixed-empty"></div>
 
-  <form method="post" id='form_admin' action="<?php echo SELLER_SITE_URL.'/price/del'?>">
+  <form method="post" id='form_admin' action="<?php echo SELLER_SITE_URL.'/reply/del'?>">
     <table class="table tb-type2">
       <thead>
         
         <tr class="thead">
           <th class="w24"></th>
-          <th>油品</th>
-          <th class="align-center">价格</th>
-          <th class="align-center">加油站</th>
-          <th class="align-center">添加时间</th>
-          <th class="align-center">修改时间</th>
+          <th>标题</th>
+          <th>类型</th>
+          <th class="align-center">创建时间</th>
+          <th class="align-center">是否生效</th>
           <th class="align-center">操作</th>
         </tr>
       </thead>
@@ -50,16 +50,20 @@
         <?php foreach($list['rows'] as $k => $v): ?>
         <tr class="hover">
           <td class="w24">
-            <input type="checkbox" name="del_id[]" value="<?php echo $v['id']; ?>" class="checkitem" onclick="javascript:chkRow(this);">
+            
           </td>
-          <td><?php echo $v['oil_no'];?></td>
-          <td class="align-center"><?php echo $v['price'];?></td>
-          <td class="align-center"><?php echo $v['site_name'];?></td>
-          <td class="align-center"><?php if(!empty($v['addtime'])) echo date('Y-m-d H:i:s',$v['addtime']);?></td>
-          <td class="align-center"><?php if(!empty($v['updatetime'])) echo date('Y-m-d H:i:s',$v['updatetime']);?></td>
+          <td><?php echo $v['title'];?></td>
+          <td><?php echo $v['type']==1?'默认菜单':'默认菜单(历史记录)';?></td>
+          <td class="align-center"><?php echo date('Y-m-d H:i:s', $v['createtime']);?></td>
+          <td class="align-center"><?php echo $v['status']==1?'<div class="label label-success">已在微信端生效</div>':'<div class="label label-danger">未在微信端生效</div>';?></td>
           <td class="w150 align-center">
-            <a href="<?php echo SELLER_SITE_URL.'/price/add?id='.$v['id']; ?>">编辑</a> | 
-            <a href="javascript:void(0)" onclick="if(confirm('您确定要删除吗?')){location.href='<?php echo SELLER_SITE_URL.'/price/del?id='.$v['id']; ?>'}">删除</a>
+            <?php if($v['status']==1):?>
+            <a href="<?php echo SELLER_SITE_URL.'/menu/add?id='.$v['id']; ?>">编辑</a>
+            <?php else:?>
+              <a href="<?php echo SELLER_SITE_URL.'/menu/add?id='.$v['id']; ?>">查看</a> | 
+              <a href="<?php echo SELLER_SITE_URL.'/menu/push?id='.$v['id']; ?>">推送到微信端</a> | 
+              <a href="javascript:void(0)" onclick="if(confirm('您确定要删除吗?')){location.href='<?php echo SELLER_SITE_URL.'/menu/del?id='.$v['id']; ?>'}">删除</a>
+            <?php endif;?>
           </td>
         </tr>
         <?php endforeach; ?>
@@ -71,9 +75,8 @@
       </tbody>
       <tfoot>
         <tr class="tfoot">
-          <td><input type="checkbox" class="checkall" id="checkallBottom" name="chkVal"></td>
-          <td colspan="16"><label for="checkallBottom">全选</label>
-            &nbsp;&nbsp;<a href="JavaScript:void(0);" class="btn" onclick="if(confirm('删除')){$('#form_admin').submit();}"><span>批量删除</span></a>
+          <td></td>
+          <td colspan="16"></a>
         </tr>
       </tfoot>
     </table>

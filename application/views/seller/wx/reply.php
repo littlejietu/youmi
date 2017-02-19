@@ -21,16 +21,17 @@
 <div class="page">
   <div class="fixed-bar">
     <div class="item-title">
-      <h3>文本回复管理</h3>
+      <h3><?php echo $arrParam['item_type']==1?'文本':'图文';?>回复管理</h3>
       <ul class="tab-base">
-      <li><a href="JavaScript:void(0);" class="current"><span>文本回复列表</span></a></li>
-      <li><a href="<?php echo SELLER_SITE_URL.'/reply/txt_add';?>"><span>添加文本回复</span></a></li>
+      <li><a href="JavaScript:void(0);" class="current"><span><?php echo $arrParam['item_type']==1?'文本':'图文';?>回复列表</span></a></li>
+      <li><a href="<?php echo SELLER_SITE_URL.'/reply/'.($arrParam['item_type']==1?'txt_add':'imgtxt_add');?>"><span>添加<?php echo $arrParam['item_type']==1?'文本':'图文';?>回复</span></a></li>
       </ul>
     </div>
   </div>
   <div class="fixed-empty"></div>
 
   <form method="post" id='form_admin' action="<?php echo SELLER_SITE_URL.'/reply/del'?>">
+    <input type="hidden" name="item_type" value="<?php echo $arrParam['item_type'];?>">
     <table class="table tb-type2">
       <thead>
         
@@ -38,7 +39,6 @@
           <th class="w24"></th>
           <th>规则名称</th>
           <th>关键字</th>
-          <th class="align-center">回复内容</th>
           <th class="align-center">排序</th>
           <th class="align-center">操作</th>
         </tr>
@@ -51,11 +51,23 @@
             <input type="checkbox" name="del_id[]" value="<?php echo $v['id']; ?>" class="checkitem" onclick="javascript:chkRow(this);">
           </td>
           <td><?php echo $v['name'];?></td>
-          <td><?php echo $v['keywords'];?></td>
-          <td class="align-center"><?php echo $v['replies'];?></td>
+          <td>
+          <?php $arrKey = json_decode(htmlspecialchars_decode($v['keywords']),true);
+          
+          foreach ($arrKey as $kk => $vv):
+            $type = '等于';
+            if($vv['type']==1)
+              $type = '等于';
+            elseif($vv['type']==2)
+              $type = '包含';
+            elseif($vv['type']==3)
+              $type = '正则';
+            echo '<span title="'.$type.'" class="label-default label">'.$vv['content'].'</span>&nbsp;';
+          endforeach;?>
+          </td>
           <td class="align-center"><?php echo $v['sort'];?></td>
           <td class="w150 align-center">
-            <a href="<?php echo SELLER_SITE_URL.'/reply/txt_add?id='.$v['id']; ?>">编辑</a> | 
+            <a href="<?php echo SELLER_SITE_URL.'/reply/'.($v['item_type']==1?'txt_add':'imgtxt_add').'?id='.$v['id']; ?>">编辑</a> | 
             <a href="javascript:void(0)" onclick="if(confirm('您确定要删除吗?')){location.href='<?php echo SELLER_SITE_URL.'/reply/del?id='.$v['id']; ?>'}">删除</a>  
           </td>
         </tr>

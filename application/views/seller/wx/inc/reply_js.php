@@ -7,7 +7,7 @@ require(['angular.sanitize', 'bootstrap', 'underscore', 'util'], function(angula
 		$scope.reply = {
 			advSetting: false,
 			advTrigger: false,
-			entry: null 
+			entry: <?php echo !empty($info2)?json_encode($info2):'null';?> 
 		};
 		$scope.trigger = {};
 		$scope.trigger.descriptions = {};
@@ -207,15 +207,19 @@ require(['angular.sanitize', 'bootstrap', 'underscore', 'util'], function(angula
 			return false;
 		}
 
-		$.post(location.href, {keyword:keyword}, function(resp){
+		$.post('/seller/reply/check_key', {keyword:keyword}, function(resp){
 			if(resp != 'success') {
-				var rid = $('input[name="rid"]').val();
+				var rid = $('input[name="id"]').val();
 				var rules = JSON.parse(resp);
-				var url = "./index.php?c=platform&a=reply&do=post&m=news";
+				var url = "/seller/reply/txt_add";
 				var ruleurl = '';
 				for (rule in rules) {
 					if (rid != rules[rule].id) {
-						ruleurl += "<a href='" + url + "&rid=" + rules[rule].id + "' target='_blank'><strong class='text-danger'>" + rules[rule].name + "</strong></a>&nbsp;";
+						if(rules[rule].item_type==1)
+							url = "/seller/reply/txt_add";
+						else
+							url = "/seller/reply/imgtxt_add";
+						ruleurl += "<a href='" + url + "?id=" + rules[rule].id + "' target='_blank'><strong class='text-danger'>" + rules[rule].name + "</strong></a>&nbsp;";
 					}
 				}
 				if (ruleurl != '') {

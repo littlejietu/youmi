@@ -24,7 +24,7 @@
 		'attachurl_remote': '',
 		'cookie' : {'pre': '_mr'}
 		//,
-		//<?php if(!empty($info)):?>'account' : <?php echo json_encode($info);?><?php endif;?>
+		//<?php if(!empty($info)):?>'account' : <?php //echo json_encode($info);?><?php endif;?>
 		
 	};
 	</script>
@@ -38,13 +38,15 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-9 col-lg-10">
 			<ul class="nav nav-tabs">
-				<li><a href="<?php echo SELLER_SITE_URL.'/reply/index';?>">管理基本文字回复</a></li>
+				<li><a href="<?php echo SELLER_SITE_URL.'/reply/';?>">管理基本文字回复</a></li>
 				<li class="active"><a href="./index.php?c=platform&a=reply&do=post&m=basic"><i class="fa fa-plus"></i> 添加基本文字回复</a></li>
 			</ul>
 			
 	<?php $this->load->view('seller/wx/inc/reply_js');?>
 <div class="clearfix ng-cloak" id="js-reply-form" ng-controller="replyForm">
-	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/reply/txt_save';?>" method="post" enctype="multipart/form-data">
+	<form id="reply-form" class="form-horizontal form" action="<?php echo SELLER_SITE_URL.'/reply/save';?>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="<?php echo !empty($info)?$info['id']:0;?>" />
+		<input type="hidden" name="item_type" value="1" />
 		<div class="form-group">
 			<?php $this->load->view('seller/wx/inc/reply_inc');?>
 		</div>
@@ -87,7 +89,7 @@
 <script>
 	window.initReplyController = function($scope) {
 		$scope.context = {};
-		$scope.context.items = null;
+		$scope.context.items = <?php echo !empty($info['replies'])?htmlspecialchars_decode($info['replies']):'null';?>;
 		if(!$.isArray($scope.context.items)) {
 			$scope.context.items = [];
 		}
@@ -153,7 +155,8 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-12">
-				<input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1" />
+				<input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1" />&nbsp;
+				<a href="<?php echo SELLER_SITE_URL.'/reply/txt'?>" class="btn btn-primary" >返回</a>
 			</div>
 		</div>
 	</form>
