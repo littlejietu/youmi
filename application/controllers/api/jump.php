@@ -12,7 +12,7 @@ class Jump extends CI_Controller
     public function index(){
     	$url = $this->input->get('url');
     	$openid = $this->input->get('openid');
-    	$unionid = $this->input->get('unionid');
+    	// $unionid = $this->input->get('unionid');
     	$get_userid = $this->input->get('userid');
     	$sex = $this->input->get('sex');
     	$nickname = $this->input->get('nickname');
@@ -39,8 +39,6 @@ class Jump extends CI_Controller
             $this->load->service('invite_service');
             $this->load->model('user/User_auth_model');
             $this->load->model('user/User_token_model');
-            
-            
 
             $ip = $_SERVER["REMOTE_ADDR"];
             $userid = 0;
@@ -48,23 +46,25 @@ class Jump extends CI_Controller
             $bLogin = false;
 
             if(empty($get_userid)){
-                $aUser = $this->User_model->get_by_where(array('user_name'=>"'$unionid'"));
+                $aUser = $this->User_model->get_by_where(array('user_name'=>$openid));
                 if(empty($aUser)){
-                    $user_data = array('user_name'=>$unionid,'mobile'=>'','pwd'=>$openid,'name'=>$nickname, 'logo'=>$head_url,'platform_id' =>1,'ip'=>$ip);
+                    $user_data = array('user_name'=>$openid,'mobile'=>'','pwd'=>$openid,'name'=>$nickname, 'logo'=>$head_url,'platform_id' =>1,'ip'=>$ip);
                     $arrReturn = $this->user_service->reg_user($user_data);
                     $userid = $arrReturn['data'];
                     if($arrReturn['code']=='SUCCESS')
                         $bLogin = true;
                     $aUser = $this->User_model->get_by_id($userid);
+                }else{
+                    $userid = $aUser['user_id'];
+                    $bLogin = true;
                 }
 
                 //修改auth绑定用户
-                $this->User_auth_model->update_by_where(array('unionid'=>$unionid),array('user_id'=>$userid));
+                $this->User_auth_model->update_by_where(array('openid'=>$openid),array('user_id'=>$userid));
 
                 //生成分佣
                 $this->invite_service->add_invites_record($userid, $invite_id);
-            }
-            else{
+            }else{
                 $userid = $get_userid;
                 $user_data = array();
                 $aUser = $this->User_model->get_by_id($userid);
@@ -103,14 +103,17 @@ class Jump extends CI_Controller
                     // setcookie("refresh_token",$tokenData['refresh_token'],$expire+86400,'/');
                     // setcookie("key",md5($aUser['user_id']),$expire,'/');
 
+                    $ip = $this->input->ip_address();
+                    $this->User_detail_mobile->update_by_id($aUser['user_id'],array('last_login_time'=>time(),'last_login_ip'=>$ip));
+
                     if($url =='app'){
-                        $data = array('token'=>$tokenData['token'], 'refresh_token'=>$tokenData['refresh_token'], 'openid'=>$openid, 'unionid'=>$unionid, 'user_id'=>$aUser['user_id'],'sex'=>$sex,'nickname'=>$nickname,'head_url'=>$head_url);
+                        $data = array('token'=>$tokenData['token'], 'refresh_token'=>$tokenData['refresh_token'], 'openid'=>$openid, 'user_id'=>$aUser['user_id'],'sex'=>$sex,'nickname'=>$nickname,'head_url'=>$head_url);
 
                         $arrReturn = array('code'=>'1','data'=>$data,'msg'=>'Success','action'=>'jump');
                         echo json_encode($arrReturn);
                         exit;
                     }else{
-                        $cookie_url = WAP_SITE_URL.'/home/login.html';
+                        $cookie_url = WAP_SITE_URL.'/login.html';
                         $cookie_url = $cookie_url.'?token='.$tokenData['token'].'&refresh_token='.$tokenData['refresh_token'].'&key='.md5($aUser['user_id']).'&url='.$url.'&'.time();
                         
                         header("location:".$cookie_url);
@@ -119,7 +122,7 @@ class Jump extends CI_Controller
                 }
             }
 
- 			header("location:".$url);
+            header("location:".$url);
             exit;
         }
     }

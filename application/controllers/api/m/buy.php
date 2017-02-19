@@ -210,9 +210,9 @@ class Buy extends TokenApiController {
 		        	array('title'=>'微信支付',
 		                  'code'=>$agetn_type ? C('PayMethodType.WeixinPayApp') : C('PayMethodType.WeixinPayJs')
 		                ),
-		        	array('title'=>'支付宝支付',
-		                  'code'=>$agetn_type ? C('PayMethodType.AliPayApp') : C('PayMethodType.AliPayJs')
-		                ),
+		        	// array('title'=>'支付宝支付',
+		         //          'code'=>$agetn_type ? C('PayMethodType.AliPayApp') : C('PayMethodType.AliPayJs')
+		         //        ),
 	        	);
 	        if($userInfo['member_status']==1){
 	        	$arrPayMethod[] = array(

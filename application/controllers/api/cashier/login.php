@@ -62,13 +62,20 @@ class Login extends ApiController
             $aServ['site_name'] = $info['site_name'];
             $aServ['site_logo'] = $info['logo'];
             $aServ['key'] = md5($arrRes['data']['admin_id']);
-        	$aServ['msg_server_ip'] = '192.168.1.10';
+        	$aServ['msg_server_ip'] = C('basic_info.SERVER_MSG_IP');
         	$aServ['msg_server_port'] = '1234';
         	$arrRes['data'] = array_merge($arrRes['data'], $aServ);
             
         }
 
         output_all($arrRes);exit;
+    }
+
+    public function logout(){
+        $token = $this->input->post_get('token');
+        $this->load->model('oil/O_admin_token_model');
+        $this->O_admin_token_model->update_by_where(array('token'=>$token),array('status'=>-1));
+        output_data();
     }
 
 }

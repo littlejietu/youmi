@@ -65,20 +65,5 @@ class Feedback extends TokenApiController {
     	 }
     }
 
-     public function del(){
-        $token = $this->input->post('token');
-        $id = $this->input->post('id');
-        
-        $data = array('status'=>-1);
-        $this->Feedback_model->update_by_id($id,$data);
-            
-            
-    }
-
-
-
-    
-
-    
 
 }

@@ -45,9 +45,9 @@ class Order extends TokenOAdminApiController {
         //else if($type==2)
         //    $arrWhere['status'] = C('OrderPayStatus.UnPay');
         if($pay_type==1)
-            $arrWhere['netpay_method'] = C('PayWXALI.WXPAY');
+            $arrWhere['netpay_method'] = C('PayMethodType.WeixinPayMicro');//C('PayWXALI.WXPAY');
         else if($pay_type==2)
-            $arrWhere['netpay_method'] = C('PayWXALI.ALIPAY');
+            $arrWhere['netpay_method'] = C('PayMethodType.AliPayMicro');//C('PayWXALI.ALIPAY');
         if(!empty($cashier_id))
             $arrWhere['cashier_id'] = $cashier_id;
         if(!empty($begin_time))
@@ -134,7 +134,7 @@ class Order extends TokenOAdminApiController {
         if(in_array( intval(substr($scan_code, 0, 2)) , array(10,11,12,13,14,15))  )
             $paymethod = 13;
         else
-            $paymethod = 15;
+            $paymethod = 23;
 
         $this->load->model('trd/Order_model');
         $this->load->service('printapi_service');

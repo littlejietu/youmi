@@ -27,6 +27,9 @@ class User extends TokenApiController
     {
         $user = $this->loginUser;
         $data = $this->User_model->get_by_id($user['user_id']);
+        $data_detail = $this->User_detail_model->get_by_id($user['user_id']);
+        $data_detail = empty($data_detail)?array():$data_detail;
+        $data = array_merge($data_detail, $data);
         if (!empty($data['logo']))
         {
             $tmp = strtolower(substr($data['logo'], 0, 7));
@@ -82,58 +85,45 @@ class User extends TokenApiController
      */
     public function modify()
     {
+        $mobile = $this->input->post('mobile');
         $name = $this->input->post('name');
-        $logo = $this->input->post('user_logo');
+        $birthday = $this->input->post('birthday');
+        $birthday = !empty($birthday)?strtotime($birthday):0;
+        $sex = $this->input->post('sex');
+        $invoice_title = $this->input->post('invoice_title');
+        $car_no = $this->input->post('car_no');
+        $car_model = $this->input->post('car_model');
         $sign = $this->input->post('user_sign');
-        $token = $this->input->post('token');
+        $code = $this->input->post('code');
         $user = $this->loginUser;
         $user_id = $user['user_id'];
+
+        $check_code = $this->sms_service->check_code($mobile, $code, 8, 1);
+        if (!$check_code)
+            output_error(-1,'验证码错误或过期');
+
+        $data = array('mobile'=>$mobile, 'mobile_verify'=>1,'sex'=>$sex);
+        if (!empty($name))
+            $data['name'] = $name;
+        if (!empty($logo))
+            $data['logo'] = $logo;
+        if (!empty($sign))
+            $data['sign'] = $sign;
         
-        
-        $config = array(
-            array(
-                'field'=>'token',
-                'label'=>'token',
-                'rules'=>'trim|required',
-            ),
-        );
-        $this->form_validation->set_rules($config);
-        
-        if($this->form_validation->run() === TRUE)
+        $data['update_time'] = time();
+
+        $data_detail = array('invoice_title'=>$invoice_title,'car_no'=>$car_no,'car_model'=>$car_model);
+        if (!empty($birthday))
+            $data_detail['birthday'] = $birthday;
+        $this->User_detail_model->update_by_id($user_id,$data_detail);
+        if ($this->User_model->update_by_id($user_id,$data))
         {
+            $userInfo = $this->User_model->get_by_id($user_id);
             
-            $where['user_id'] = $user_id;
-            if (!empty($name))
-            {
-                $data['name'] = $name;
-            }
-            if (!empty($logo))
-            {
-                $data['logo'] = $logo;
-            }
-            if (!empty($sign))
-            {
-                $data['sign'] = $sign;
-            }
-            $data['update_time'] = time();
-            if ($this->User_model->update_by_where($where,$data))
-            {
-                $userInfo = $this->User_model->get_by_where($where);
-                
-                if (!empty($userInfo['logo']))
-                {
-                    $userInfo['logo'] = BASE_SITE_URL.'/'.$userInfo['logo'];
-                }
-                output_data($userInfo);exit;
-            }
-            else
-            {
-                //output_error(-1,'FAILED');exit;
-                output_error(-1,'失败');exit;
-            }
-
+            output_data($userInfo);
         }
-
+        else
+            output_error(-1,'失败');
     }
 
     //申请成为正式会员
