@@ -49,7 +49,7 @@ class WxPayApi
 		}
 		
 		//关联参数
-		if($inputObj->GetTrade_type() == "JSAPI" && !$inputObj->IsOpenidSet()){
+		if($inputObj->GetTrade_type() == "JSAPI" && !$inputObj->IsOpenidSet() && !$inputObj->IsSub_openidSet()){
 			$arrReturn['msg'] = "统一支付接口中，缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！";
 			return $arrReturn;
 		}
@@ -60,6 +60,10 @@ class WxPayApi
 
 		$inputObj->SetAppid($wxConfig['APPID']);//公众账号ID
 		$inputObj->SetMch_id($wxConfig['MCHID']);//商户号
+		if(!empty($wxConfig['wx_appid']))
+			$inputObj->SetSub_appid($wxConfig['wx_appid']);
+		if(!empty($wxConfig['wx_mchid']))
+			$inputObj->SetSub_mch_id($wxConfig['wx_mchid']);
 		$inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  
 		//$inputObj->SetSpbill_create_ip("1.1.1.1");  	    
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
@@ -97,6 +101,10 @@ class WxPayApi
 		}
 		$inputObj->SetAppid($wxConfig['APPID']);//公众账号ID
 		$inputObj->SetMch_id($wxConfig['MCHID']);//商户号
+		if(!empty($wxConfig['wx_appid']))
+			$inputObj->SetSub_appid($wxConfig['wx_appid']);
+		if(!empty($wxConfig['wx_mchid']))
+			$inputObj->SetSub_mch_id($wxConfig['wx_mchid']);
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 		
 		$inputObj->SetSign($wxConfig['KEY']);//签名
@@ -168,15 +176,20 @@ class WxPayApi
 		}
 		$inputObj->SetAppid($wxConfig['APPID']);//公众账号ID
 		$inputObj->SetMch_id($wxConfig['MCHID']);//商户号
+		if(!empty($wxConfig['wx_appid']))
+			$inputObj->SetSub_appid($wxConfig['wx_appid']);
+		if(!empty($wxConfig['wx_mchid']))
+			$inputObj->SetSub_mch_id($wxConfig['wx_mchid']);
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
-		
 		$inputObj->SetSign($wxConfig['KEY']);//签名
 		$xml = $inputObj->ToXml();
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, true, $timeOut);
-		$result = WxPayResults::Init($response, $wxConfig['KEY']);
-		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
-		
+		$result = null;
+		if(!empty($response)){
+			$result = WxPayResults::Init($response, $wxConfig['KEY']);
+			self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
+		}
 		return $result;
 	}
 	
@@ -273,10 +286,14 @@ class WxPayApi
 		$inputObj->SetAppid($wxConfig['APPID']);//公众账号ID
 		$inputObj->SetMch_id($wxConfig['MCHID']);//商户号
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
+		if(!empty($wxConfig['wx_appid']))
+			$inputObj->SetSub_appid($wxConfig['wx_appid']);
+		if(!empty($wxConfig['wx_mchid']))
+			$inputObj->SetSub_mch_id($wxConfig['wx_mchid']);
 		
 		$inputObj->SetSign($wxConfig['KEY']);//签名
 		$xml = $inputObj->ToXml();
-		
+		//print_r($xml);die;
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
 		$result = WxPayResults::Init($response, $wxConfig['KEY']);
@@ -304,7 +321,10 @@ class WxPayApi
 		$inputObj->SetAppid($wxConfig['APPID']);//公众账号ID
 		$inputObj->SetMch_id($wxConfig['MCHID']);//商户号
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
-		
+		if(!empty($wxConfig['wx_appid']))
+			$inputObj->SetSub_appid($wxConfig['wx_appid']);
+		if(!empty($wxConfig['wx_mchid']))
+			$inputObj->SetSub_mch_id($wxConfig['wx_mchid']);
 		$inputObj->SetSign($wxConfig['KEY']);//签名
 		$xml = $inputObj->ToXml();
 		
@@ -538,14 +558,16 @@ class WxPayApi
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		//要求结果为字符串且输出到屏幕上
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-	
+
 		if($useCert == true){
 			//设置证书
 			//使用证书：cert 与 key 分别属于两个.pem文件
-			curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
-			curl_setopt($ch,CURLOPT_SSLCERT, PayConfig::WxSSLCERT_PATH);
-			curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
-			curl_setopt($ch,CURLOPT_SSLKEY, PayConfig::WxSSLKEY_PATH);
+			// curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
+			// curl_setopt($ch,CURLOPT_SSLCERT, PayConfig::WxSSLCERT_PATH);
+			// curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
+			// curl_setopt($ch,CURLOPT_SSLKEY, PayConfig::WxSSLKEY_PATH);
+			curl_setopt($ch,CURLOPT_SSLCERT,PayConfig::WxSSL_ALL_PATH);
+
 		}
 		//post提交方式
 		curl_setopt($ch, CURLOPT_POST, TRUE);

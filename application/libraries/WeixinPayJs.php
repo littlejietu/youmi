@@ -1,7 +1,7 @@
 <?php
 
 class WeixinPayJs{
-
+	//12
 	public $respond_name = 'WeixinPayJs';
 
 	public function __construct()
@@ -28,7 +28,6 @@ class WeixinPayJs{
 	public $data = null;
 
     public function payRequest($arrFundOrder, $wxConfig, $openId=null) {
-
     	//获取用户openid
     	if(empty($openId)){
     		$getOpenIdUrl = $this->GetOpenid($arrFundOrder['fund_order_id'], $wxConfig);
@@ -46,7 +45,8 @@ class WeixinPayJs{
 			$input->SetTime_expire(date("YmdHis", time() + 3600));
 			$input->SetNotify_url($arrFundOrder['notice_url']);
 			$input->SetTrade_type("JSAPI");
-			$input->SetOpenid($openId);
+			//$input->SetOpenid($openId);
+			$input->SetSub_openid($openId);
 
 			$result = WxPayApi::unifiedOrder($input, $wxConfig);
 			if($result['return_code']=='SUCCESS' && $result['result_code']=='SUCCESS')

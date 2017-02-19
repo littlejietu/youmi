@@ -51,8 +51,9 @@ class PayConfig
 	 * API证书下载地址：https://pay.weixin.qq.com/index.php/account/api_cert，下载之前需要安装商户操作证书）
 	 * @var path
 	 */
-	const WxSSLCERT_PATH = '/cert/apiclient_cert.pem';
-	const WxSSLKEY_PATH = '/cert/apiclient_key.pem';
+	const WxSSLCERT_PATH = APPPATH.'config/cert/apiclient_cert.pem';
+	const WxSSLKEY_PATH = APPPATH.'config/cert/apiclient_key.pem';
+	const WxSSL_ALL_PATH = APPPATH.'config/cert/wxapiclient_all.pem';
 
 	//=======【curl代理设置】===================================
 	/**
@@ -73,5 +74,6 @@ class PayConfig
 	 * @var int
 	 */
 	const WxREPORT_LEVENL = 0;
+
+	
 }
-?>

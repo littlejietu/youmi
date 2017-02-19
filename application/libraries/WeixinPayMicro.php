@@ -38,7 +38,8 @@ class WeixinPayMicro{
 		$input->SetBody($arrFundOrder['title']);
 		$input->SetTotal_fee($arrFundOrder['netpay_amt']*100);
 		$input->SetOut_trade_no($arrFundOrder['fund_order_id']);
-    	$result = $this->pay($input, $wxConfig);
+		//print_r($wxConfig);echo 'xxxx';die;
+    	$result = $this->topay($input, $wxConfig);
     	return $result;
     }
 
@@ -88,7 +89,7 @@ class WeixinPayMicro{
 	 * @throws WxpayException
 	 * @return 返回查询接口的结果
 	 */
-	public function pay($microPayInput, $wxConfig)
+	public function topay($microPayInput, $wxConfig)
 	{
 		//①、提交被扫支付
 		$result = WxPayApi::micropay($microPayInput, $wxConfig, 30);
@@ -97,7 +98,7 @@ class WeixinPayMicro{
 		if(!array_key_exists("return_code", $result)
 			|| !array_key_exists("result_code", $result))
 		{
-			return "接口调用失败！";
+			return "接口调用失败！错误：".$result['return_msg'];
 		}
 		
 		//签名验证
@@ -153,7 +154,7 @@ class WeixinPayMicro{
 		$queryOrderInput = new WxPayOrderQuery();
 		$queryOrderInput->SetOut_trade_no($out_trade_no);
 		$result = WxPayApi::orderQuery($queryOrderInput, $wxConfig);
-		
+
 		if($result["return_code"] == "SUCCESS" 
 			&& $result["result_code"] == "SUCCESS")
 		{

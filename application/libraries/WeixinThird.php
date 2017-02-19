@@ -10,8 +10,10 @@ define('ACCOUNT_PLATFORM_API_OAUTH_CODE', 'https://open.weixin.qq.com/connect/oa
 define('ACCOUNT_PLATFORM_API_OAUTH_USERINFO', 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_userinfo&state=%s&component_appid=%s#wechat_redirect');
 define('ACCOUNT_PLATFORM_API_OAUTH_INFO', 'https://api.weixin.qq.com/sns/oauth2/component/access_token?appid=%s&component_appid=%s&code=%s&grant_type=authorization_code&component_access_token=');
 
+$CI =& get_instance();
+$CI->load->library('WeixinThirdAuth');
 
-class WeixinThird {
+class WeixinThird extends WeixinThirdAuth {
 	public $appid;
 	public $appsecret;
 	public $encodingaeskey;
@@ -20,30 +22,40 @@ class WeixinThird {
 	public $account;
 	// public $weixinThirdAuth;
 
-	function __construct($account = array()) {
-		$this->ci = & get_instance();
-		$this->ci->load->library('WeixinThirdAuth');
-		$this->ci->load->helper('ihttp');
+	function __construct($cidOrAccount = array()) {
+		$CI =& get_instance();
+		$account = $cidOrAccount;
+		if(!empty($cidOrAccount)){
+			
+			if (is_array($cidOrAccount)) {
+				$account = $cidOrAccount;
+			} else {
+				$CI->load->model('oil/Company_config_model');
+				$account = $CI->Company_config_model->get_by_id($cidOrAccount);
+			}
+		}
 
+		$CI->load->helper('ihttp');
 		//$this->weixinThirdAuth = new WeixinThirdAuth();
 		$this->appid = C('component_appid');
 		$this->appsecret = C('component_appsecret');
 		$this->token = C('component_message_token');
 		$this->encodingaeskey = C('component_message_key');
 		$this->account = $account;
-		if (!empty($this->account['key']) && $this->account['key'] == 'wx570bc396a51b8ff8') {
-			$this->account['key'] = $this->appid;
+		if (!empty($this->account['wx_appid']) && $this->account['wx_appid'] == 'wx570bc396a51b8ff8') {
+			$this->account['wx_appid'] = $this->appid;
 			$this->openPlatformTestCase();
 		}
-		if(!empty($this->account['key']))
-			$this->account['account_appid'] = $this->account['key'];
+		if(!empty($this->account['wx_appid']))
+			$this->account['account_appid'] = $this->account['wx_appid'];
 		$this->account['key'] = $this->appid;
 	}
+
 
 	function getComponentAccesstoken() {
 		$accesstoken = rkcache('account:component:assesstoken');
 		if (empty($accesstoken) || empty($accesstoken['value']) || $accesstoken['expire'] < time()) {
-			$ticket = 'ticket@@@3BQ4VefSQu_MlkUJ7LrOuv7csmngDgJXnKHYnby9yxDNc0AY3CHLdGzvKDjWgHAgIt25lachN5B4gbGLfvhxjA';//rkcache('component_verify_ticket');
+			$ticket = rkcache('account:component:ticket');
 			if (empty($ticket)) {
 				return error(1, '缺少接入平台关键数据，等待微信开放平台推送数据，请十分钟后再试或是检查“授权事件接收URL”是否写错（index.php?c=account&amp;a=auth&amp;do=ticket地址中的&amp;符号容易被替换成&amp;amp;）');
 			}
@@ -54,7 +66,7 @@ class WeixinThird {
 			);
 			$response = $this->request(ACCOUNT_PLATFORM_API_ACCESSTOKEN, $data);
 			if (is_error($response)) {
-				$errormsg = $this->ci->weixinthirdauth->error_code($response['errno'], $response['message']);
+				$errormsg = $this->error_code($response['errno'], $response['message']);
 				return error($response['errno'], $errormsg);
 			}
 			$accesstoken = array(
@@ -175,7 +187,7 @@ class WeixinThird {
 		return sprintf(ACCOUNT_PLATFORM_API_OAUTH_USERINFO, $this->account['account_appid'], $callback, $state, $this->appid);
 	}
 
-	public function getOauthInfo($code = '') {
+	public function getOauthInfo($code = '',$assoc=true) {
 		$component_accesstoken = $this->getComponentAccesstoken();
 		if (is_error($component_accesstoken)) {
 			return $component_accesstoken;
@@ -209,15 +221,14 @@ class WeixinThird {
 		return $js_ticket['value'];
 	}
 	
-	public function getJssdkConfig(){
-		global $_W;
+	public function getJssdkConfig($url){
 		$jsapiTicket = $this->getJsApiTicket();
 		if(is_error($jsapiTicket)){
 			$jsapiTicket = $jsapiTicket['message'];
 		}
 		$nonceStr = random(16);
 		$timestamp = time();
-		$url = $_W['siteurl'];
+
 		$string1 = "jsapi_ticket={$jsapiTicket}&noncestr={$nonceStr}&timestamp={$timestamp}&url={$url}";
 		$signature = sha1($string1);
 		$config = array(
@@ -229,7 +240,7 @@ class WeixinThird {
 		if(DEVELOPMENT) {
 			$config['url'] = $url;
 			$config['string1'] = $string1;
-			$config['name'] = $this->account['name'];
+			//$config['name'] = $this->account['name'];
 		}
 		return $config;
 	}
@@ -283,7 +294,7 @@ class WeixinThird {
 		$response = ihttp_request($url, json_encode($post));
 		$response = json_decode($response['content'], true);
 		if (empty($response) || !empty($response['errcode'])) {
-			return error($response['errcode'], $this->ci->weixinthirdauth->error_code($response['errcode'], $response['errmsg']));
+			return error($response['errcode'], $this->error_code($response['errcode'], $response['errmsg']));
 		}
 		return $response;
 	}
@@ -291,7 +302,7 @@ class WeixinThird {
 	private function getAuthRefreshToken() {
 		$auth_refresh_token = rkcache('account:auth:refreshtoken:'.$this->account['company_id']);
 		if (empty($auth_refresh_token)) {
-			$auth_refresh_token = $this->account['auth_refresh_token'];
+			$auth_refresh_token = $this->account['wx_auth_refresh_token'];
 			wkcache('account:auth:refreshtoken:'.$this->account['company_id'], $auth_refresh_token);
 		}
 		return $auth_refresh_token;
@@ -302,5 +313,18 @@ class WeixinThird {
 		M('oil/Company_config')->update_by_id($this->account['company_id'], $data);
 		
 		wkcache('account:auth:refreshtoken:'.$this->account['company_id'], $token);
+	}
+
+	public function authz($redirect_uri)
+	{
+		$secret = !empty($this->account['wx_appsecret'])?$this->account['wx_appsecret']:$this->account['APPSECRET'];
+		if(empty($appid))
+			$appid = $this->account['wx_appid'];
+
+		$url = $this->getOauthUserInfoUrl($redirect_uri, $this->account['company_id']);
+		if($this->isTest==1)
+			$url = $this->test_authorize_url.'?redirect_uri='.urlencode($redirect_uri);
+
+		header('location:'.$url);exit;
 	}
 }
