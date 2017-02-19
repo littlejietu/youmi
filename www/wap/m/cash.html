@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>向油站付款</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../corejs/0.js"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<script type="text/javascript" src="../corejs/jquery.min.js"></script>
+		<script type="text/javascript" src="../corejs/mirong.config.js"></script>
+		<script type="text/javascript" src="../corejs/mirong.utils.js"></script>
+		<script  type="text/javascript" src="../corejs/weixin_share_common.js"></script>
+		<script type="text/javascript" src="../corejs/lib.js"></script>
+		<script type="text/javascript" src="../js/m/cash.js"></script>
+		<style type="text/css">
+		.zhezhao{position:fixed;z-index:999;width:100%;height:100%;bottom:0px;left:0;}
+		.fucun{position:absolute;z-index:1000;width:100%;left:0;bottom:0px;background:#f9f9f9;}
+		.fucun h3{margin:0 10px;border-bottom:1px solid #eee;text-align:center;color:#000;position:relative;line-height:60px;font-size:16px;}
+		.fucun h3 i{display:inline-block;position:absolute;width:20px;height:20px;background:url("../images/close.png") no-repeat;background-size:20px 20px;top:20px;left:10px;}
+		.fucun .form{padding:20px;}
+		.fucun .form p{font-size:12px;color:#ff3d23;}
+		.fucun .form table td{height:50px;line-height:50px;border-right:1px solid #eee;background:#fff;}
+		.fucun .form table td input{font-size:20px;display:inline-block;width:100%;height:50px;line-height:50px;border:0;background:#fff;text-align:center;}
+		.fucun .tab{width:100%;}
+		.fucun .tab ul{width:100%;}
+		.fucun .tab ul li{background:#fff;float:left;text-align:center;box-sizing:border-box;width:33.33%;border-top:1px solid #eee;border-right:1px solid #eee;color:#000;font-size:16px;text-align:center;height:60px;line-height:60px;}
+		.fucun .tab ul li a{font-size:25px;color:#000;display:inline-block;width:100%;}
+		.fucun .tab ul li a:active{background:#eee;}
+		.fucun .tab ul li img{display:inline-block;width:60px;height:28px;vertical-align: middle;}
+	</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="register">
+				<ul>
+					<li>
+						<p  style="background:url();"></p>
+					</li>
+					<li>
+						<p style="height: 50px">
+							<span style="font-size: 20px">商品金额</span>
+
+							<div style="font-size: 30px">￥&nbsp;
+							<span id="goods-amt">请输入1000元以内金额</span></div>
+							
+						</p>
+					</li>
+					<li>
+						<p>
+							<span>备注</span>
+							<input name="remark" id="remark" placeholder="无" value="" />
+							
+						</p>
+					</li>
+				</ul>
+			
+			</div>
+		</div>
+
+<div class="zhezhao">
+	<div class="fucun">
+		<h3 id="site-name">请输入商品金额</h3>
+		<div class="tab">
+			<ul>
+				<li><a>1</a></li>
+				<li><a>2</a></li>
+				<li><a>3</a></li>
+				<li><a>4</a></li>
+				<li><a>5</a></li>
+				<li><a>6</a></li>
+				<li><a>7</a></li>
+				<li><a>8</a></li>
+				<li><a>9</a></li>
+				<li><a>0</a></li>
+				<li><a>.</a></li>
+				<li  id="delete_btn" ><img src="../images/black.png"/></li>
+				<li style="background:#02c27f;color:#fff;width: 100%" id="finish">微信支付</li>
+			</ul>
+		</div>
+	</div>
+</div>
+	</body>
+</html>

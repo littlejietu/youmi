@@ -173,6 +173,14 @@ $(function(){
         var initMsg = '{\"mrid\":\"mrid'+admin_id+'\"}';
         javascript:window.external.init(serverIp, serverPort, initMsg);
 	});
+
+	$('#logoout').bind('click', function(){alert('ddd');
+		sendPostData({}, ApiUrl+"cashier/login/logout", function(result){
+	    	if(result.code=='SUCCESS'){
+		    	location.href='/cashier/login.html';
+	        }
+	    });
+	});
 	
 });
 

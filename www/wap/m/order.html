@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>密油-我的订单</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../corejs/0.js"></script>
+		<link rel="stylesheet" href="../corecss/idangerous.swiper2.7.css"/>
+		<!-- <link rel="stylesheet" href="../corecss/reset.css"/> -->
+		<link rel="stylesheet" href="../css/style.css"/>
+		<script  type="text/javascript" src="../corejs/mirong.config.js"></script>
+		<script  type="text/javascript" src="../corejs/jquery.min.js"></script>
+		<script type="text/javascript" src="../corejs/idangerous.swiper.min.js"></script>
+		<script  type="text/javascript" src="../corejs/arttemplate.js"></script>
+		<script  type="text/javascript" src="../corejs/mirong.utils.js"></script>
+		<script  type="text/javascript" src="../corejs/fastclick.js"></script>
+		<script  type="text/javascript" src="../corejs/lib.js"></script>
+		<script  type="text/javascript" src="../js/m/order.js"></script>
+		<style>
+	    .swiper-slide{width:100%;}
+	    body{overflow:hidden;}
+	    .empty{display:none;position:absolute;left:20%;top:30%;width:60%;text-align:center;}
+	    .empty img{display:block;width:50%;margin:20px auto;}
+	  	</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="user_order">
+				<dl>
+					<dd class="on" rel="0">全部</dd>
+					<dd rel="1">待付款</dd>
+					<dd rel="4">已完成</dd>
+				</dl>
+				<div class="user_order_list" id="wrapper">
+					<ul id="order-list">
+						
+					</ul>
+				</div>
+			</div>
+
+			<div class="empty"><img src="../images/empty-order.png"/><span>还没有您的全部订单</span></div>
+
+		</div>
+
+	<script type="text/html" id="order-list-tpl">
+		{{each rows as value i}}
+			<li>
+				<div class="status" onclick="showOrdeDetail({{value.order_id}});">
+					<p class="o_status">{{value.title}}<span>{{value.status_name}}</span></p>
+					<p class="o_time">{{value.site_name}}<span>{{value.createtime}}</span></p>
+				</div>
+				<div class="operate">
+					<span class="o_money">实付：<b>{{if value.pay_amt>0}}-{{value.pay_amt}}{{/if}}</b></span>
+					<div class="o_operate">
+						<a href="javascript:void(0);" onclick="del_order({{value.order_id}});" class="btn">删除</a>
+						{{if value.status=="WaitPay" || value.status=="Create"}}
+						<a href="javascript:void(0);" onclick="payNow({{value.order_id}});" class="btn red">付款</a>
+						{{/if}}
+					</div>
+				</div>
+			</li>
+		{{/each}}
+	</script>
+	</body>
+</html>

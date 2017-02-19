@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>密油-订单详情</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/style.css"/>
+		<script type="text/javascript" src="../corejs/0.js"></script>
+		<script  type="text/javascript" src="../corejs/jquery.min.js"></script>
+		<script  type="text/javascript" src="../corejs/arttemplate.js"></script>
+		<script  type="text/javascript" src="../corejs/mirong.config.js"></script>
+		<script  type="text/javascript" src="../corejs/mirong.utils.js"></script>
+		<script  type="text/javascript" src="../corejs/fastclick.js"></script>
+		<script  type="text/javascript" src="../corejs/lib.js"></script>
+		<script  type="text/javascript" src="../js/m/order_detail.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="user_order_detail" id="order-detail">
+				
+			</div>
+		</div>
+
+		<script type="text/html" id="order-detail-tpl">
+			<ul>
+				{{if info}}
+				<li><p>{{info.title}}</p></li>
+				<li><p>&nbsp;<span>{{info.status_name}}</span></p></li>
+				<li><p>实付<span>{{if info.pay_amt>0}}-{{info.pay_amt}}{{/if}}</span></p></li>
+				<!-- <li><p>说明<span>电子钱包充值</span></p></li> -->
+				<li><p>时间<span>{{info.createtime}}</span></p></li>
+				<li><p>订单号<span>{{info.order_sn}}</span></p></li>
+				<!-- <li><p>优惠券<span>¥50</span></p></li> -->
+				<li><p>加油站<span>{{info.site_name}}</span></p></li>
+				<li><p>油枪号<span>{{info.gun_no}}号枪</span></p></li>
+				<li><p>&nbsp;<span>
+						<a href="javascript:void(0);" onclick="del_order({{info.order_id}});" class="btn">删除</a>
+						{{if info.status=="WaitPay" || info.status=="Create"}}
+						<a href="javascript:void(0);" onclick="payNow({{info.order_id}});" class="btn red">付款</a>
+						{{/if}}</span></p></li>
+				{{/if}}
+			</ul>
+		</script>
+	</body>
+</html>

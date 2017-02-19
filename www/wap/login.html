@@ -7,17 +7,19 @@
     <script>
         (function () {
             if(window.localStorage)
-                localStorage.removeItem('number9streetkey');
-            if(getUrlParam("token")) {
+                localStorage.removeItem('youmikey');
 
+            if(getUrlParam("token")) {
+                
                 var obj = get_json_fromlocal(getUrlParam("key"));
                 if (!obj) {
                     obj = {};
                 }
                 obj.token = getUrlParam("token");
                 obj.key = getUrlParam("key");
+
                 save_json_tolocal(obj.key, obj)
-                save_string_tolocal('number9streetkey', obj.key);
+                save_string_tolocal('youmikey', obj.key);
                 var url = getUrlParam('url');
                 if (!url) {
                     url = 'index.html';
@@ -27,12 +29,13 @@
                 } else {
                     url += '?v=' + Math.random();
                 }
+
                 location.href = url;
             } else {
-                var key = get_string_fromlocal('number9streetkey');
+                var key = get_string_fromlocal('youmikey');
                 save_json_tolocal(key, '')
 
-                save_string_tolocal('number9streetkey', '');
+                save_string_tolocal('youmikey', '');
                 location.href = 'index.html?v=' + Math.random();
             }
             function save_string_tolocal(key, value) {
