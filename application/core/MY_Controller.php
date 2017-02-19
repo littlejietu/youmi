@@ -454,7 +454,7 @@ class TokenApiController extends ApiController{
        
         if (empty($this->loginUser))
         {
-            output_error(-1,'请先登录');exit;
+            output_error('NeedLogin','请先登录..');exit;
         }
         else 
         {
@@ -482,7 +482,7 @@ class BaseSellerController extends CI_Controller {
         $this->load->library('encrypt');
         $this->load->library('session');
         //$this->seller_info = $this->sellerLogin();
-        $this->seller_info = array ( 'admin_name' => 'seller', 'admin_id' => 1, 'role_id' => 1, 'is_super' => 1,'company_id'=>1,'site_ids'=>1 );
+        $this->seller_info = array ( 'admin_name' => 'seller', 'admin_id' => 1, 'role_id' => 1, 'is_super' => 1,'company_id'=>1,'site_ids'=>4 );
         if (empty($this->seller_info['admin_id'])||!$this->checkSellerPermission()){
            // 验证权限
            redirect(SELLER_SITE_URL.'/login1');
@@ -597,7 +597,7 @@ class TokenOAdminApiController extends ApiController{
         $this->oadminUser = $this->O_admin_token_model->get_by_where(array('token'=>$token),'*','status desc');
 
         if (empty($this->oadminUser)){
-            output_error(-1,'请先登录');exit;
+            output_error('NeedLogin','请先登录');exit;
         }else{
             if($this->oadminUser['status']==-2){
                 output_error(-1000,'用户登录信息已失效，请重新登录');exit;

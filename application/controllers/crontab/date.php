@@ -19,9 +19,10 @@ class Date extends CI_Controller
     {
         //$this->set_distribution_commission();
         $data['ip']=$this->input->ip_address();
-        $this->cron_service->set_commis($data);
+        // $this->cron_service->set_commis($data);
 
-        $this->cron_service->comm_send();
+        // $this->cron_service->comm_send();
+        // $this->cron_service->stat_customer();
     }
 
     private function set_distribution_commission()
@@ -32,8 +33,12 @@ class Date extends CI_Controller
 
     }
 
-    public function countsale(){
-        $this->cron_service->countSale();
+    public function stat_customer(){
+        $this->cron_service->stat_customer();
+    }
+
+    public function stat_customer_oil(){
+        $this->cron_service->stat_customer_oil();
     }
 
 }

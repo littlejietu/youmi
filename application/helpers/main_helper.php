@@ -61,6 +61,45 @@ function getOilName($oil_no){
     return $oil_name;
 }
 
+function logging($level = 'info', $message = '') {
+    
+    $content = date('Y-m-d H:i:s') . " {$level} :\n------------\n";
+    if(is_string($message)) {
+        $content .= "String:\n{$message}\n";
+    }
+    if(is_array($message)) {
+        $content .= "Array:\n";
+        foreach($message as $key => $value) {
+            if(is_array($value)){
+                foreach ($value as $kk => $vv) {
+                    if(!is_array($vv))
+                        $content .= sprintf("%s : %s ;\n", $kk, $vv);
+                }
+            }
+            else
+                $content .= sprintf("%s : %s ;\n", $key, $value);
+        }
+    }
+    if($message == 'get') {
+        $content .= "GET:\n";
+        foreach($_GET as $key => $value) {
+            $content .= sprintf("%s : %s ;\n", $key, $value);
+        }
+    }
+    if($message == 'post') {
+        $content .= "POST:\n";
+        foreach($_POST as $key => $value) {
+            $content .= sprintf("%s : %s ;\n", $key, $value);
+        }
+    }
+    $content .= "\n";
+
+    if(!in_array($level, array('error','debug','info','all')))
+        $level = 'info';
+
+    log_message($level, $content);
+}
+
 function pagination($total, $pageIndex, $pageSize = 15, $url = '', $context = array('before' => 5, 'after' => 4, 'ajaxcallback' => '')) {
     global $_W;
     $pdata = array(

@@ -2,15 +2,18 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Wxauth extends CI_Controller {
+
 	public function __construct()
     {
       	parent::__construct();
 
-      	$this->load->library('WeixinAuth');
+      	//$this->load->library('WeixinAuth');
+        $this->load->library('WeixinThird');
         $this->load->model('oil/Site_model');
         $this->load->model('oil/Site_config_model');
     }
 
+    /*
     public function index(){
         $this->weixinauth->token();
     }
@@ -23,7 +26,7 @@ class Wxauth extends CI_Controller {
     public function token(){
     	$arrReturn = array('code'=>'EMPTY','message'=>'','data'=>'');
         $site_id = $this->input->get('site_id');
-        $wxConfig = C('PayConfig.WXPAY');
+        $wxConfig = array();
         if(!empty($site_id)){
             $info = $this->Site_model->get_by_id($site_id,'company_id');
             $wxConfig = $this->Site_config_model->getPayConfig($site_id, $info['company_id']);
@@ -32,6 +35,7 @@ class Wxauth extends CI_Controller {
 
     	echo json_encode($result);
     }
+    */
 
     public function authorize(){
     	$code = $this->input->post_get('code');
@@ -41,16 +45,24 @@ class Wxauth extends CI_Controller {
         if(!$client_type)
             $client_type = 'app';
 
-        $wxConfig = C('PayConfig.WXPAY');
-        $arrUrl=parse_url($gotoUrl);
+        $wxConfig = array();
+        $arrUrl=parse_url($url);
         parse_str($arrUrl['query'],$arrParam);
-        if(!empty($arrParam['site_id'])){
-            $site_id = $arrParam['site_id'];
-            $info = $this->Site_model->get_by_id($site_id,'company_id');
-            $wxConfig = $this->Site_config_model->getPayConfig($site_id, $info['company_id']);
+        if(empty($arrParam['site_id'])){
+            show_error('站id参数错误');
+            exit;
         }
-
-    	$this->weixinauth->init_auth($code, $wxConfig, $url, $invite_id,$client_type);
+        
+        $site_id = $arrParam['site_id'];
+        $info = $this->Site_model->get_by_id($site_id,'company_id');
+        if(empty($info)){
+            show_error('该加油站不存在');
+            exit;
+        }
+        $wxConfig = $this->Site_config_model->getPayConfig($site_id, $info['company_id']);
+        
+        $objThird = new WeixinThird($wxConfig);
+        $objThird->init_auth($code, $url, $site_id,$invite_id,$client_type);
 
     }
 
@@ -61,31 +73,46 @@ class Wxauth extends CI_Controller {
         if(!empty($invite_id))
             $invite_param = "&invite_id=$invite_id";
 
-        $wxConfig = C('PayConfig.WXPAY');
+        $wxConfig = array();
         $arrUrl=parse_url($gotoUrl);
         parse_str($arrUrl['query'],$arrParam);
         if(!empty($arrParam['site_id'])){
             $site_id = $arrParam['site_id'];
             $info = $this->Site_model->get_by_id($site_id,'company_id');
+            if(empty($info))
+                show_error('该加油站不存在');
+            
             $wxConfig = $this->Site_config_model->getPayConfig($site_id, $info['company_id']);
         }
 
+        $objThird = new WeixinThird($wxConfig);
         $redirect_uri = BASE_SITE_URL.'/api/wxauth/authorize?url='.$gotoUrl.$invite_param.'&client_type=wap';
-        $this->weixinauth->authz($redirect_uri, $wxConfig);
+        $objThird->authz($redirect_uri);
     }
 
     public function jsapi(){
     	$url = $_POST['url'];
         $site_id = $_POST['site_id'];
-    	$this->load->library('WxJsApi');
+        $type = $this->input->post_get('type');
+        $type = empty($type)?1:$type;
 
-        $wxConfig = C('PayConfig.WXPAY');
-        if(!empty($site_id)){
-            $info = $this->Site_model->get_by_id($site_id,'company_id');
-            $wxConfig = $this->Site_config_model->getPayConfig($site_id, $info['company_id']);
+        if($type==1){
+            $wxConfig = array();
+            if(!empty($site_id)){
+                $info = $this->Site_model->get_by_id($site_id,'company_id');
+                $wxConfig = $this->Site_config_model->getPayConfig($site_id, $info['company_id']);
+            }
+
+            $objThird = new WeixinThird($wxConfig);
+            $arrReturn = $objThird->getJssdkConfig($url);
+        }else{
+            $this->load->library('WxJsApi');
+            $wxConfig = C('PayConfig.WXPAY3');
+            $arrReturn = $this->wxjsapi->getSignPackage($url, $wxConfig);
         }
+    	
 
-    	$arrReturn = $this->wxjsapi->getSignPackage($url, $wxConfig);
+        
         output_data($arrReturn);
 
     }

@@ -88,9 +88,18 @@ class Sms extends ApiController
 			if(empty($info) || $info['status']!=1){
 				output_error(-1,'加油站不存在或已关闭');exit;
 			}
+
+			$login_user = array();
+			if(!empty($token)){
+				$login_user = $this->user_service->get_userid($token);
+				if(empty($login_user))
+		        	output_error(-1,'用户登录信息已失效，请重新登录');
+		    }
+
 			$aExist = $this->User_model->get_by_where(array('mobile'=>$mobile,'company_id'=>$info['company_id']));
 			if(!empty($aExist)){
-			    output_error(-1,'手机已存在');exit;	//USER_MOBILE_EXIST
+				if(!empty($login_user) && $login_user['user_id']!=$aExist['user_id'])
+			    	output_error(-1,'手机已被其他用户使用');	//USER_MOBILE_EXIST
 			}
 		}
 

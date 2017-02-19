@@ -147,6 +147,112 @@ function _is_empty($val)
 		return $val;
 }
 
+function array2xml($arr, $level = 1) {
+	$s = $level == 1 ? "<xml>" : '';
+	foreach ($arr as $tagname => $value) {
+		if (is_numeric($tagname)) {
+			$tagname = $value['TagName'];
+			unset($value['TagName']);
+		}
+		if (!is_array($value)) {
+			$s .= "<{$tagname}>" . (!is_numeric($value) ? '<![CDATA[' : '') . $value . (!is_numeric($value) ? ']]>' : '') . "</{$tagname}>";
+		} else {
+			$s .= "<{$tagname}>" . array2xml($value, $level + 1) . "</{$tagname}>";
+		}
+	}
+	$s = preg_replace("/([\x01-\x08\x0b-\x0c\x0e-\x1f])+/", ' ', $s);
+	return $level == 1 ? $s . "</xml>" : $s;
+}
+
+function utf8_bytes($cp) {
+	if ($cp > 0x10000){
+				return	chr(0xF0 | (($cp & 0x1C0000) >> 18)).
+		chr(0x80 | (($cp & 0x3F000) >> 12)).
+		chr(0x80 | (($cp & 0xFC0) >> 6)).
+		chr(0x80 | ($cp & 0x3F));
+	}else if ($cp > 0x800){
+				return	chr(0xE0 | (($cp & 0xF000) >> 12)).
+		chr(0x80 | (($cp & 0xFC0) >> 6)).
+		chr(0x80 | ($cp & 0x3F));
+	}else if ($cp > 0x80){
+				return	chr(0xC0 | (($cp & 0x7C0) >> 6)).
+		chr(0x80 | ($cp & 0x3F));
+	}else{
+				return chr($cp);
+	}
+}
+
+function iserializer($value) {
+	return serialize($value);
+}
+
+
+function iunserializer($value) {
+	if (empty($value)) {
+		return '';
+	}
+	if (!is_serialized($value)) {
+		return $value;
+	}
+	$result = unserialize($value);
+	if ($result === false) {
+		$temp = preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $value);
+		return unserialize($temp);
+	}
+	return $result;
+}
+
+function is_serialized($data, $strict = true) {
+	if (!is_string($data)) {
+		return false;
+	}
+	$data = trim($data);
+	if ('N;' == $data) {
+		return true;
+	}
+	if (strlen($data) < 4) {
+		return false;
+	}
+	if (':' !== $data[1]) {
+		return false;
+	}
+	if ($strict) {
+		$lastc = substr($data, -1);
+		if (';' !== $lastc && '}' !== $lastc) {
+			return false;
+		}
+	} else {
+		$semicolon = strpos($data, ';');
+		$brace = strpos($data, '}');
+				if (false === $semicolon && false === $brace)
+			return false;
+				if (false !== $semicolon && $semicolon < 3)
+			return false;
+		if (false !== $brace && $brace < 4)
+			return false;
+	}
+	$token = $data[0];
+	switch ($token) {
+		case 's' :
+			if ($strict) {
+				if ('"' !== substr($data, -2, 1)) {
+					return false;
+				}
+			} elseif (false === strpos($data, '"')) {
+				return false;
+			}
+				case 'a' :
+		case 'O' :
+			return (bool)preg_match("/^{$token}:[0-9]+:/s", $data);
+		case 'b' :
+		case 'i' :
+		case 'd' :
+			$end = $strict ? '$' : '';
+			return (bool)preg_match("/^{$token}:[0-9.E-]+;$end/", $data);
+	}
+	return false;
+}
+
 function random($length, $numeric = FALSE) {
 	$seed = base_convert(md5(microtime() . $_SERVER['DOCUMENT_ROOT']), 16, $numeric ? 10 : 35);
 	$seed = $numeric ? (str_replace('0', '', $seed) . '012340567890') : ($seed . 'zZ' . strtoupper($seed));
@@ -162,6 +268,130 @@ function random($length, $numeric = FALSE) {
 	}
 	$hash=strtoupper($hash);
 	return $hash;
+}
+
+
+function aes_decode($message, $encodingaeskey = '', $appid = '') {
+	$key = base64_decode($encodingaeskey . '=');
+
+	$ciphertext_dec = base64_decode($message);
+	$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
+	$iv = substr($key, 0, 16);
+
+	mcrypt_generic_init($module, $key, $iv);
+	$decrypted = mdecrypt_generic($module, $ciphertext_dec);
+	mcrypt_generic_deinit($module);
+	mcrypt_module_close($module);
+	$block_size = 32;
+
+	$pad = ord(substr($decrypted, -1));
+	if ($pad < 1 || $pad > 32) {
+		$pad = 0;
+	}
+	$result = substr($decrypted, 0, (strlen($decrypted) - $pad));
+	if (strlen($result) < 16) {
+		return '';
+	}
+	$content = substr($result, 16, strlen($result));
+	$len_list = unpack("N", substr($content, 0, 4));
+	$contentlen = $len_list[1];
+	$content = substr($content, 4, $contentlen);
+	$from_appid = substr($content, $xml_len + 4);
+	if (!empty($appid) && $appid != $from_appid) {
+		return '';
+	}
+	return $content;
+}
+
+function aes_encode($message, $encodingaeskey = '', $appid = '') {
+	$key = base64_decode($encodingaeskey . '=');
+	$text = random(16) . pack("N", strlen($message)) . $message . $appid;
+
+	$size = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
+	$module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
+	$iv = substr($key, 0, 16);
+
+	$block_size = 32;
+	$text_length = strlen($text);
+		$amount_to_pad = $block_size - ($text_length % $block_size);
+	if ($amount_to_pad == 0) {
+		$amount_to_pad = $block_size;
+	}
+		$pad_chr = chr($amount_to_pad);
+	$tmp = '';
+	for ($index = 0; $index < $amount_to_pad; $index++) {
+		$tmp .= $pad_chr;
+	}
+	$text = $text . $tmp;
+	mcrypt_generic_init($module, $key, $iv);
+		$encrypted = mcrypt_generic($module, $text);
+	mcrypt_generic_deinit($module);
+	mcrypt_module_close($module);
+		$encrypt_msg = base64_encode($encrypted);
+	return $encrypt_msg;
+}
+
+
+function isimplexml_load_string($string, $class_name = 'SimpleXMLElement', $options = 0, $ns = '', $is_prefix = false) {
+	libxml_disable_entity_loader(true);
+	if (preg_match('/(\<\!DOCTYPE|\<\!ENTITY)/i', $string)) {
+		return false;
+	}
+	return simplexml_load_string($string, $class_name, $options, $ns, $is_prefix);
+}
+
+function ihtml_entity_decode($str) {
+	$str = str_replace('&nbsp;', '#nbsp;', $str);
+	return str_replace('#nbsp;', '&nbsp;', html_entity_decode(urldecode($str)));
+}
+
+function message($msg, $redirect = '', $type = '') {
+	if($redirect == 'refresh') {
+		$redirect = $_SERVER['SCRIPT_NAME'] . '?' . $_SERVER['QUERY_STRING'];
+	}
+	if($redirect == 'referer') {
+		$redirect = referer();
+	}
+	if($redirect == '') {
+		$type = in_array($type, array('success', 'error', 'info', 'warning', 'ajax', 'sql')) ? $type : 'info';
+	} else {
+		$type = in_array($type, array('success', 'error', 'info', 'warning', 'ajax', 'sql')) ? $type : 'success';
+	}
+	if ( !empty($_GET['isajax']) || $type == 'ajax') {
+		if($type != 'ajax' && !empty($_GET['target'])) {
+			exit("
+<script type=\"text/javascript\">
+parent.require(['jquery', 'util'], function($, util){
+	var url = ".(!empty($redirect) ? 'parent.location.href' : "''").";
+	var modalobj = util.message('".$msg."', '', '".$type."');
+	if (url) {
+		modalobj.on('hide.bs.modal', function(){\$('.modal').each(function(){if(\$(this).attr('id') != 'modal-message') {\$(this).modal('hide');}});top.location.reload()});
+	}
+});
+</script>");
+		} else {
+			$vars = array();
+			$vars['message'] = $msg;
+			$vars['redirect'] = $redirect;
+			$vars['type'] = $type;
+			exit(json_encode($vars));
+		}
+	}
+	if (empty($msg) && !empty($redirect)) {
+		header('location: '.$redirect);
+	}
+	/*
+	$label = $type;
+	if($type == 'error') {
+		$label = 'danger';
+	}
+	if($type == 'ajax' || $type == 'sql') {
+		$label = 'warning';
+	}
+	*/
+	//include template('common/message', TEMPLATE_INCLUDEPATH);
+	showMessage($msg,$redirect);
+	exit();
 }
 
 function _aes_encode($data,$privateKey){
@@ -417,5 +647,30 @@ function dkcache($key)
 
 /***------------------cache end-------------------------------***/
 
+
+function getDirFiles($dir, $level=-1)  
+{  
+    if ($level == 0) {  
+        return array();  
+    }  
+    if (is_file($dir)) {  
+        return array($dir);  
+    }  
+    $files = array();  
+    if (is_dir($dir) && ($dir_p = opendir($dir))) {  
+        $ds = DIRECTORY_SEPARATOR;  
+        while (($filename = readdir($dir_p)) !== false) {  
+            if ($filename=='.' || $filename=='..') { continue; }  
+            $filetype = filetype($dir.$ds.$filename);  
+            if ($filetype == 'dir') {  
+                $files = array_merge($files, getDirFiles($dir.$ds.$filename, $level==-1?-1:$level-1));  
+            } elseif ($filetype == 'file') {  
+                $files[] = $dir.$ds.$filename;  
+            }  
+        }  
+        closedir($dir_p);  
+    }  
+    return $files;  
+}
 
 ?>

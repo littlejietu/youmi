@@ -15,7 +15,10 @@ class Minute extends CI_Controller
      */
     public function index()
     {
-        $this->push_message();
+        $this->cron_service->push_message();
+        $this->cron_service->batch_send();
+        $this->cron_service->print_push();
+        $this->cron_service->third_refund();
     }
 
     private function push_message()
@@ -29,6 +32,10 @@ class Minute extends CI_Controller
 
     public function print_push(){
         $this->cron_service->print_push();
+    }
+
+    public function third_refund(){
+        $this->cron_service->third_refund();
     }
 }
 ?>

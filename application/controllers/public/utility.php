@@ -9,4 +9,10 @@ class Utility extends CI_Controller {
 		$this->load->view('public/utility/emoji.html');
 	}
 
+	public function link(){
+		
+		$this->load->view('public/utility/link.html');
+
+
+	}
 }

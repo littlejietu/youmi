@@ -10,6 +10,31 @@ class Respond extends CI_Controller {
       	$this->load->service('fundOrder_service');
     }
 
+    public function ticket(){
+
+   		$post   =file_get_contents('php://input');  
+        $encode_ticket = isimplexml_load_string($post, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+        if (empty($post) || empty($encode_ticket)) {
+        	file_put_contents('t.html', date('Y-m-d H:i:s').'--post is null--'.$content.PHP_EOL, FILE_APPEND); 
+            exit('fail');
+        }
+        $decode_ticket = aes_decode($encode_ticket->Encrypt, C('basic_info.EncodingAesKey'));
+        $ticket_xml = isimplexml_load_string($decode_ticket, 'SimpleXMLElement', LIBXML_NOCDATA);
+        if (empty($ticket_xml)) {
+        	file_put_contents('t.html', date('Y-m-d H:i:s').'--ticket_xml is null--'.PHP_EOL, FILE_APPEND); 
+            exit('fail');
+        }
+        if (!empty($ticket_xml->ComponentVerifyTicket) && $ticket_xml->InfoType == 'component_verify_ticket') {
+        	file_put_contents('t.html', date('Y-m-d H:i:s').'--ticket_xml:'.$ticket_xml->ComponentVerifyTicket.PHP_EOL, FILE_APPEND);
+            wkcache('account:component:ticket', strval($ticket_xml->ComponentVerifyTicket));
+        }
+        exit('success');
+    }
+
+    public function jump_AliPay(){}
+    public function notice_AliPay(){}
+
 	public function jump_WeixinPayJs(){
 
 	}
