@@ -166,21 +166,7 @@ $(function(){
 		goStart();
 	});
 
-	$('#btnConnect').bind('click', function(){
-		var serverIp = get_user_data_from_local('msg_server_ip');
-        var serverPort = get_user_data_from_local('msg_server_port');
-        var admin_id = get_user_data_from_local('admin_id');
-        var initMsg = '{\"mrid\":\"mrid'+admin_id+'\"}';
-        javascript:window.external.init(serverIp, serverPort, initMsg);
-	});
-
-	$('#logoout').bind('click', function(){alert('ddd');
-		sendPostData({}, ApiUrl+"cashier/login/logout", function(result){
-	    	if(result.code=='SUCCESS'){
-		    	location.href='/cashier/login.html';
-	        }
-	    });
-	});
+	
 	
 });
 
