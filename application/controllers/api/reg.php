@@ -90,6 +90,7 @@ class Reg extends ApiController
                 $tokenData = array(
                     'user_id' => $arrRes['data']['user_id'],
                     'user_name' => $arrRes['data']['user_name'],
+                    'company_id' => $arrRes['data']['company_id'],
                     'token' => md5(time().mt_rand(0,1000)),
                     'refresh_token' => md5(time().mt_rand(1000,2000)),
                     'addtime' => time(),
@@ -321,6 +322,7 @@ class Reg extends ApiController
                 $tokenData = array(
                     'user_id' => $data['user_id'],
                     'user_name' => $data['user_name'],
+                    'company_id' => $data['company_id'],
                     'token' => md5($data['user_name'].time().mt_rand(0,1000)),
                     'refresh_token' => md5($data['user_name'].time().mt_rand(1000,2000)),
                     'addtime' => time(),

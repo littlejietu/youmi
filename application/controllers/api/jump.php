@@ -12,6 +12,7 @@ class Jump extends CI_Controller
     public function index(){
     	$url = $this->input->get('url');
     	$openid = $this->input->get('openid');
+        $site_id = $this->input->get('site_id');
     	// $unionid = $this->input->get('unionid');
     	$get_userid = $this->input->get('userid');
     	$sex = $this->input->get('sex');
@@ -48,11 +49,22 @@ class Jump extends CI_Controller
             if(empty($get_userid)){
                 $aUser = $this->User_model->get_by_where(array('user_name'=>$openid));
                 if(empty($aUser)){
-                    $user_data = array('user_name'=>$openid,'mobile'=>'','pwd'=>$openid,'name'=>$nickname, 'logo'=>$head_url,'platform_id' =>1,'ip'=>$ip);
+                    //用户所属公司
+                    $this->load->model('oil/Site_model');
+                    $site_info = $this->Site_model->get_by_id($site_id);
+                    $company_id = $site_info['company_id'];
+                    if(empty($company_id))
+                        exit('加油站数据有误，请与管理员联系');
+
+                    $user_data = array('user_name'=>$openid,'mobile'=>'','pwd'=>$openid,
+                        'name'=>$nickname, 'logo'=>$head_url,'site_id'=>$site_id, 'company_id'=>$company_id,
+                        'platform_id' =>1,'ip'=>$ip);
                     $arrReturn = $this->user_service->reg_user($user_data);
                     $userid = $arrReturn['data'];
                     if($arrReturn['code']=='SUCCESS')
                         $bLogin = true;
+                    
+
                     $aUser = $this->User_model->get_by_id($userid);
                 }else{
                     $userid = $aUser['user_id'];
@@ -82,10 +94,12 @@ class Jump extends CI_Controller
             }
 
             if($bLogin){
+
                 //自动登录 写token
                 $tokenData = array(
                     'user_id' => $aUser['user_id'],
                     'user_name' => $aUser['user_name'],
+                    'company_id' => $aUser['company_id'],
                     'token' => md5(time().mt_rand(0,1000)),
                     'refresh_token' => md5(time().mt_rand(1000,2000)),
                     'addtime' => time(),
@@ -104,7 +118,8 @@ class Jump extends CI_Controller
                     // setcookie("key",md5($aUser['user_id']),$expire,'/');
 
                     $ip = $this->input->ip_address();
-                    $this->User_detail_mobile->update_by_id($aUser['user_id'],array('last_login_time'=>time(),'last_login_ip'=>$ip));
+                    $this->load->model('user/User_detail_model');
+                    $this->User_detail_model->update_by_id($aUser['user_id'],array('last_login_time'=>time(),'last_login_ip'=>$ip));
 
                     if($url =='app'){
                         $data = array('token'=>$tokenData['token'], 'refresh_token'=>$tokenData['refresh_token'], 'openid'=>$openid, 'user_id'=>$aUser['user_id'],'sex'=>$sex,'nickname'=>$nickname,'head_url'=>$head_url);

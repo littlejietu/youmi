@@ -296,10 +296,10 @@ function aes_decode($message, $encodingaeskey = '', $appid = '') {
 	$len_list = unpack("N", substr($content, 0, 4));
 	$contentlen = $len_list[1];
 	$content = substr($content, 4, $contentlen);
-	$from_appid = substr($content, $xml_len + 4);
-	if (!empty($appid) && $appid != $from_appid) {
-		return '';
-	}
+	// $from_appid = substr($content, $xml_len + 4);
+	// if (!empty($appid) && $appid != $from_appid) {
+	// 	return '';
+	// }
 	return $content;
 }
 

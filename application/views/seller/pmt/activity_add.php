@@ -62,10 +62,10 @@
         </tr>
         <tr class="noborder">
           <td class="vatop rowform w600"><select name="is_limit_site" id="is_limit_site">
-              <option value="2"<?php if(!empty($info) && $info['is_limit_site']==2) echo ' selected';?>>不限</option>
+              <option value="2"<?php if(empty($info) || $info['is_limit_site']==2) echo ' selected';?>>不限</option>
               <option value="1"<?php if(!empty($info) && $info['is_limit_site']==1) echo ' selected';?>>限定加油站</option>
             </select>
-            <div class="<?php if(!empty($info) && $info['is_limit_site']!=1) echo 'fn-hide';?>" id="fixed-site">
+            <div class="<?php if(empty($info) || $info['is_limit_site']==1) echo 'fn-hide';?>" id="fixed-site">
               <input type="hidden" name="site_ids" id="site_ids" value="<?php echo !empty($info)?$info['site_ids']:'';?>">
               <div class="site-select com-plane-select fn-clear fn-mt15 fn-mb15 rowform">
                 <ul class="fn-clear fn-fl">
@@ -83,10 +83,21 @@
         </tr>
         <tr class="noborder">
           <td class="vatop rowform">
-            <select id="user_level" name="user_level">
-              <option value="">所有客户</option>
-              <option value="">指定客户</option>
-            </select></td>
+            <select id="is_limit_level" name="is_limit_level">
+              <option value="2"<?php if(empty($info) || $info['is_limit_level']==2) echo ' selected';?>>所有客户</option>
+              <option value="1"<?php if(!empty($info) || $info['is_limit_level']==2) echo ' selected';?>>指定客户</option>
+            </select>
+            <div class="<?php if(empty($info) || $info['is_limit_site']==1) echo 'fn-hide';?>" id="fixed-site">
+              <input type="hidden" name="user_level_ids" id="user_level_ids" value="<?php echo !empty($info)?$info['user_level_ids']:'';?>">
+              <div class="site-select com-plane-select fn-clear fn-mt15 fn-mb15 rowform">
+                <ul class="fn-clear fn-fl">
+                  <?php foreach($level_list as $v):?>
+                    <li data-value="<?php echo $v['id']?>" class="item<?php if(!empty($info) && strpos(','.$info['user_level_ids'].',', ','.$v['id'].',')!== false ) echo ' item-selected';?>"><?php echo $v['level_name'];?></li>
+                  <?php endforeach;?>
+                </ul>
+              </div>
+            </div>
+            </td>
           <td class="vatop tips"></td>
         </tr>
         <tr>

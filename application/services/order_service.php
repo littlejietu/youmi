@@ -8,13 +8,16 @@ class Order_service
 		$this->ci = & get_instance();
 		// $this->ci->load->library('Trd_OrderVO');
 		//$this->ci->load->model('Goods_model');
-		$this->ci->load->model('oil/Price_model');
-		$this->ci->load->model('trd/Order_model');
-		$this->ci->load->model('user/User_model');
-		$this->ci->load->model('trd/Order_goods_model');
+		$this->ci->load->model(array('oil/Price_model','trd/Order_model','user/User_model','trd/Order_goods_model','trd/Order_oil_model','trd/Cart_oil_model'));
+		// $this->ci->load->model('oil/Price_model');
+		// $this->ci->load->model('trd/Order_model');
+		// $this->ci->load->model('user/User_model');
+		// $this->ci->load->model('trd/Order_goods_model');
+		// $this->ci->load->model('trd/Order_oil_model');
+		// $this->ci->load->model('trd/Cart_oil_model');
+
 		$this->ci->load->service('fundOrder_service');
 		$this->ci->load->service('buying_service');
-
 	}
 
 	/*
@@ -313,8 +316,7 @@ class Order_service
 		unset($arrTrdOrder['invoiceId']);
 		unset($arrTrdOrder['ifcart']);
 
-		$this->ci->load->model('trd/Order_oil_model');
-		$this->ci->load->model('trd/Cart_oil_model');
+		
 
 		// 初始化订单
 		$arrTrdOrder = $this->initTradeOrderBaseData($arrTrdOrder);
@@ -618,7 +620,7 @@ class Order_service
 		if(empty($arrTrdOrder['buyer_userid']) || empty($arrTrdOrder['seller_userid']) || empty($arrTrdOrder['total_amt']) || empty($arrTrdOrder['pay_amt']) )
 		{
 			$arrReturn['code'] = 'Failure';
-			$arrReturn['errInfo'] = '订单基本参数不齐全';
+			$arrReturn['errInfo'] = '订单基本参数不全';
 			return $arrReturn;
 		}
 		
@@ -729,6 +731,14 @@ class Order_service
 				if ($this->tranStatus($arrOrder, C('OrderStatus.WaitConfirm'), C('OrderStatus.Finished'))) {
 					$arrReturn['code'] = C('OrderResultError.Success');
 					$arrReturn['errInfo'] = '';
+
+					if($arrOrder['buyer_userid']>0){
+						//积分
+						$this->ci->load->service('integral_service');
+						$this->ci->integral_service->consume($arrOrder['buyer_userid'], $arrOrder['order_id'], $arrOrder['order_sn'], $arrOrder['pay_amt']);
+						//-积分
+					}
+
 					if (!empty($arrOrder['coupon_id'])) {
 						$arrReturn['errInfo'] = $arrOrder['coupon_id'];
 					}

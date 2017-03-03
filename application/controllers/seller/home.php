@@ -128,10 +128,10 @@ class Home extends BaseSellerController {
 					'text' 	=> '公司'),
 				/*3 => array(
 					'args' 	=> 'store',
-					'text' 	=> lang('nc_store')),*/
+					'text' 	=> lang('nc_store')),
 				4 => array(
 					'args'	=> 'member',
-					'text'	=> lang('nc_member')),
+					'text'	=> lang('nc_member')),*/
 				5 => array(
 					'args' 	=> 'trade',
 					'text'	=> lang('nc_trade')),
@@ -171,8 +171,8 @@ class Home extends BaseSellerController {
 						array('args'=>'alipay_auth,bind,setting',							'text'=>'支付宝授权'),
 						array('args'=>'index,reply,setting',							'text'=>'文本回复'),
 						array('args'=>'imgtxt,reply,setting',							'text'=>'图文回复'),
-						array('args'=>'index,menu,setting',							'text'=>'自定义菜单'),
-						//array('args'=>',admin,setting',									'text'=>lang('nc_limit_manage')),
+						array('args'=>'index,menu,setting',								'text'=>'自定义菜单'),
+						array('args'=>',level,setting',							'text'=>'自定义会员等级'),
 						
 						// array('args'=>'index,express,setting',						'text'=>lang('nc_admin_express_set')),
 						//array('args'=>',waybill,setting',           					'text'=>'运单模板'),
@@ -189,12 +189,12 @@ class Home extends BaseSellerController {
 					'nav' => 'company',
 					'text' => '公司',
 					'list' => array(
-						array('args'=>',net,company',								'text'=>'网点管理'),
+						// array('args'=>',net,company',								'text'=>'网点管理'),
 						array('args'=>',site,company',								'text'=>'加油站管理'),
-						array('args'=>',gun,company',								'text'=>'油枪管理'),
-						array('args'=>',spec_name,company',								'text'=>'规格管理'),
-						array('args'=>',goods_tpl,company',								'text'=>'标准商品模板管理'),
-						array('args'=>',goods_audit,company',								'text'=>'商品价格审核管理'),
+						array('args'=>',user,company',								'text'=>'会员管理'),
+						// array('args'=>',spec_name,company',								'text'=>'规格管理'),
+						// array('args'=>',goods_tpl,company',								'text'=>'标准商品模板管理'),
+						// array('args'=>',goods_audit,company',								'text'=>'商品价格审核管理'),
 						//array('args'=>'type,type,goods',								'text'=>lang('nc_type_manage')),
 						//array('args'=>'spec,spec,goods',								'text'=>lang('nc_spec_manage')),
 						//array('args'=>'list,goods_album,goods',						'text'=>lang('nc_album_manage')),
@@ -214,7 +214,7 @@ class Home extends BaseSellerController {
 						//array('args'=>'edit_info,store_joinin,store',					'text'=>'开店首页'),
 						//array('args'=>'list,ownshop,store',							'text'=>'自营店铺'),
 					)
-				),*/
+				),
 				4 => array(
 					'nav' => 'member',
 					'text' => lang('nc_member'),
@@ -222,9 +222,9 @@ class Home extends BaseSellerController {
 						array('args'=>',user,member',									'text'=>lang('nc_member_manage')),
 						//array('args'=>'index,member_grade,member',					'text'=>'会员级别'),
 						//array('args'=>'index,exppoints,member',						'text'=>lang('nc_exppoints_manage')),
-						array('args'=>'send,message,member',							'text'=>lang('nc_member_notice')),
-						array('args'=>',shop,member',								    'text'=>lang('nc_store_manage')),
-						array('args'=>'index,deliver,member',						    'text'=>'派送员管理'),
+						// array('args'=>'send,message,member',							'text'=>lang('nc_member_notice')),
+						// array('args'=>',shop,member',								    'text'=>lang('nc_store_manage')),
+						// array('args'=>'index,deliver,member',						    'text'=>'派送员管理'),
 						//array('args'=>',integral_goods,member',						'text'=>lang('nc_member_pointsmanage')),
 						//array('args'=>'predeposit,predeposit,member',					'text'=>lang('nc_member_predepositmanage')),
 						//array('args'=>'sharesetting,sns_sharesetting,member',			'text'=>lang('nc_binding_manage')),
@@ -233,7 +233,7 @@ class Home extends BaseSellerController {
 						//array('args'=>'member_tag,sns_member,member',					'text'=>lang('nc_member_tag')),
 						//array('args'=>'chat_log,chat_log,member',						'text'=>'聊天记录')
 					)
-				),
+				),*/
 				5 => array(
 					'nav' => 'trade',
 					'text' => lang('nc_trade'),
@@ -249,8 +249,8 @@ class Home extends BaseSellerController {
 						//array('args'=>'refund_manage,vr_refund,trade',	    		'text'=>'虚拟订单退款'),
 						//array('args'=>'consulting,consulting,trade',					'text'=>lang('nc_consult_manage')),
 						//array('args'=>'inform_list,inform,trade',						'text'=>lang('nc_inform_config')),
-						array('args'=>',comment,trade',									'text'=>lang('nc_goods_evaluate')),
-					    array('args'=>'export_all,excel,trade',									'text'=>'数据导出'),
+						// array('args'=>',comment,trade',									'text'=>lang('nc_goods_evaluate')),
+					 //    array('args'=>'export_all,excel,trade',									'text'=>'数据导出'),
 						//array('args'=>'complain_new_list,complain,trade',				'text'=>lang('nc_complain_config')),
 					)
 				),
@@ -273,7 +273,7 @@ class Home extends BaseSellerController {
 					'nav' => 'operation',
 					'text' => lang('nc_operation'),
 					'list' => array(
-						array('args'=>',operation,operation',			    			'text'=>lang('nc_operation_set')),
+						// array('args'=>',operation,operation',			    			'text'=>lang('nc_operation_set')),
 						array('args'=>',activity,operation',							'text'=>'活动管理'),
 						//array('args'=>'groupbuy_template_list,groupbuy,operation',	'text'=>lang('nc_groupbuy_manage')),
 	                    //array('args'=>'index,vr_groupbuy,operation',               	'text'=>'虚拟抢购设置'),
@@ -284,9 +284,9 @@ class Home extends BaseSellerController {
 						//array('args'=>'voucher_apply,voucher,operation',           	'text'=>lang('nc_voucher_price_manage')),
 						//array('args'=>'index,bill,operation',					    	'text'=>lang('nc_bill_manage')),
 						//array('args'=>'index,vr_bill,operation',						'text'=>'虚拟订单结算'),
-						array('args'=>',activity_reg,operation',						'text'=>'注册送礼'),
-						array('args'=>',gift,operation',								'text'=>'兑换礼品'),
-						array('args'=>',coupon,operation',								'text'=>'优惠券管理'),
+				// array('args'=>',activity_reg,operation',						'text'=>'注册送礼'),
+				// array('args'=>',gift,operation',								'text'=>'兑换礼品'),
+						// array('args'=>',coupon,operation',								'text'=>'优惠券管理'),
 						// array('args'=>',first,operation',								'text'=>'推首管理'),
 						// array('args'=>'index,first_category,operation',					'text'=>lang('nc_class_index_push_manage')),
 					    // array('args'=>'index,invite,operation',							'text'=>lang('nc_invite_bonus_list')),

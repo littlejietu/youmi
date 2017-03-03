@@ -145,7 +145,16 @@ class Company extends MY_Admin_Controller {
 
                 if(empty($id)){
                     $data['addtime'] = time();
-                    $this->Company_model->insert($data);
+                    $company_id = $this->Company_model->insert_string($data);
+
+                    $this->load->model(array('sys/Level_model','oil/Company_config_model'));
+
+                    $data_config = array('company_id'=>$company_id,'is_agent'=>0,'level_day'=>30);
+                    $this->Company_config_model->insert_string($data_config);
+
+                    $prefix = $this->Level_model->prefix();
+                    $sql = 'insert '.$prefix.'sys_level(level_id,level_name,integral_num, next_msg,company_id) select id as level_id,level_name,integral_num, next_msg,'.$company_id.' from '.$prefix.'sys_level_def where not exists(select 1 from '.$prefix.'sys_level where company_id='.$company_id.')';
+                    $this->Level_model->execute($sql);
                 }
                 else
                     $this->Company_model->update_by_id($id, $data);

@@ -123,8 +123,10 @@ class AlipayBar{
 	        case "FAILED":
 	        case "UNKNOWN":
 	            $arrTmp = $barPayResult->getResponse();
-	            if (!empty($arrTmp))
+	            if (!empty($arrTmp) && !empty($arrTmp->sub_msg))
 	            	$result = $arrTmp->sub_msg;
+	            else
+	            	$result = "用户可能取消，请重新确认!!!";
 	            break;
 	        default:
 	            $result = "不支持的交易状态，交易返回异常!!!";

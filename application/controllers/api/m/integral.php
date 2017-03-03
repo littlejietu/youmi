@@ -6,22 +6,44 @@ class Integral extends TokenApiController {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Integral_goods_model');
-//		$this->load->model('User_account_model');
-		$this->load->model('Exchange_record_model');
-		$this->load->model('Integral_op_record_model');
-		$this->load->model('user_address_model');
-		$this->load->model('Sign_record_model');
-		$this->load->service('user_service');
+
+		// $this->load->model('Exchange_record_model');
+		$this->load->model('sys/Integral_log_model');
+		// $this->load->model('Sign_record_model');
 		$this->user_id = $this->loginUser['user_id'];
 
-//		$this->user_id = 1;
-
     }
+
+    public function index(){
+
+    	$this->load->model('acct/Account_model');
+
+		$page = $this->input->post_get('page');
+		if(!$page) $page = 1;
+		$pagesize = $this->input->post_get('pagesize');
+		if(!$pagesize) $pagesize = 10;
+		$arrWhere = array(
+			'user_id' =>$this->user_id,
+		);
+		$field = 'user_id,add_time,num,integral,item_no,item_desc';
+		$list = $this->Integral_log_model->fetch_page($page,$pagesize,$arrWhere,$field);
+
+		$info = $this->Account_model->get_by_id($this->user_id,'acct_integral');
+
+		
+		$data = array(
+			'info' => $info,
+			'list' => $list
+		);
+
+		output_data($data);
+	}
+
+
     /*
      * 获得兑换物品列表 签到
      * */
-	public function index()
+	public function checkin()
 	{
 		$page = $this->input->post('page');
 		if(!$page){
@@ -172,103 +194,8 @@ class Integral extends TokenApiController {
 
 	}
 
-	public function integral_list(){
+	
 
-		$page = $this->input->post_get('page');
-		if(!$page){
-			$page = 1;
-		}
-		$pagesize = $this->input->post_get('pagesize');
-		if(!$pagesize){
-			$pagesize = 10;
-		}
-		$whereArr = array(
-			'status' =>1,
-			'user_id' =>$this->user_id,
-		);
-		$field = 'user_id,op_type,num,add_time,op_record_id';
-		$list = $this->Integral_op_record_model->fetch_page($page,$pagesize,$whereArr,$field);
-		$count = $this->Integral_op_record_model->count($whereArr);
-		$data = array(
-			'integral' => $this->user_service->getUserIntegral($this->user_id),//$this->User_account_model->,
-			'page' =>$page,
-			'total' => intval((intval($count) + intval($pagesize) -1)/intval($pagesize)),
-			'pagesize'=>$pagesize,
-			'list' => $list['rows']
-		);
-
-		output_data($data);
-	}
-
-//	public function add(){
-//		if ($this->input->post())
-//		{
-//			$config = array(
-//				array(
-//					'field'   => 'txt_template_title',
-//					'label'   => '优惠券名字',
-//					'rules'   => 'trim|required'
-//				),
-//				array(
-//					'field'   => 'select_template_price',
-//					'label'   => '优惠额度',
-//					'rules'   => 'greater_than[0]'
-//				),
-//				array(
-//					'field'   => 'txt_template_total',
-//					'label'   => '优惠券数量',
-//					'rules'   => 'greater_than[0]'
-//				),
-//				array(
-//					'field'   => 'txt_template_limit',
-//					'label'   => '优惠券可使用额度',
-//					'rules'   => 'greater_than[0]'
-//				),
-//				array(
-//					'field'   => 'txt_template_limit',
-//					'label'   => '优惠券描述',
-//					'rules'   => 'trim|required'
-//				),
-//			);
-//
-//			$this->form_validation->set_rules($config);
-//
-//			if ($this->form_validation->run() === TRUE )
-//			{
-//				if($this->input->post('select_template_price') >= $this->input->post('txt_template_limit')){
-//					$this->ajax_response(10001, '表单验证失败');
-//					return false;
-//				}
-//
-//				$data = array(
-//					'coupon_name' => $this->input->post('txt_template_title'),
-//					'price' => $this->input->post('select_template_price'),
-//					'add_time' => time(),
-//					'coupon_count' =>  $this->input->post('txt_template_total'),
-//					'condition' => $this->input->post('txt_template_limit'),
-//					'desc' => $this->input->post('txt_template_describe'),
-//					'status' => 0,
-//					'coupon_type'=>1,
-//					'effective_time'=>3,
-//					'use_type' =>1,
-//					'img_url' =>"dddfsdfs"
-//
-//				);
-//				$result = $this->Coupon_model->insert_string($data);
-//				if ($result) {
-//					$this->ajax_response(0, '删除成功');
-//					return false;
-//				} else {
-//					$this->ajax_response(10002, '删除失败');
-//					return false;
-//				}
-//			}else{
-//				$this->ajax_response(10001, '表单验证失败');
-//				return false;
-//			}
-//
-//		}
-//	}
 	/*
          * 获得兑换记录列表
          * */

@@ -200,7 +200,7 @@ $config['PayMethodName'] = array(
 
 $config['PayWXALI'] = array(
 	'WXPAY'=>array(11,12,13),
-	'ALIPAY'=>array(14,15,16),
+	'ALIPAY'=>array(21,22,23),
 );
 
 

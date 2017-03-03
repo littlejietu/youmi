@@ -39,12 +39,12 @@ LOADING_IMAGE = '<?php echo BASE_SITE_URL.'/seller/templates/default/images/load
     <tbody>
       <tr class="space odd">
         <th class="nobg" colspan="12"><div class="title">
-            <h5><?php echo lang('nc_prompts');?>12</h5>
+            <h5><?php echo lang('nc_prompts');?></h5>
             <span class="arrow"></span></div></th>
       </tr>
       <tr>
         <td><ul>
-            <li><?php echo lang('article_class_index_help1');?>11</li>
+            <li><?php echo lang('article_class_index_help1');?></li>
             <li><?php echo lang('article_class_index_help2');?></li>
           </ul></td>
       </tr>

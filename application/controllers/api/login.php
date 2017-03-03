@@ -106,44 +106,6 @@ class Login extends ApiController
     */
 
     
-    /**
-     * 获取授权用户信息
-     
-    public function get_info()
-    {
-        $this->load->model('User_model');
-        $this->load->model('User_auth_model');
-        $this->load->model('User_token_model');
-        $unionid = $this->input->post('unionid');
-        $client_type = $this->input->post('client_type');
-        $platform_id = $this->input->post('platform_id');
-        $where['unionid'] = "'$unionid'";
-        $info = $this->User_auth_model->get_by_where($where);
-        unset($where);
-        $where['user_id'] = $info['user_id'];
-        $userInfo = $this->User_model->get_by_where($where);
-        if (empty($userInfo))
-        {
-            //output_error(-1,'USER_NOT_EXIST');exit;
-            output_error('-1','用户不存在');exit;
-        }
-        $where['status <>'] = -1;
-        $val['status'] = -2 ;
-        $this->User_token_model->update_by_where($where,$val);
-        $tokenData = array(
-            'user_id' => $userInfo['user_id'],
-            'user_name' => $userInfo['user_name'],
-            'token' => md5(time().mt_rand(0,1000)),
-            'refresh_token' => md5(time().mt_rand(1000,2000)),
-            'addtime' => time(),
-            'expire_time' => time()+86400*7,
-            'client_type' => $client_type,
-        );
-        $userInfo['token'] = $tokenData['token'];
-        $userInfo['refresh_token'] = $tokenData['refresh_token'];
-        $this->User_token_model->insert($tokenData);
-        $userInfo['logo'] = BASE_SITE_URL.'/'.$userInfo['logo'];
-        output_data($userInfo);
-    }*/
+    
 
 }

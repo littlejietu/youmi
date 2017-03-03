@@ -14,7 +14,7 @@ class Bind extends BaseSellerController {
 
 		$this->load->model('oil/Company_config_model');
 		$info  = $this->Company_config_model->get_by_id($company_id);
-
+		//echo $this->Company_config_model->db->last_query();die;
 		$authurl = '';
 		if(!empty($info) && !empty($info['wx_username'])){
 			$authurl = '1';

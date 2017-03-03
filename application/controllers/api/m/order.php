@@ -57,9 +57,9 @@ class Order extends TokenApiController {
     			$aItem['status_name'] = C('OrderStatusName.'.$aItem['status']);
     		// $aItem['goods'] = $aGoodsList;
 
-            $site_info = $this->Site_model->get_by_id($aItem['site_id']);
-            if(!empty($site_info))
-                $aItem['site_name'] = $site_info['site_name'];
+            // $site_info = $this->Site_model->get_by_id($aItem['site_id']);
+            // if(!empty($site_info))
+            //     $aItem['site_name'] = $site_info['site_name'];
 
 
     		$aList['rows'][$key] = $aItem;
@@ -116,6 +116,7 @@ class Order extends TokenApiController {
                 $data = $v;
                 break;
             }
+
 
             //推送订单
             $this->printapi_service->orderprint_internal_push($order_id);

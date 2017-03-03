@@ -607,7 +607,7 @@ class WeixinThirdAuth {
 			dkcache($cachekey);
 			//return '微信公众平台授权异常, 系统已修复这个错误, 请刷新页面重试.';
 		}
-		if($errors[$code]) {
+		if(!empty($errors[$code])) {
 			return $errors[$code];
 		} else {
 			return $errmsg;
@@ -1620,7 +1620,6 @@ class WeixinThirdAuth {
 
 	public function init_auth($code, $url='', $site_id=0,$invite_id=0, $client_type='app')
 	{
-		
 		$appid = !empty($this->account['key'])?$this->account['key']:$this->account['KEY'];
 		$secret = !empty($this->account['wx_appsecret'])?$this->account['wx_appsecret']:$this->account['APPSECRET'];
 		if(empty($appid))
@@ -1669,6 +1668,7 @@ class WeixinThirdAuth {
 					'city'=>$jsonObj['city'],
 					'province'=>$jsonObj['province'],
 					'country'=>$jsonObj['country'],
+					'site_id'=>$site_id,
 					'head_url'=>$headimgurl,
 					'addtime'=>time(),
 				);
@@ -1697,7 +1697,7 @@ class WeixinThirdAuth {
 				{
 					if(empty($url))
 						$url = '/';
-					header('location:/api/jump?url='.$url.'&'.http_build_query($arrData).'&'.time());
+					header('location:/api/jump?url='.$url.'&'.http_build_query($arrData).'&v='.time());
 					exit;
 				}
 				else{

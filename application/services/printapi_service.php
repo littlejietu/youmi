@@ -9,6 +9,7 @@ class Printapi_service
 		$this->ci->load->model('inter/Orderprint_log_model');
 		$this->ci->load->model('trd/Order_model');
 		$this->ci->load->model('trd/Order_oil_model');
+		$this->ci->load->model('trd/Order_goods_model');
 		$this->ci->load->model('oil/O_admin_token_model');
 	}
 
@@ -90,8 +91,9 @@ class Printapi_service
 
 	public function orderprint_internal_push($order_id){
 		$data = $this->orderprint_data($order_id);	//订单完成，才推送消息-->打印
+		$server_msg_ip = C('basic_info.SERVER_MSG_IP');
 		if(!empty($data))
-			return $this->push('tcp://192.168.1.10:5678', $data);
+			return $this->push('tcp://'.$server_msg_ip.':5678', $data);
 	}
 
 	public function push($server, $data){

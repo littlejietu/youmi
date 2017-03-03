@@ -265,7 +265,7 @@ class Report extends BaseSellerController {
         }
 
         $arrParam = array();
-        $arrWhere = array('company_id'=>$sellerInfo['company_id']);
+        $arrWhere = array('company_id'=>$sellerInfo['company_id'],'payed_status'=>1);
         $list = array();
         $prefix = $this->Price_model->prefix();
         if(!empty($site_id)){

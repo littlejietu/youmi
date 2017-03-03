@@ -210,7 +210,7 @@ class fundOrder_service
 		if($arrFundOrder['buyer_userid']==0 || $arrFundOrder['seller_userid']==0 || $arrFundOrder['fund_order_sn']=='' || $arrFundOrder['total_amt']==0 || $arrFundOrder['title']=='')
 		{
 			$arrReturn['code'] = 'Failure';
-			$arrReturn['errInfo'] = '订单基本参数不齐全';
+			$arrReturn['errInfo'] = '订单基本参数不齐全.';
 			return $arrReturn;
 		}
 
@@ -359,7 +359,7 @@ class fundOrder_service
 				//支付配置参数
 				$this->ci->load->model('oil/Site_config_model');
 				$aPayConfig = $this->ci->Site_config_model->getPayConfig($aFundOrder['site_id'],$aFundOrder['company_id']);
-				if(empty($aPayConfig) || empty($aPayConfig['wx_appid'])){
+				if(empty($aPayConfig) || empty($aPayConfig['wx_mchid'])){
 					$arrReturn['code'] = C('OrderResultError.Failure');
 					$arrReturn['errInfo'] = '支付配置参数未配置';
 					return $arrReturn;
@@ -934,7 +934,6 @@ class fundOrder_service
 	//$param  array
 	public function notice($payMethodName, $param) {
 		$arrReturn = array('code'=>'Empty','errInfo'=>'','fund_order_id'=>0,'order_id'=>0);	//,'order_sn'=>''  多订单
-		$this->ci->load->model('Site_config_model');
 		$obj = $this->tryGetPayByName($payMethodName);
 
 		if (empty($obj)) {
@@ -946,14 +945,9 @@ class fundOrder_service
 			return $arrReturn;
 		}
 
-		$aFundOrder = $this->ci->Fundorder_model->get_by_id($payNoticeResult['fund_order_id']);
-		$aPayConfig = $this->ci->Site_config_model->getPayConfig($aFundOrder['site_id'],$aFundOrder['company_id']);
-		if(empty($aPayConfig) || empty($aPayConfig['wx_appid'])){
-			$arrReturn['code'] = C('OrderResultError.Failure');
-			$arrReturn['errInfo'] = '支付配置参数未配置.';
-			return $arrReturn;
-		}
+		$this->ci->load->model('oil/Site_config_model');
 
+		$aPayConfig = C('PayConfig.WXPAY3');
 		$payNoticeResult = $obj->parseNotice($param, $aPayConfig);
 		if (empty($payNoticeResult) || !$payNoticeResult['isSuccess']) {
 			$arrReturn['code'] = C('OrderResultError.Failure');
@@ -965,10 +959,10 @@ class fundOrder_service
 		//系统日志
 		//logger.info(String.format("jump fundOrderId:%d", payNoticeResult.getFundOrderId()));
 
-		
+		$aFundOrder = $this->ci->Fundorder_model->get_by_id($payNoticeResult['fund_order_id']);
 		//$arrReturn['order_sn'] = $aFundOrder['order_sn'];  //多订单用order_sn
-		$arrReturn['order_id'] = $aFundOrder['order_id'];
 		$arrReturn = $this->dealNetPayed($payNoticeResult, $aFundOrder);
+		$arrReturn['order_id'] = $aFundOrder['order_id'];
 
 		return $arrReturn;
 	}

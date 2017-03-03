@@ -103,6 +103,7 @@ class User_service
         $tokenData = array(
             'user_id' => $data['user_id'],
             'user_name' => $data['user_name'],
+            'company_id' => $data['company_id'],
             'token' => md5(time().mt_rand(0,1000)),
             'refresh_token' => md5(time().mt_rand(1000,2000)),
             'addtime' => time(),
@@ -165,7 +166,7 @@ class User_service
     }
 
     /**
-     * @param $arrUserData=array('user_name'=>'用户名','mobile'=>'手机号','pwd'=>'密码','name'=>'昵称','platform_id' =>1,'ip'=>'ip','company_id'=>1)
+     * @param $arrUserData=array('user_name'=>'用户名','mobile'=>'手机号','pwd'=>'密码','name'=>'昵称','platform_id' =>1,'ip'=>'ip','site_id'=>1,'company_id'=>12)
      * 
      * @return
      * $arrReturn = Array ( 
@@ -209,6 +210,8 @@ class User_service
                 'reg_site_id' => $arrUserData['site_id'],
                 'platform_id' => 1,
             );
+            if(!empty($arrUserData['company_id']))
+                $data['company_id'] = $arrUserData['company_id'];
             if(!empty($arrUserData['name']))
                 $data['name'] = $arrUserData['name'];
             if(!empty($arrUserData['logo']))
@@ -272,17 +275,6 @@ class User_service
         }
         $this->ci->Account_model->update_by_where(array('user_id'=>$uid),$userData);
 
-    }
-    /*
-     *
-     * 获得用户积分
-     * */
-    public function getUserIntegral($uid){
-        $whereArr  = array(
-            'user_id'=>$uid,
-        );
-        $userData = $this->ci->Account_model->get_by_where($whereArr,'acct_integral');
-        return intval($userData['acct_integral']);
     }
 
 }

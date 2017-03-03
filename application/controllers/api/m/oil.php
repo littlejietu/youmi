@@ -19,6 +19,8 @@ class Oil extends TokenApiController {
 			output_error(-1,'此加油站不存在或已关闭');
 			exit;
 		}
+		if($info['company_id']!=$this->loginUser['company_id'])
+			output_error('NeedLogin2','请重新登录');
 		
 		$list = $this->Gun_model->get_list(array('site_id'=>$site_id), 'gun_no,oil_no');
 		$arrSite = array('site_id'=>$site_id,

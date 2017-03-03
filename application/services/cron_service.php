@@ -202,6 +202,7 @@ class Cron_service
                 $input->SetOut_refund_no($wxConfig['MCHID'].$a['fund_order_id']);
                 $input->SetOp_user_id($wxConfig['MCHID']);
                 $result = WxPayApi::refund($input, $wxConfig);
+                $result['fund_order_id'] = $a['fund_order_id'];
                 print_r($result);
             }
         }
@@ -222,6 +223,7 @@ class Cron_service
                 $refundRequestBuilder->setAppAuthToken($aliConfig['ali_auth_token']);
 
                 $result = $refundResponse->refund($refundRequestBuilder);
+                //$result['fund_order_id'] = $a['fund_order_id'];
                 print_r($result);
             }
         }

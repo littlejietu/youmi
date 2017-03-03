@@ -246,12 +246,14 @@ class WeixinThird extends WeixinThirdAuth {
 	}
 
 	public function openPlatformTestCase() {
-		global $_GPC;
 		$post = file_get_contents('php://input');
+		//file_put_contents('openPlatformTestCase.html', date('Y-m-d H:i:s').'--post string--'.var_export($post, true).PHP_EOL, FILE_APPEND);
 		//WeUtility::logging('platform-test-message', $post);
 		$encode_message = $this->xmlExtract($post);
+		//file_put_contents('openPlatformTestCase.html', date('Y-m-d H:i:s').'--encrypt string--'.$encode_message['encrypt'].PHP_EOL, FILE_APPEND);
 		$message = aes_decode($encode_message['encrypt'], $this->encodingaeskey);
 		$message = $this->parse($message);
+		//file_put_contents('openPlatformTestCase.html', date('Y-m-d H:i:s').'--message string--'.var_export($message, true).PHP_EOL, FILE_APPEND);
 		$response = array(
 			'ToUserName' => $message['from'],
 			'FromUserName' => $message['to'],
@@ -259,31 +261,37 @@ class WeixinThird extends WeixinThirdAuth {
 			'MsgId' => time(),
 			'MsgType' => 'text',
 		);
-		if ($message['content'] == 'TESTCOMPONENT_MSG_TYPE_TEXT') {
-			$response['Content'] = 'TESTCOMPONENT_MSG_TYPE_TEXT_callback';
+		if (!empty($message['content'])){
+			if ($message['content'] == 'TESTCOMPONENT_MSG_TYPE_TEXT') {
+				$response['Content'] = 'TESTCOMPONENT_MSG_TYPE_TEXT_callback';
+			}else if (strexists($message['content'], 'QUERY_AUTH_CODE')) {
+				list($sufixx, $authcode) = explode(':', $message['content']);
+				$auth_info = $this->getAuthInfo($authcode);
+				//WeUtility::logging('platform-test-send-message', var_export($auth_info, true));
+				$url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=". $auth_info['authorization_info']['authorizer_access_token'];
+				$data = array(
+					'touser' => $message['from'],
+					'msgtype' => 'text',
+					'text' => array('content' => $authcode.'_from_api'),
+				);
+				$response = ihttp_request($url, urldecode(json_encode($data)));
+				exit('');
+			}
 		}
+
 		if ($message['msgtype'] == 'event') {
 			$response['Content'] = $message['event'] . 'from_callback';
 		}
-		if (strexists($message['content'], 'QUERY_AUTH_CODE')) {
-			list($sufixx, $authcode) = explode(':', $message['content']);
-			$auth_info = $this->getAuthInfo($authcode);
-			//WeUtility::logging('platform-test-send-message', var_export($auth_info, true));
-			$url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=". $auth_info['authorization_info']['authorizer_access_token'];
-			$data = array(
-				'touser' => $message['from'],
-				'msgtype' => 'text',
-				'text' => array('content' => $authcode.'_from_api'),
-			);
-			$response = ihttp_request($url, urldecode(json_encode($data)));
-			exit('');
-		}
+		
+		$nonce = random(16);
+		$time = time();
 		$xml = array(
-			'Nonce' => $_GPC['nonce'],
-			'TimeStamp' => $_GPC['timestamp'],
+			'Nonce' => $nonce,
+			'TimeStamp' => $time,
 			'Encrypt' => aes_encode(array2xml($response), $this->encodingaeskey, $this->appid),
 		);
-		$signature = array($xml['Encrypt'], $this->token, $_GPC['timestamp'], $_GPC['nonce']);
+
+		$signature = array($xml['Encrypt'], $this->token, $time, $nonce);
 		sort($signature, SORT_STRING);
 		$signature = implode($signature);
 		$xml['MsgSignature'] = sha1($signature);

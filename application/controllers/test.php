@@ -16,22 +16,10 @@ class Test extends CI_Controller {
   }
 
   public function aa(){
+    $this->load->service('printapi_service');
 
-    $this->load->library('Testt');
-    $obj = new Testt();
-    $obj->init(11,12);
-    $obj->abab();
-
-    $obj = new Testt();
-    $obj->init(12,13);
-    $obj->abab();
-    /*
-    $this->load->library('WeixinPayMicro');
-    $obj = new WeixinPayMicro();
-    $ab = $obj->cancel(1230);
-  	echo $ab;
-  	die;
-    */
+    $aab = $this->printapi_service->orderprint_internal_push(275);
+    echo $aab.'dfdf';
   }
 
 

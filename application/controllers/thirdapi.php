@@ -15,15 +15,16 @@ class Thirdapi extends CI_Controller {
         $this->load->model('oil/Company_model');
         $this->load->model('oil/Company_config_model');
         $account = array();
-        if ($appid == C('component_appid')) {
+        if ($appid == 'wx570bc396a51b8ff8') {
             $account = array(
-                'type' => 3,
+                // 'type' => 3,
                 'key' => $appid,
-                'level' => 4,
-                'token' => 'platformtestaccount'
+                'wx_appid'=>$appid,
+                // 'level' => 4,
+                'wx_token' => 'platformtestaccount',
+                'status'=>1,
             );
         } else {
-            
             $info  = $this->Company_config_model->get_by_where(array('wx_appid'=>$appid));
             $id = $info['company_id'];
         }
