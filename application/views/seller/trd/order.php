@@ -54,16 +54,11 @@
               <option value="Closed" <?php if (isset($arrParam['status']) && $arrParam['status']=='Closed') echo " selected";?>>已关闭</option>
             </select></td>
         </tr>
-    <tr>
+        <tr>
          <th><label for="query_start_time">下单时间</label></th>
           <td><input class="txt date" type="text" value="<?php if (isset($arrParam['time1'])){echo $arrParam['time1'];}?>" id="addtime" name="time1">
               <label for="addtime">~</label>
               <input class="txt date" type="text" value="<?php if (isset($arrParam['time2'])){echo $arrParam['time2'];}?>" id="etime" name="time2"/></td>
-         
-         
-
-          
-
           <th>付款方式</th>
            <td>
               <select name="paymethod" class="w100">
@@ -77,11 +72,8 @@
               <option value="23" <?php if (isset($arrParam['paymethod']) && $arrParam['paymethod']==23){echo " selected";}?>>支付宝刷卡支付</option>
               </select>
            </td>
-           <td><a href="javascript:void(0);" id="ncsubmit" class="btn-search " title="<?php echo lang('nc_query');?>">&nbsp;</a>
-            
-            </td>
+           <td><a href="javascript:void(0);" id="ncsubmit" class="btn-search " title="<?php echo lang('nc_query');?>">&nbsp;</a></td>
         </tr>
-        
       </tbody>
     </table>
   </form>
@@ -98,7 +90,6 @@
       </tr>
     </tbody>
   </table>
-  
   <table class="table tb-type2 nobdb">
     <thead>
       <tr class="thead">
