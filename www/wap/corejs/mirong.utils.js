@@ -1,5 +1,5 @@
 /**
- * Created by tong on 2016/3/24.
+ * Created by mirong on 2017/2/19.
  */
 var CONFIG_DEBUG = true;
 var IS_DEBUG = true;
@@ -765,7 +765,7 @@ var tips_content = '<div class="cancel-mask2" style="display:block;">'
     +'<div class="cancel-wrapper">'
     +'<h3>温馨提示</h3>'
     +'<div class="div1" style="text-align:center;position:relative;">'
-    +'<img src="http://'+window.location.host+'/wap/mine/images/pic.png" style="position:absolute;width:42px;height:40px;top:10px;left:30px;margin-right:5px;"/>'
+    +'<img src="http://'+window.location.host+'/wap/images/logo_80.png" style="position:absolute;width:42px;height:40px;top:10px;left:30px;margin-right:5px;"/>'
     +'<p id="tips_content_txt" style="padding-left:80px;line-height:20px;text-align:left;">确定要取消吗？</p>'
     +'</div>'
     +'<p class="p1"><button class="btn1" id="tips_sure_btn">确定</button></p>'
@@ -803,7 +803,7 @@ var tips_content1 = '<div class="cancel-mask" style="display:none;">'
     +'		<div class="cancel-wrapper">'
     +'			<h3>温馨提示</h3>'
     +'			<div class="div1" style="text-align:center;position:relative;">'
-    +'				<img src="http://'+window.location.host+'/wap/mine/images/pic.png" style="position:absolute;width:42px;height:40px;top:10px;left:30px;margin-right:5px;"/>'
+    +'				<img src="http://'+window.location.host+'/wap/images/logo_80.png" style="position:absolute;width:42px;height:40px;top:10px;left:30px;margin-right:5px;"/>'
     +'				<div id="msg_content" style="padding-left:80px;line-height:20px;text-align:left;">确定要取消这个订单吗？</div>'
     +'			</div>'
     +'			<p class="p1"><button class="btn1 details4-btn1" id="tips2_sure_btn">确定</button><button  class="btn2" id="tips2_cancel_btn">我再想想</button></p>'

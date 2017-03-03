@@ -190,7 +190,7 @@ input{
 }
 .user_level dl dd{
 	float: left;
-	width: 2.5rem;
+	width: 2rem;
 	text-align: center;
 	line-height: 1rem;
 }

@@ -26,10 +26,7 @@ $(function(){
         
     // });
 
-    function success(res){
-        //show_tips_content2()
-        location.href = ('success.html?pay='+pay_amount+'&v='+Math.random());
-    }
+    
 
     $(".close").click(function() {
         var height = $(window).height();
@@ -152,8 +149,8 @@ function getDataResult(result){
 
     });
 
-    function success(res){
+   function success(res){
         //show_tips_content2()
-        location.href = ('success.html?pay='+pay_amount);
+        location.href = ('success.html?pay='+pay_amount+'&v='+Math.random());
     }
 }

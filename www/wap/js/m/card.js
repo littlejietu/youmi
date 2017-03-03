@@ -7,18 +7,13 @@ $(function(){
     		$('#show_nickname').html(info.nickname);
     		$('#show_mobile').html(info.mobile);
     		$('#show_img').attr('src',info.logo);
-    		if(info.member_status!=1){
-                $('#show_member').show();
-                $('#show_mycard').hide();
-            }else{
-                $('#show_member').hide();
-                $('#show_mycard').show();
-            }
+    		
     		$('#show_nickname').html(info.nickname);
 
             $('#show_acct_integral').html(info.acct_integral);
             $('#show_next_msg').html(info.next_level_msg);
             $('.user_point_now').width(info.next_percent);
+            $('.card_bg').attr('src','../img/card_0'+info.user_level+'.png');
             
 
             var source = $('#level-list-tpl').html();

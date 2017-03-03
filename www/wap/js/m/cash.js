@@ -12,11 +12,7 @@ $(function(){
 
     // });
 
-    function success(res){
-        //show_tips_content2()
-        location.href = ('success.html?pay='+pay_amount+'&v='+Math.random());
-    }
-
+    var goods_amt = 0;
     var passArr = [];
     $(".tab ul li a").click(function(){
         $("#text").hide();
@@ -51,7 +47,7 @@ $(function(){
             tipsAlert('请输入金额');
             return;
         }
-        var goods_amt = parseFloat(passArr.join('')).toFixed(2);
+        goods_amt = parseFloat(passArr.join('')).toFixed(2);
         sendPostData({"goods_amt":goods_amt,"remark":$('#remark').val()},ApiUrl+'m/order/cash',payresult);
         var height=$(window).height();
         $(".zhezhao").animate({top:height+'px'},500,function(){
@@ -77,6 +73,11 @@ $(function(){
             tipsAlert(result.msg);
         }
 
+    }
+
+    function success(res){
+        //show_tips_content2()
+        location.href = ('../order/success.html?pay='+goods_amt+'&v='+Math.random());
     }
 
 

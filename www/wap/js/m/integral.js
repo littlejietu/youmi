@@ -1,22 +1,16 @@
 $(function(){
     if(typeof FastClick != 'undefined') FastClick.attach(document.body);
 
-    var type=getUrlParam('type');
-    if(!type){
-        type = 0;
-    }
-    $('.user_order dd').click(function(){
-        $(this).siblings('dd').removeClass('on');
-        $(this).addClass('on');
-
-        tp = $(this).attr('rel');
-        if(swipeHandler){
-            swipeHandler.setBefore(true);
-        }
-        getOrderList(tp,1);
+    $('.user_points span').bind('click',function(){
+        $('.point_intro').show();
+        $('.point_intro ul.point_rules').animate({marginLeft:"3.4rem"});
     });
 
-    getOrderList(0,1);
+    $('.point_intro').bind('click',function(){
+        $('.point_intro').hide();
+    });
+
+    getList(0,1);
 
     
     
@@ -26,21 +20,24 @@ $(function(){
 
 var swipeHandler;
 var resultData;
-function getOrderList(type,page){
-    sendPostData({type:type,page:page},ApiUrl+'m/order',function (result) {
+function getList(type,page){
+    sendPostData({type:type,page:page},ApiUrl+'m/integral',function (result) {
         if(result.code!='SUCCESS'){
             tipsAlert(result.msg);
             return;
         }
+
+        if($('#show_acct_integral').html()=='')
+            $('#show_acct_integral').html(result.data.info.acct_integral);
         
-        for(var i = 0 ;i < result.data.rows.length;i++){
-            result.data.rows[i].createtime = new Date(result.data.rows[i].createtime*1000).Format('yyyy-MM-dd hh:mm:ss');
+        for(var i = 0 ;i < result.data.list.rows.length;i++){
+            result.data.list.rows[i].add_time = new Date(result.data.list.rows[i].add_time*1000).Format('yyyy-MM-dd hh:mm:ss');
         }
         resultData = result;
-        var source = $('#order-list-tpl').html();
+        var source = $('#integral-list-tpl').html();
         var render = template.compile(source);
-        var str = render(resultData.data);
-        $('#order-list').html(str);
+        var str = render(resultData.data.list);
+        $('#integral-list').html(str);
 /*
         if(!swipeHandler){
             $('#order-list').html(str);
@@ -56,20 +53,7 @@ function getOrderList(type,page){
             swipeHandler.setSwiperSlider(str);
         }
 */
-        if(resultData.data.count==0){
-            $(".empty").show();
-            if(tp == 0){
-                $(".empty span").text("还没有您的订单");
-            }else if(tp ==1){
-                $(".empty span").text("还没有您待付款的订单");
-            }else if(tp ==4){
-                $(".empty span").text("还没有您完成的订单");
-            }
-        }
-        else{
-            $(".empty").hide();
-        }
-        var total = get_total_page(resultData.data.count,resultData.data.pagesize);
+        var total = get_total_page(resultData.data.list.count,resultData.data.list.pagesize);
         //swipeHandler.setPage(parseInt(resultData.data.page),total)
         
     });
