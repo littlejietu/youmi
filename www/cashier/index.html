@@ -17,21 +17,44 @@
 		<script type="text/javascript" src="corejs/fastclick.js"></script>
 		<script type="text/javascript" src="corejs/arttemplate.js"></script>
 		<script type="text/javascript" src="corejs/mirong.utils.js"></script>
-		<!--<script type="text/javascript" src="corejs/lib.js"></script>-->
+		<script type="text/javascript" src="corejs/lib.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 	</head>
 	<body>
 		<div class="container">
+
 			<div class="header">
 				<div class="logo">
 					<img src="img/logo.png" width="180" height="91" />
 				</div>
 				<div class="operate">
-					<h1><div class="user_pic"><img src="img/header_user.png"></div> <span id="site_name"></span></h1>
+					<h1 id="site_name"></h1>
 					<div class="user">
 						<p class="user_name"><span id="cashier_name">某某</span>，你好~</p>
 						<i class="logoout" id="logoout"></i>
-						<i class="set" id="btnConnect"></i>
+						<i class="set">
+							<dl class="set_list" id="set_list">
+								<dd>
+									<a href="javascript:void(0);">连接服务器</a>
+								</dd>
+								<dd>
+									<a href="javascript:void(0);">测试打印</a>
+								</dd>
+								<dd>
+									<a href="javascript:void(0);">打印机设置</a>
+								</dd>
+								<dd>
+									<a href="javascript:void(0);">绑定打印</a>
+								</dd>
+								<dd>
+									<a href="javascript:void(0);">修改密码</a>
+								</dd>
+								<dd>
+									<a href="javascript:void(0);">热键设置</a>
+								</dd>
+							</dl>
+						</i>
+						<div class="user_pic"><img src="img/header_user.png"></div>
 					</div>
 				</div>
 			</div>
@@ -92,7 +115,8 @@
 			</div>
 		</div>
 
-
+		<div class="mask" style="display: none;"></div>
+		<div id="mask_con" class="mask_con" style="display: none;">
 
 <script type="text/html" id="index-gun-amt-tpl">
 	<label>油枪号<input type="hidden" name="gun_no" id="gun_no"></label>
