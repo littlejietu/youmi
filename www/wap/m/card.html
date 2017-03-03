@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>我的会员卡</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/style.css" />
+		<script type="text/javascript" src="../corejs/0.js"></script>
+		<script  type="text/javascript" src="../corejs/jquery.min.js"></script>
+		<script  type="text/javascript" src="../corejs/mirong.config.js"></script>
+		<script  type="text/javascript" src="../corejs/mirong.utils.js"></script>
+		<script  type="text/javascript" src="../corejs/arttemplate.js"></script>
+		<script  type="text/javascript" src="../corejs/fastclick.js"></script>
+		<script  type="text/javascript" src="../corejs/lib.js"></script>
+		<script  type="text/javascript" src="../js/m/card.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="user_card">
+				<img class="card_bg" src="../img/card_01.png" />
+				<div class="user_info">
+				<div class="user_pic">
+					<img src="../img/header_user.png" id="show_img"/>
+					<div class="user_nf">
+						<p class="user_name" id="show_nickname"></p>
+						<p class="user_tel" id="show_mobile"></p>
+					</div>
+				</div>
+			
+				<div class="user_point">
+					<div class="user_point_show">
+						<div class="user_point_now">
+							<span class="user_point_num"><b id="show_acct_integral">0</b>积分</span>
+							<span class="user_point_circle"></span>
+						</div>
+					</div>
+					<p class="tr" id="show_next_msg"></p>
+				</div>
+			</div>
+			</div>
+			<div class="user_level">
+				<dl id="level-list">
+				</dl>
+			</div>
+			<div class="card_notice">
+				<h3>规则~</h3>
+				<p>动态会员级别自定义设置（动态级别分为：普通会员、银卡会员、金卡会员、白金会员、钻石会员）</p>
+			</div>
+		</div>
+
+<script type="text/html" id="level-list-tpl">
+	{{each level_list as value i}}
+		<dd {{if value.level_id==info.user_level}}class="on"{{/if}}>{{value.level_name}}</dd>
+	{{/each}}
+</script>
+	</body>
+</html>
