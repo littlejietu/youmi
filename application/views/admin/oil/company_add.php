@@ -21,7 +21,7 @@
 <div class="page">
   <div class="fixed-bar">
     <div class="item-title">
-      <h3>公司设置</h3>
+      <h3>公司管理</h3>
       <ul class="tab-base">
       <li><a href="<?php echo ADMIN_SITE_URL.'/company';?>"><span>公司列表</span></a></li>
       <li><a href="JavaScript:void(0);" class="current"><span>添加公司</span></a></li>
@@ -47,6 +47,27 @@
           <td class="vatop rowform"><input type="text" id="company_long" name="company_long" class="txt" value="<?php echo !empty($info)?$info['company_long']:'';?>"></td>
           <td class="vatop tips">请输入公司全称</td>
         </tr>
+        <tr class="noborder">
+          <td colspan="2" class="required"><label class="validation" for="user_name">管理员:</label></td>
+        </tr>
+        
+        <tr class="noborder">
+          <td class="vatop rowform">
+            <?php if(empty($info)):?>
+              <input type="text" value="" name="user_name" id="user_name" class="txt">
+            <?php else:?>
+              <?php echo $info['username'];?><input type="hidden" value="<?php echo $info['admin_id'];?>" name="admin_id">
+            <?php endif;?>
+          </td>
+          <td class="vatop tips"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><label for="user_pwd">密码:</label></td>
+          </tr>
+          <tr class="noborder">
+            <td class="vatop rowform"><input type="password" id="user_pwd" name="user_pwd" class="txt"></td>
+            <td class="vatop tips"></td>
+          </tr>
         <tr>
           <td colspan="2" class="required"><label for="product_id">套餐产品:</label></td>
         </tr>
