@@ -67,7 +67,7 @@
           <th class="align-center">电话</th>
           <th class="align-center">QQ</th>
           <th class="align-center">状态</th>
-          <th class="w200 align-center">操作</th>
+          <th class="w300 align-center">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -91,7 +91,8 @@
             <a href="<?php echo SELLER_SITE_URL.'/site/add?id='.$v['id']; ?>">编辑</a> | 
             <a href="javascript:void(0)" onclick="if(confirm('您确定要删除吗?')){location.href='<?php echo ADMIN_SITE_URL.'/site/del?id='.$v['id']; ?>'}">删除</a> | 
             <a href="<?php echo SELLER_SITE_URL.'/price?site_id='.$v['id']; ?>">油品管理</a> | 
-            <a href="<?php echo SELLER_SITE_URL.'/gun?site_id='.$v['id']; ?>">油枪管理</a>
+            <a href="<?php echo SELLER_SITE_URL.'/gun?site_id='.$v['id']; ?>">油枪管理</a> | 
+            <a href="<?php echo SELLER_SITE_URL.'/cashier?site_id='.$v['id']; ?>">收银员管理</a>
           </td>
         </tr>
         <?php endforeach; ?>
