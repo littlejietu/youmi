@@ -89,13 +89,19 @@ class Company extends MY_Admin_Controller {
          //$this->lang->load('admin_admin');
 
         $id = $this->input->get('id');
+        $this->load->model(array('sys/Product_model','oil/O_admin_model'));
 
         $info = array();
-        if(!empty($id))
+        if(!empty($id)){
             $info = $this->Company_model->get_by_id($id);
+            $admin_info = $this->O_admin_model->get_by_where(array('company_id'=>$info['id'],'is_super'=>1,'status'=>1),'id as admin_id,username');
+            $admin_info = empty($admin_info)?array():$admin_info;
+
+            $info = array_merge($info, $admin_info);
+        }
 
         
-        $this->load->model('sys/Product_model');
+        
         $product_list = $this->Product_model->get_list();
         //print_r($product_list);die;
         $result = array(
@@ -131,6 +137,19 @@ class Company extends MY_Admin_Controller {
                 $prd_start_time = !empty($prd_start_time)?strtotime($prd_start_time):0;
                 $prd_end_time = $this->input->post('prd_end_time');
                 $prd_end_time = !empty($prd_end_time)?strtotime($prd_end_time):0;
+                $user_name = $this->input->post('user_name');
+                $user_pwd = $this->input->post('user_pwd');
+                $admin_id = $this->input->post('admin_id');
+
+                $this->load->model('oil/O_admin_model');
+
+                if(!empty($user_name)){
+                    $aUser = $this->O_admin_model->get_by_where(array('username'=>"$user_name"));
+                    if(!empty($aUser)){
+                        showDialog('管理员用户名已存在，请换一个');
+                        exit;
+                    }
+                }
 
                 $data = array(
                     'company' => $this->input->post('company'),
@@ -155,9 +174,19 @@ class Company extends MY_Admin_Controller {
                     $prefix = $this->Level_model->prefix();
                     $sql = 'insert '.$prefix.'sys_level(level_id,level_name,integral_num, next_msg,company_id) select id as level_id,level_name,integral_num, next_msg,'.$company_id.' from '.$prefix.'sys_level_def where not exists(select 1 from '.$prefix.'sys_level where company_id='.$company_id.')';
                     $this->Level_model->execute($sql);
+
+                    //添加管理员
+                    $data_admin = array('username'=>$user_name,'password'=>md5($user_pwd),'name'=>'管理员','is_super'=>1,'is_cashier'=>0,'company_id'=>$company_id,'site_ids'=>'','status'=>1);
+                    $this->O_admin_model->insert_string($data_admin);
                 }
-                else
+                else{
                     $this->Company_model->update_by_id($id, $data);
+
+                    //修改密码
+                    if(!empty($user_pwd)&&!empty($admin_id))
+                        $this->O_admin_model->update_by_id($admin_id, array('password'=>md5($user_pwd)));
+                    
+                }
                 
                 redirect(ADMIN_SITE_URL.'/company');
             }
