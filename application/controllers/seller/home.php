@@ -125,7 +125,7 @@ class Home extends BaseSellerController {
 					'text' 	=> lang('nc_config') ),
 				2 => array(
 					'args' 	=> 'company',
-					'text' 	=> '公司'),
+					'text' 	=> '油站'),
 				/*3 => array(
 					'args' 	=> 'store',
 					'text' 	=> lang('nc_store')),
@@ -187,12 +187,12 @@ class Home extends BaseSellerController {
 				),
 				2 => array(
 					'nav' => 'company',
-					'text' => '公司',
+					'text' => '油站',
 					'list' => array(
 						// array('args'=>',net,company',								'text'=>'网点管理'),
-						array('args'=>',site,company',								'text'=>'加油站管理'),
-						array('args'=>',user,company',								'text'=>'会员管理'),
-						// array('args'=>',spec_name,company',								'text'=>'规格管理'),
+						array('args'=>',site,company',									'text'=>'加油站管理'),
+						array('args'=>',user,company',									'text'=>'会员管理'),
+						array('args'=>',cashier,company',								'text'=>'收银员管理'),
 						// array('args'=>',goods_tpl,company',								'text'=>'标准商品模板管理'),
 						// array('args'=>',goods_audit,company',								'text'=>'商品价格审核管理'),
 						//array('args'=>'type,type,goods',								'text'=>lang('nc_type_manage')),

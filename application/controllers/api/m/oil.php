@@ -41,16 +41,17 @@ class Oil extends TokenApiController {
 		$site_id = $this->input->post('site_id');
 
 		$this->load->service('buying_service');
-		$this->load->model('oil/Gun_model');
-		$this->load->model('pmt/Activity_model');
+		$this->load->model(array('oil/Gun_model','user/User_model','pmt/Activity_model'));
 
 		$info = $this->Gun_model->get_info_by_no($gun_no, $site_id);
 		if(empty($info) || empty($info['price'])){
 			output_error('GunErr','该枪号不存在');
 			exit;
 		}
+
+		$user_info = $this->User_model->get_by_id($user['user_id']);
 		
-		$arrAct = $this->buying_service->getOilDiscount($info['oil_no'], $info['price'], $amount, $user['user_id'], 1, $site_id);
+		$arrAct = $this->buying_service->getOilDiscount($info['oil_no'], $info['price'], $amount, $user['user_id'], $user_info['user_level'], $site_id);
 		if(!empty($arrAct)){
 			$actInfo = $this->Activity_model->get_by_id($arrAct['act_id']);
 			$arrAct['name'] = $actInfo['title'];

@@ -82,7 +82,7 @@ class User extends BaseSellerController {
 		    $user_list['rows'][$key] = $rs;
 		}
 		
-		//鍒嗛〉
+		//分页
 		$pagecfg = array();
 		$pagecfg['base_url']     = _create_url(SELLER_SITE_URL.'/user', $arrParam);
 		$pagecfg['total_rows']   = $user_list['count'];
@@ -92,7 +92,7 @@ class User extends BaseSellerController {
 		$this->pagination->initialize($pagecfg);
 		$user_list['pages'] = $this->pagination->create_links();
 		
-		$status = array(1=>'姝ｅ父',2=>'閿佸畾' );
+		$status = array(1=>'正常',2=>'锁定' );
 		$result = array(
 		    'user_list' => $user_list,
 		    'status' => $status,
@@ -192,17 +192,17 @@ class User extends BaseSellerController {
 	        $config = array(
 	            array(
 	                'field'   => 'member_name',
-	                'label'   => '浼氬憳鍚嶇О',
+	                'label'   => '会员名称',
 	                'rules'   => 'trim|required'
 	            ),
 	            array(
 	                'field'   => 'member_passwd',
-	                'label'   => '浼氬憳瀵嗙爜',
+	                'label'   => '会员密码',
 	                'rules'   => 'trim|required'
 	            ),
 	            array(
 	                'field'   => 'member_tel',
-	                'label'   => '鐢靛瓙閭',
+	                'label'   => '电子邮箱',
 	                'rules'   => 'trim|required'
 	            ),
 	        );

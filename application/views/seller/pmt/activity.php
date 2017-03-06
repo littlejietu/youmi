@@ -50,11 +50,11 @@
                 <option <?php echo (isset($arrParam['site_id']) && $arrParam['site_id']==$v['id'])?'selected':''?>  value="<?php echo $v['id']?>"><?php echo $v['site_name']?></option>
                 <?php endforeach;?>
             </select>
-        参与对象 <select name="paymethod" class="w100">
+        参与对象 <select name="level_id" class="w100">
             <option value="">请选择</option>
-            <option value="1" <?php if (isset($arrParam['paymethod']) && $arrParam['paymethod']==1){echo " selected";}?>>余额支付</option>
-            <option value="11" <?php if (isset($arrParam['paymethod']) && $arrParam['paymethod']==11){echo " selected";}?>>微信APP支付</option>
-            <option value="12" <?php if (isset($arrParam['paymethod']) && $arrParam['paymethod']==12){echo " selected";}?>>微信Wap支付</option>
+            <?php foreach($level_list as $v):?>
+                <option <?php echo (isset($arrParam['level_id']) && $arrParam['level_id']==$v['level_id'])?'selected':''?>  value="<?php echo $v['level_id']?>"><?php echo $v['level_name']?></option>
+                <?php endforeach;?>
             </select>
 
             <select name="search_time" >
