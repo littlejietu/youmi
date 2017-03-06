@@ -12,7 +12,7 @@
 <?php echo _get_html_cssjs('seller',TPL_ADMIN_NAME.'css/font-awesome.min.css','css');?>
 
 <!--[if IE 7]>
-  <?php echo _get_html_cssjs('admin',TPL_ADMIN_NAME.'css/font-awesome-ie7.min.css','css');?>
+  <?php echo _get_html_cssjs('seller',TPL_ADMIN_NAME.'css/font-awesome-ie7.min.css','css');?>
 <![endif]-->
 <?php echo _get_html_cssjs('seller_js','perfect-scrollbar.min.js','js');?>
 

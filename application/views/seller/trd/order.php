@@ -168,7 +168,7 @@
 <!-- <script type="text/javascript" src="<?php //echo RESOURCE_SITE_URL;?>/js/jquery-ui/i18n/zh-CN.js" charset="utf-8"></script> -->
 <!-- <link rel="stylesheet" type="text/css" href="<?php //echo RESOURCE_SITE_URL;?>/js/jquery-ui/themes/ui-lightness/jquery.ui.css"  /> -->
 <?php echo _get_html_cssjs('lib','jquery-ui/themes/ui-lightness/jquery.ui.css','css');?>
-<?php echo _get_html_cssjs('lib','jquery-ui/jquery.ui.js','js');?>
+<?php echo _get_html_cssjs('lib','jquery-ui/i18n/zh-CN.js,jquery-ui/jquery.ui.js','js');?>
 <script type="text/javascript">
 $(function(){
     $('#addtime').datepicker({dateFormat: 'yy-mm-dd'});

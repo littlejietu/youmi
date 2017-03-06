@@ -43,7 +43,7 @@ class Order extends BaseSellerController {
             $arrParam['site_id'] = $site_id;
         }
         if(!empty($buyer_username)){
-            $arrWhere['buyer_username']  = $buyer_username;
+            $arrWhere['buyer_username']  = "'$buyer_username'";
             $arrParam['buyer_username'] = $buyer_username;
         }
         if(!empty($status)){
