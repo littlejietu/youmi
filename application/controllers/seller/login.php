@@ -63,9 +63,15 @@ class Login extends CI_Controller {
 			if(empty($adminInfo)) {
 				$arrRes['code'] = 'USER_PWD_ERR';
 				$arrRes['msg'] = '用户名不存在！';
-			}elseif($adminInfo['pwd'] !=  md5(trim($password))){
+			}elseif($adminInfo['password'] !=  md5(trim($password))){
 				$arrRes['code'] = 'PWD_ERROR';
 				$arrRes['msg'] = '用户名或密码错误！';
+			}elseif($adminInfo['is_super'] !=1){
+				$arrRes['code'] = 'ERROR';
+				$arrRes['msg'] = '不是公司管理员';
+			}elseif($adminInfo['status'] !=1){
+				$arrRes['code'] = 'ERROR';
+				$arrRes['msg'] = '已被禁用';
 			}
 
 			if($arrRes['code']!='SUCCESS'){
