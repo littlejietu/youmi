@@ -481,8 +481,8 @@ class BaseSellerController extends CI_Controller {
     	parent::__construct();
         $this->load->library('encrypt');
         $this->load->library('session');
-        // $this->seller_info = $this->sellerLogin();
-        $this->seller_info = array ( 'admin_name' => 'seller', 'admin_id' => 3, 'role_id' => 1, 'is_super' => 1,'company_id'=>1,'site_ids'=>1 );
+        $this->seller_info = $this->sellerLogin();
+        //$this->seller_info = array ( 'admin_name' => 'seller', 'admin_id' => 3, 'role_id' => 1, 'is_super' => 1,'company_id'=>1,'site_ids'=>1 );
         if (empty($this->seller_info['admin_id'])||!$this->checkSellerPermission()){
            // 验证权限
            redirect(SELLER_SITE_URL.'/login1');
@@ -510,8 +510,8 @@ class BaseSellerController extends CI_Controller {
     function sellerLogin(){
         //取得cookie内容，解密，和系统匹配
         $user = unserialize($this->encrypt->decode($this->session->userdata('seller_key'),C('basic_info.MD5_KEY') ) );
-        if (!key_exists('role_id',(array)$user) || !isset($user['is_super']) || empty($user['admin_username']) || empty($user['admin_id']) || empty($user['site_ids']) || empty($user['company_id']) ){
-            @header('Location: '.SELLER_SITE_URL.'/login2');exit;
+        if (!isset($user['is_super']) || empty($user['admin_username']) || empty($user['admin_id']) || empty($user['company_id']) ){
+            @header('Location: '.SELLER_SITE_URL.'/login');exit;
         }else {
             //$this->session->set_userdata('seller_key',$this->encrypt->encode(serialize($user),C('basic_info.MD5_KEY')),36000);
         }
