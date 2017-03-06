@@ -62,12 +62,26 @@
           <td class="vatop tips"></td>
         </tr>
         <tr>
-            <td colspan="2"><label for="user_pwd">密码:</label></td>
-          </tr>
-          <tr class="noborder">
-            <td class="vatop rowform"><input type="password" id="user_pwd" name="user_pwd" class="txt"></td>
-            <td class="vatop tips"></td>
-          </tr>
+          <td colspan="2"><label for="user_pwd">密码:</label></td>
+        </tr>
+        <tr class="noborder">
+          <td class="vatop rowform"><input type="password" id="user_pwd" name="user_pwd" class="txt"></td>
+          <td class="vatop tips"></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="required"><label class="validation" for="wx_appid">微信Appid:</label></td>
+        </tr>
+        <tr class="noborder">
+          <td class="vatop rowform"><input type="text" id="wx_appid" name="wx_appid" class="txt" value="<?php echo !empty($info)?$info['wx_appid']:'';?>"></td>
+          <td class="vatop tips"></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="required"><label class="validation" for="wx_mchid">微信子商户id:</label></td>
+        </tr>
+        <tr class="noborder">
+          <td class="vatop rowform"><input type="text" id="wx_mchid" name="wx_mchid" class="txt" value="<?php echo !empty($info)?$info['wx_mchid']:'';?>"></td>
+          <td class="vatop tips"></td>
+        </tr>
         <tr>
           <td colspan="2" class="required"><label for="product_id">套餐产品:</label></td>
         </tr>

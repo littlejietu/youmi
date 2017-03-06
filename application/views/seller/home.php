@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <meta http-equiv="Content-Type" content="text/html;" charset="<?php echo CHARSET?>">
-<title><?php echo $output['html_title'];?></title>
+<title>加油站管理平台 - 油蜜</title>
 
 <link href="<?php echo _get_cfg_path('seller').TPL_ADMIN_NAME;?>css/skin_0.css" type="text/css" rel="stylesheet" id="cssfile" />
 <?php echo _get_html_cssjs('seller_js','jquery.js,jquery.validation.min.js,jquery.cookie.js','js');?>
@@ -236,7 +236,7 @@ function addFavorite(url, title) {
           <div id="topnav" class="top-nav">
             <ul>
               <li class="adminid" title="<?php echo lang('nc_hello');?>:<?php echo $output['admin_info']['admin_name'];?>"><?php echo lang('nc_hello');?>&nbsp;:&nbsp;<strong><?php echo $output['admin_info']['admin_name'];?></strong></li>
-              <li><a href="<?php echo SELLER_SITE_URL;?>/common/modifypw" target="workspace" ><span><?php echo lang('nc_modifypw'); ?></span></a></li>
+              <li><a href="<?php echo SELLER_SITE_URL;?>/other/modifypw" target="workspace" ><span><?php echo lang('nc_modifypw'); ?></span></a></li>
               <li><a href="<?php echo SELLER_SITE_URL;?>/login/logout" title="<?php echo lang('nc_logout');?>"><span><?php echo lang('nc_logout');?></span></a></li>
               <!-- <li><a href="<?php //echo BASE_SITE_URL;?>" target="_blank" title="<?php //echo lang('nc_homepage');?>"><span><?php //echo lang('nc_homepage');?>1111</span></a></li> -->
             </ul>
