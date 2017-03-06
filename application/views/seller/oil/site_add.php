@@ -200,7 +200,7 @@ $(document).ready(function(){
         	site_name : {
                 required : true,
 
-				maxlength: 20,
+				        maxlength: 20,
                 remote   : {                
                 url :"/admin/admin/ajax_check_name",
                 type:'get',
