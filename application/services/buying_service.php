@@ -24,10 +24,7 @@ class Buying_service
     //油品最大优惠的活动及优惠金额
     //@return array('act_id','discount_amt')
     public function getOilDiscount($oil_no, $price, $oil_amt, $user_id, $user_level, $site_id){
-        $this->ci->load->model('pmt/Activity_model');
-        $this->ci->load->model('pmt/Discount_oil_model');
-        $this->ci->load->model('pmt/Discount_step_model');
-        $this->ci->load->model('trd/Order_oil_model');
+        $this->ci->load->model(array('pmt/Activity_model','pmt/Discount_oil_model','pmt/Discount_step_model','trd/Order_oil_model'));
 
         $arrResult = null;
         $time = time();
@@ -40,8 +37,9 @@ class Buying_service
             '(user_level_ids is null or user_level_ids="" or concat(",",user_level_ids,",") like '=>"'%,$user_level,%')",//限制会员等级
         );
         $list = $this->ci->Activity_model->get_list($where);
-//print_r($this->ci->Activity_model->db->last_query());die;
+//echo $this->ci->Activity_model->db->last_query();die;
         $arrDiscount = array();
+        //$strNot = '';
         foreach ($list as $k => $v) {
             //限制时段
             if($v['is_period']){
@@ -77,7 +75,6 @@ class Buying_service
                     continue;
             }
 
-            
             //1:满立减 2:满立折
             if($v['type']==1 || $v['type']==2){
                 $discount_list = $this->ci->Discount_step_model->get_list(array('act_id'=>$v['id'],'order_amount<='=>$oil_amt,'status'=>1),'*','discount_amount desc, discount_percent asc',1);

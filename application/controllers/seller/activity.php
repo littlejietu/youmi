@@ -17,14 +17,16 @@ class Activity extends BaseSellerController {
         $time1 = $this->input->post_get('time1');
         $time2 = $this->input->post_get('time2');
         $site_id = $this->input->post_get('site_id');
+        $level_id = $this->input->post_get('level_id');
         $type = $this->input->post_get('type');
 
-        $this->load->model('oil/Site_model');
+        $this->load->model(array('oil/Site_model','sys/Level_model'));
 
         $site_list = $this->Site_model->get_list(array('company_id'=>$sellerInfo['company_id'],'status'=>1),'id,site_name');
+        $level_list = $this->Level_model->get_list(array('company_id'=>$sellerInfo['company_id']),'level_id,level_name');
 
         $page     = _get_page();
-        $pagesize = 5;
+        $pagesize = 10;
         $arrParam = array();
         $arrWhere = array('status<>'=>-1, 'company_id'=>$company_id);
 
@@ -43,6 +45,11 @@ class Activity extends BaseSellerController {
             $arrParam['site_id'] = $site_id;
         }
 
+        if(!empty($level_id)){
+            $arrWhere['(user_level_ids="" or concat(",",user_level_ids,",") like'] = "'%,$level_id,%')";
+            $arrParam['level_id'] = $level_id;
+        }
+
         $arrFileldTime = array('start_time','end_time');
         if(!empty($time1) && in_array($search_time,$arrFileldTime)){
             $arrWhere[$search_time.' >= '] = strtotime($time1);
@@ -59,6 +66,14 @@ class Activity extends BaseSellerController {
         $list = $this->Activity_model->fetch_page($page, $pagesize, $arrWhere,'a.id,title,type,start_time,end_time,is_period,weekdays,time1,time2,site_ids,user_level_ids,status,b.name as activity_name', 'a.status,a.type,start_time desc',$tb);
         foreach ($list['rows'] as $k => $v) {
             $v['user_level_name'] = '所有会员';
+            if(!empty($v['user_level_ids'])){
+                $tmp_level_names = '';
+                $tmp_level_list = $this->Level_model->get_list('id in('.$v['user_level_ids'].')','level_name');
+                foreach ($tmp_level_list as $l_k => $l_v) {
+                    $tmp_level_names .= $l_v['level_name'].',';
+                }
+                $v['user_level_name'] = trim($tmp_level_names, ',');
+            }
             $v['period_time'] = '任意时段';
             if($v['is_period']==1){
                 $strWeek = '';
@@ -102,6 +117,7 @@ class Activity extends BaseSellerController {
         $result = array(
             'list' =>$list,
             'site_list' => $site_list,
+            'level_list' => $level_list,
             'arrParam' => $arrParam,
         );
 
@@ -115,6 +131,7 @@ class Activity extends BaseSellerController {
         $sellerInfo = $this->seller_info;
 
         $this->load->model('oil/Site_model');
+        $this->load->model('sys/Level_model');
         $this->load->model('pmt/Discount_step_model');
         $this->load->model('pmt/Discount_oil_model');
 
@@ -130,10 +147,12 @@ class Activity extends BaseSellerController {
             }
         }
         $site_list = $this->Site_model->get_list(array('company_id'=>$sellerInfo['company_id'],'status'=>1));
+        $level_list = $this->Level_model->get_list(array('company_id'=>$sellerInfo['company_id']),'*','level_id');
 
         $result = array(
             'discount_list' => $discount_list,
             'site_list' => $site_list,
+            'level_list' => $level_list,
             'info' => $info,
         );
         
@@ -189,7 +208,7 @@ class Activity extends BaseSellerController {
                     'intro' => $this->input->post('intro'),
                     'is_limit_site' => $this->input->post('is_limit_site'),
                     'site_ids' => $this->input->post('site_ids'),
-                    'user_level_ids' => $this->input->post('user_level'),
+                    'user_level_ids' => $this->input->post('user_level_ids'),
                     'is_limit_total_num' => $this->input->post('is_limit_total_num'),
                     'limit_total_num' => $this->input->post('limit_total_num'),
                     'is_limit_per_total_num' => $this->input->post('is_limit_per_total_num'),

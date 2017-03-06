@@ -327,26 +327,27 @@ $(document).ready(function(){
  
 jQuery.divselect = function(divselect,inputselectid) {
 	var inputselect = $(inputselectid);
-	$(divselect+" cite").click(function(event){
-		event.stopPropagation();
+  $(divselect+" cite").click(function(event){
+    event.stopPropagation();
     var ul = $(this).closest(divselect).find("ul");
     if(ul.css("display")=="none"){
-    	$(divselect).find('ul').hide();
+      $(divselect).find('ul').hide();
       ul.slideDown("fast");
     }else{
       ul.slideUp("fast");
     }
-	});
-	$(divselect+" ul li a").click(function(event){
-		event.stopPropagation();
+  });
+  $(divselect+" ul li a").click(function(event){
+    event.stopPropagation();
     var txt = $(this).text();
     $(this).closest(divselect).find("cite").html(txt);
     var value = $(this).attr("selectid");
     $(this).closest(divselect).find(inputselect).val(value);
     $(divselect+" ul").hide();
-	});
-	$('body').click(function(event){
-		event.stopPropagation();
-		$(divselect).find('ul').hide();
-	});
+  });
+  $('body').click(function(event){
+    event.stopPropagation();
+    $(divselect).find('ul').hide();
+  });
+  	
 };

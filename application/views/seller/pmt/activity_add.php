@@ -65,9 +65,9 @@
               <option value="2"<?php if(empty($info) || $info['is_limit_site']==2) echo ' selected';?>>不限</option>
               <option value="1"<?php if(!empty($info) && $info['is_limit_site']==1) echo ' selected';?>>限定加油站</option>
             </select>
-            <div class="<?php if(empty($info) || $info['is_limit_site']==1) echo 'fn-hide';?>" id="fixed-site">
+            <div class="<?php if(empty($info) || $info['is_limit_site']==2) echo 'fn-hide';?>" id="fixed-site">
               <input type="hidden" name="site_ids" id="site_ids" value="<?php echo !empty($info)?$info['site_ids']:'';?>">
-              <div class="site-select com-plane-select fn-clear fn-mt15 fn-mb15 rowform">
+              <div class="site-select com-plane-select fn-clear fn-mt15 fn-mb15 ">
                 <ul class="fn-clear fn-fl">
                   <?php foreach($site_list as $v):?>
                     <li data-value="<?php echo $v['id']?>" class="item<?php if(!empty($info) && strpos(','.$info['site_ids'].',', ','.$v['id'].',')!== false ) echo ' item-selected';?>"><?php echo $v['site_name'];?></li>
@@ -85,14 +85,14 @@
           <td class="vatop rowform">
             <select id="is_limit_level" name="is_limit_level">
               <option value="2"<?php if(empty($info) || $info['is_limit_level']==2) echo ' selected';?>>所有客户</option>
-              <option value="1"<?php if(!empty($info) || $info['is_limit_level']==2) echo ' selected';?>>指定客户</option>
+              <option value="1"<?php if(!empty($info) && $info['is_limit_level']==1) echo ' selected';?>>指定客户</option>
             </select>
-            <div class="<?php if(empty($info) || $info['is_limit_site']==1) echo 'fn-hide';?>" id="fixed-site">
+            <div class="<?php if(empty($info) || $info['is_limit_level']==2) echo 'fn-hide';?>" id="fixed-level">
               <input type="hidden" name="user_level_ids" id="user_level_ids" value="<?php echo !empty($info)?$info['user_level_ids']:'';?>">
-              <div class="site-select com-plane-select fn-clear fn-mt15 fn-mb15 rowform">
+              <div class="level-select com-plane-select fn-clear fn-mt15 fn-mb15 ">
                 <ul class="fn-clear fn-fl">
                   <?php foreach($level_list as $v):?>
-                    <li data-value="<?php echo $v['id']?>" class="item<?php if(!empty($info) && strpos(','.$info['user_level_ids'].',', ','.$v['id'].',')!== false ) echo ' item-selected';?>"><?php echo $v['level_name'];?></li>
+                    <li data-value="<?php echo $v['level_id']?>" class="item<?php if(!empty($info) && strpos(','.$info['user_level_ids'].',', ','.$v['level_id'].',')!== false ) echo ' item-selected';?>"><?php echo $v['level_name'];?></li>
                   <?php endforeach;?>
                 </ul>
               </div>
@@ -377,7 +377,32 @@ $(function(){
       }
     });
 
-    
+    $('.level-select ul li').click(function(){
+      if($(this).hasClass('item-selected'))
+        $(this).removeClass('item-selected');
+      else
+        $(this).addClass('item-selected');
+
+      var item = '';
+      $('.level-select .item-selected').each(function(){
+        item += $(this).attr('data-value') +',';
+      });
+      if(item!='')
+        item = item.substring(0, item.length-1);
+      $('#user_level_ids').val(item);
+
+    });
+    $('#is_limit_level').change(function(){
+      if($('#is_limit_level').val()==1)
+        $('#fixed-level').show();
+      else{
+        $('#fixed-level').hide();
+        $('#user_level_ids').val('');
+        $('.site-select .item-selected').each(function(){
+          $(this).removeClass('item-selected');
+        });
+      }
+    });
 
     $('.weekdays-select ul li').click(function(){
       if($(this).hasClass('item-selected'))
@@ -393,10 +418,6 @@ $(function(){
         days = days.substring(0, days.length-1);
       $('#weekdays').val(days);
 
-    });
-    $('#is_limit_site').change(function(){
-      if($('#is_limit_site').val()==1)
-        $('#fixed-site').show();
     });
     $('#is_period').change(function(){
       if($('#is_period').val()==1)
@@ -422,9 +443,6 @@ $(function(){
       $('.trStepList').hide();
       $('#trStepList'+type).show();
     });
-
-
-
 
 });
 </script>

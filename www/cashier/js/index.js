@@ -21,13 +21,13 @@ $(function(){
     	goScan();
     });
 
-     $("#oil_amt,#goods_amt").keyup(function(){    
+    $("#oil_amt,#goods_amt").keyup(function(){    
                     $(this).val($(this).val().replace(/[^0-9.]/g,''));    
                 }).bind("paste",function(){  //CTR+V事件处理    
                     $(this).val($(this).val().replace(/[^0-9.]/g,''));     
                 }).css("ime-mode", "disabled"); //CSS设置输入法不可用    
 
-    $('#index-gun-list dd').live('click',function(){
+    $('#index-gun-amt').delegate('dd','click',function(){
 		$(this).siblings('dd').removeClass('on');
 		$(this).addClass('on');
 
