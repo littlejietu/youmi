@@ -35,31 +35,23 @@
         <tr>
         <td><select name="user_level" class="querySelect">
               <option value="0">全部</option>
-              <?php foreach($site_list as $k=>$v):?>
-              <option value="<?php echo $v['id']?>"<?php echo !empty($arrParam['site_id'])&&$arrParam['site_id']==$v['id']?' selected':'';?>><?php echo $v['site_name']?></option>
+              <?php foreach($level_list as $k=>$v):?>
+              <option value="<?php echo $v['level_id']?>"<?php echo !empty($arrParam['user_level'])&&$arrParam['user_level']==$v['level_id']?' selected':'';?>><?php echo $v['level_name']?></option>
             <?php endforeach;?>
             </select>
          </td>
           <td>
-          <select name="user_level" >
-            <option  value="">全部</option>
-            <option  value="level_id"<?php if(!empty($arrParam['user_level']) && $arrParam['user_level']=='level_id') echo ' selected';?>>等级数</option>
-            <option  value="2"<?php if(!empty($arrParam['user_level']) && $arrParam['user_level']==2) echo ' selected';?>>等级名</option>
-            <option  value="3"<?php if(!empty($arrParam['user_level']) && $arrParam['user_level']==3) echo ' selected';?>>企业</option>
-          </select>
-          <input type="text" value="<?php if (!empty($cKey)){echo $cKey;}?>" name="search_field_value" class="txt">
           <select name="status" >
             <option  value="">状态</option>
             <option  value="1"<?php if(!empty($arrParam['status']) && $arrParam['status']==1) echo ' selected';?>>正常</option>
             <option  value="2"<?php if(!empty($arrParam['status']) && $arrParam['status']==2) echo ' selected';?>>锁定</option>
           </select>
-          
-          
-          <select name="search_field_name" style="display: none">
-              <option  value="">会员</option>
+          <select name="search_field_name" >
+              <option  value="1"<?php if(!empty($arrParam['search_field_name']) && $arrParam['search_field_name']==1) echo ' selected';?>>会员</option>
+              <option  value="2"<?php if(!empty($arrParam['search_field_name']) && $arrParam['search_field_name']==2) echo ' selected';?>>昵称</option>
           </select>
           </td>
-         
+          <td><input type="text" value="<?php if (!empty($cKey)){echo $cKey;}?>" name="search_field_value" class="txt"></td>
           <td><a href="javascript:void(0);" id="ncsubmit" class="btn-search " title="查询"></a></td>
         </tr>
       </tbody>
@@ -92,7 +84,7 @@
           <th>正式会员</th>
           <th>生日</th>
           <th>会员等级</th>
-          <th>成为会员时间</th>
+          <th>申请时间</th>
           <th>状态</th>
           <th class="align-center">操作</th>
         </tr>
@@ -106,10 +98,10 @@
           </td>
           <td><?php echo $v['mobile']; ?></td>
           <td><?php if($v['sex'] == '1') echo '男'; elseif($v['sex'] == '2') echo '女';elseif($v['sex'] == '0') echo '未知'; ?></td>
-          <td><?php if($v['member_status'] == '0') echo '不是'; elseif($v['member_status'] == '1') echo '是';elseif($v['member_status'] == '2') echo '不通过';elseif($v['member_status'] == '3') echo '申请'; ?></td>
+          <td><?php if($v['member_status'] == '0') echo '不是'; elseif($v['member_status'] == '1') echo '是';elseif($v['member_status'] == '2') echo '不通过';elseif($v['member_status'] == '3') echo '申请中'; ?></td>
           <td><?php echo date('Y-m-d',$v['birthday']); ?></td>
-          <td><?php echo $v['user_level']; ?></td>
-          <td><?php echo date('Y-m-d H:i:s',$v['member_time']); ?></td>
+          <td><?php echo $level_list[$v['user_level']]['level_name'];?></td>
+          <td><?php echo !empty($v['member_time'])?date('Y-m-d H:i:s',$v['member_time']):''; ?></td>
           <td><?php if($v['status'] == '1') echo '正常'; else echo '锁定'; ?></td>
           <td class="align-center"><a href="<?php echo SELLER_SITE_URL.'/user/edit?id='.$v['user_id']?>">编辑</a> <!-- | <a href="/seller/message/send?user_name=<?php echo $v['user_name']?>">通知</a> --></td>
         </tr>

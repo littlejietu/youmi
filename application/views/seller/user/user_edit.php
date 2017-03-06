@@ -143,7 +143,7 @@
             </li>
             <li>
               <input type="radio" <?php if($info['member_status'] == 3){ ?>checked="checked"<?php } ?> value="3" name="member_status" id="member_status4">
-              <label for="member_status4">申请</label>
+              <label for="member_status4">申请中</label>
             </li>
           </ul></td>
           <td class="vatop tips"></td>

@@ -8,13 +8,13 @@ class User extends BaseSellerController {
         parent::__construct();
         $this->load->model('user/User_pwd_model');
         $this->load->model('user/User_model');
-        $this->load->model('oil/Site_model');
+        $this->load->model('sys/Level_model');
         //$this->load->model('sys/Type_model');
     }
     
 	public function index()
 	{
-		$user_type = $this->input->post_get('user_type');
+		$user_level = $this->input->post_get('user_level');
 		$company_id = $this->seller_info['company_id'];
 		$level = $this->input->post_get('level');
 
@@ -24,6 +24,7 @@ class User extends BaseSellerController {
 		$this->load->model('user/User_detail_model');
 
 		$cKey = $this->input->post_get('search_field_value');
+		$search_field_name = $this->input->post_get('search_field_name');
 		$page     = _get_page();
 		$pagesize = 10;	
 		$arrParam = array();
@@ -31,9 +32,17 @@ class User extends BaseSellerController {
 
 		if($cKey)
 		{
+			$arrParam['search_field_name'] = $search_field_name;
+			$search_key = 'user_name';
+			if($search_field_name==2)
+				$search_key = 'nickname';
 		    $arrParam['search_field_value'] = $cKey;
-		    $arrWhere['user_name like '] = "'%$cKey%'";
+		    $arrWhere[$search_key.' like '] = "'%$cKey%'";
 		}
+		if(!empty($user_level)){
+            $arrWhere['user_level']  = $user_level;
+            $arrParam['user_level'] = $user_level;
+        }
 		if(!empty($user_type)){
 			$arrParam['user_type'] = $user_type;
 			$arrWhere['user_type'] = $user_type;
@@ -57,17 +66,17 @@ class User extends BaseSellerController {
 		$arrWhere['status <>'] = -1;
 		$strOrderBy = 'user_id desc';
 
-		$site_list = array();
-        $site_list_all = $this->Site_model->get_list(array('status'=>1,'company_id'=>$company_id));
-        foreach ($site_list_all as $k => $v) {
-            $site_list[$v['id']] = $v;
+		$level_list = array();
+        $level_list_all = $this->Level_model->get_list(array('company_id'=>$company_id),'*','level_id');
+        foreach ($level_list_all as $k => $v) {
+            $level_list[$v['level_id']] = $v;
         }
 
 		$field = 'a.user_id,user_name,nickname,name,mobile,sex,reg_time,member_status,status,birthday,car_no,car_model,invoice_title,member_time,user_level';
 	    $dbprefix = $this->User_model->prefix();
 	    $tb = $dbprefix.'user a left join '.$dbprefix.'user_detail b on(a.user_id=b.user_id)';
 		$user_list = $this->User_model->fetch_page($page, $pagesize, $arrWhere,$field,$strOrderBy,$tb);
-
+        //echo $this->User_model->db->last_query();die;
 		foreach ($user_list['rows'] as $key => $value)
 		{
 			$rs = $user_list['rows'][$key];
@@ -98,7 +107,7 @@ class User extends BaseSellerController {
 		    'status' => $status,
 		    'cKey'		=> $cKey,
 		    'arrParam'=>$arrParam,
-		    'site_list'=>$site_list
+		    'level_list'=>$level_list
 		);
 		$this->load->view('seller/user/user',$result);
 	}
@@ -150,7 +159,6 @@ class User extends BaseSellerController {
                 'car_no' => $this->input->post('car_no'),
                 'car_model' => $this->input->post('car_model'),
                 'invoice_title' => $this->input->post('invoice_title'),
-
 	        );
 	        $this->User_detail_model->update_by_id($user_id, $data_detail);
 
