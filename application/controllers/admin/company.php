@@ -89,14 +89,18 @@ class Company extends MY_Admin_Controller {
          //$this->lang->load('admin_admin');
 
         $id = $this->input->get('id');
-        $this->load->model(array('sys/Product_model','oil/O_admin_model'));
+        $this->load->model(array('sys/Product_model','oil/O_admin_model','oil/Company_config_model'));
 
         $info = array();
         if(!empty($id)){
             $info = $this->Company_model->get_by_id($id);
+
+            $config_info = $this->Company_config_model->get_by_id($id);
+            $config_info = empty($config_info)?array():$config_info;
+            $info = array_merge($info, $config_info);
+
             $admin_info = $this->O_admin_model->get_by_where(array('company_id'=>$info['id'],'is_super'=>1,'status'=>1),'id as admin_id,username');
             $admin_info = empty($admin_info)?array():$admin_info;
-
             $info = array_merge($info, $admin_info);
         }
 
@@ -140,8 +144,10 @@ class Company extends MY_Admin_Controller {
                 $user_name = $this->input->post('user_name');
                 $user_pwd = $this->input->post('user_pwd');
                 $admin_id = $this->input->post('admin_id');
+                $wx_appid = $this->input->post('wx_appid');
+                $wx_mchid = $this->input->post('wx_mchid');
 
-                $this->load->model('oil/O_admin_model');
+                $this->load->model(array('sys/Level_model','oil/Company_config_model','oil/O_admin_model'));
 
                 if(!empty($user_name)){
                     $aUser = $this->O_admin_model->get_by_where(array('username'=>"$user_name"));
@@ -166,9 +172,13 @@ class Company extends MY_Admin_Controller {
                     $data['addtime'] = time();
                     $company_id = $this->Company_model->insert_string($data);
 
-                    $this->load->model(array('sys/Level_model','oil/Company_config_model'));
+                    
 
                     $data_config = array('company_id'=>$company_id,'is_agent'=>0,'level_day'=>30);
+                    if(!empty($wx_appid))
+                        $data_config['wx_appid'] = $wx_appid;
+                    if(!empty($wx_mchid))
+                        $data_config['wx_mchid'] = $wx_mchid;
                     $this->Company_config_model->insert_string($data_config);
 
                     $prefix = $this->Level_model->prefix();
@@ -181,6 +191,14 @@ class Company extends MY_Admin_Controller {
                 }
                 else{
                     $this->Company_model->update_by_id($id, $data);
+
+                    $data_config = array();
+                    if(!empty($wx_appid))
+                        $data_config['wx_appid'] = $wx_appid;
+                    if(!empty($wx_mchid))
+                        $data_config['wx_mchid'] = $wx_mchid;
+                    if(!empty($data_config))
+                        $this->Company_config_model->update_by_id($id, $data_config);
 
                     //修改密码
                     if(!empty($user_pwd)&&!empty($admin_id))

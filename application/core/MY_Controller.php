@@ -485,7 +485,7 @@ class BaseSellerController extends CI_Controller {
         //$this->seller_info = array ( 'admin_name' => 'seller', 'admin_id' => 3, 'role_id' => 1, 'is_super' => 1,'company_id'=>1,'site_ids'=>1 );
         if (empty($this->seller_info['admin_id'])||!$this->checkSellerPermission()){
            // 验证权限
-           redirect(SELLER_SITE_URL.'/login1');
+           redirect(SELLER_SITE_URL.'/login');
         }
         
         

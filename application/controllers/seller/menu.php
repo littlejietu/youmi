@@ -21,7 +21,9 @@ class Menu extends BaseSellerController {
 		$account = new WeixinThird($company_id);
 		$result = $account->menuQuery();
 		if(is_error($result)) {
-			message($result['message'], '', 'error');
+			//message($result['message'], '', 'error');
+			showMessage($result['message'],'/seller/bind/onekey');
+			exit;
 		}
 		$this->Menu_model->update_by_where(array('company_id' => $company_id,'status'=>1), array('status' => 0));
 		$default_menu = $result['menu'];
