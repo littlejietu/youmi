@@ -161,7 +161,7 @@ class Activity extends BaseSellerController {
     
     public function save()
     {
-
+        $sellerInfo = $this->seller_info;
         $this->load->model('pmt/Discount_step_model');
         $this->load->model('pmt/Discount_oil_model');
 
@@ -216,6 +216,7 @@ class Activity extends BaseSellerController {
                     'is_limit_per_day_num' => $this->input->post('is_limit_per_day_num'),
                     'limit_per_day_num' => $this->input->post('limit_per_day_num'),
                     'discount_top_amount' => $this->input->post('discount_top_amount'),
+                    'company_id' => $sellerInfo['company_id'],
                     'memo' => $this->input->post('memo'),
                     'status' => $this->input->post('status'),
                 );
