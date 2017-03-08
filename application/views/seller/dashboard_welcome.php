@@ -26,46 +26,45 @@
   <div class="info-panel">
     <dl class="member">
       <dt>
-        <div class="ico"><i></i><!-- <sub title="<?php //echo lang('dashboard_wel_total_member');?>"><span><em id="statistics_member">0</em></span></sub> --></div>
+        <div class="ico"><i></i></div>
         <h3><?php echo lang('nc_member');?></h3>
-        <h5>会员管理</h5>
+        <h5>油站管理</h5>
       </dt>
       <dd>
         <ul>
-          <li class="w50pre normal"><a href="/admin/user/">会员管理<!-- <sub><em id="statistics_week_add_member"></em></sub> --></a></li>
-          <li class="w50pre none"><a href="/admin/message/send/">会员通知<!-- <sub><em id="statistics_cashlist">0</em></sub> --></a></li>
+          <li class="w50pre normal" style="width:33.33%;"><a href="/seller/site">加油站管理</a></li>
+          <li class="w50pre none" style="width:33.33%;"><a href="/seller/user">会员管理</a></li>
+          <li class="w50pre none" style="width:33.33%;"><a href="/seller/cashier">收银员管理</a></li>
         </ul>
       </dd>
     </dl>
     
-    <dl class="goods">
+    <!-- <dl class="goods">
       <dt>
-        <div class="ico"><i></i><!-- <sub title="<?php //echo lang('dashboard_wel_total_goods');?>"><span><em id="statistics_goods"></em></span></sub> --></div>
-        <h3><?php echo lang('nc_goods');?></h3>
+        <div class="ico"><i></i></div>
+        <h3><?php //echo lang('nc_goods');?></h3>
         <h5>标准商品模板管理</h5>
       </dt>
       <dd>
         <ul>
-          <li class="w25pre normal" style="width:33.33%;"><a href="/admin/category/">分类管理<!-- <sub title="<?php //echo lang('dashboard_wel_count_goods');?>"><em id="statistics_week_add_product"></em></sub> --></a></li>
-          <!-- <li class="w25pre none"><sub><em id="statistics_product_verify">0</em></sub></li> -->
-          <li class="w25pre none" style="width:33.33%;"><a href="/admin/goods_tpl/">标准商品管理<!-- <sub><em id="statistics_inform_list">0</em></sub> --></a></li>
-          <li class="w25pre none" style="width:33.33%;"><a href="/admin/goods_audit/">商品价格审核<!-- <sub><em id="statistics_brand_apply">0</em></sub> --></a></li>
+          <li class="w25pre normal" style="width:33.33%;"><a href="/admin/category/">分类管理</a></li>
+          <li class="w25pre none" style="width:33.33%;"><a href="/admin/goods_tpl/">标准商品管理</a></li>
+          <li class="w25pre none" style="width:33.33%;"><a href="/admin/goods_audit/">商品价格审核</a></li>
         </ul>
       </dd>
-    </dl>
+    </dl> -->
     <dl class="trade">
       <dt>
-        <div class="ico"><i></i><!-- <sub title="<?php //echo lang('dashboard_wel_total_order');?>"><span><em id="statistics_order"></em></span></sub> --></div>
+        <div class="ico"><i></i></div>
         <h3><?php echo lang('nc_trade');?></h3>
-        <h5>交易订单</h5>
+        <h5>交易</h5>
       </dt>
       <dd>
         <ul>
-          <li class="w20pre none"><a href="/admin/order/index">订单管理<sub><em id="statistics_refund"></em></sub></a></li>
-          <li class="w20pre none"><a href="/admin/recharge/">充值管理<sub><em id="statistics_return"></em></sub></a></li>
-          <li class="w20pre none"><a href="/admin/cash/">提现管理<sub><em id="statistics_vr_refund"></em></sub></a></li>
-          <li class="w20pre none"><a href="/admin/refund/refund_manage">退款管理<sub><em id="statistics_complain_new_list">0</em></sub></a></li>
-          <li class="w20pre none"><a href="/admin/comment/">评价管理<sub><em id="statistics_complain_handle_list">0</em></sub></a></li>
+          <li class="w25pre none"><a href="/seller/order/index">订单管理</a></li>
+          <li class="w25pre none"><a href="/seller/report/cashier">收银员查询</a></li>
+          <li class="w25pre none"><a href="/seller/report/customer_oil">客单量查询</a></li>
+          <li class="w25pre none"><a href="/seller/report/rfm">消费频次查询</a></li>
         </ul>
       </dd>
     </dl>
@@ -77,13 +76,7 @@
       </dt>
       <dd>
         <ul>
-          <li class="w20pre none"><a href="/admin/operation/">基本设置<!-- <sub><em id="statistics_groupbuy_verify_list">0</em></sub> --></a></li>
-          <li class="w20pre none"><a href="/admin/activity/">活动管理<!-- <sub><em id="statistics_points_order">0</em></sub> --></a></li>
-          <li class="w20pre none"><a href="/admin/coupon/">优惠券管理<!-- <sub><em id="statistics_check_billno">0</em></sub> --></a></li>
-          <li class="w20pre none"><a href="/admin/integral_goods/">兑换礼品<!-- <sub><em id="statistics_pay_billno">0</em></sub> --></a></li>
-          <li class="w20pre none"><a href="/admin/first/">推首管理<!-- <sub><em id="statistics_pay_billno">0</em></sub> --></a></li>
-          <!-- <li class="w17pre none"><a href="<?php //echo urlAdmin('mall_consult', 'index');?>">平台客服<sub><em id="statistics_mall_consult">0</em></sub></a></li> -->
-          <!-- <li class="w17pre none"><a href="<?php //echo urlAdmin('delivery', 'index', array('sign' => 'verify'));?>">服务站<sub><em id="statistics_delivery_point">0</em></sub></a></li> -->
+          <li class="w100pre none"><a href="/seller/activity/">活动管理</a></li>
         </ul>
       </dd>
     </dl>
