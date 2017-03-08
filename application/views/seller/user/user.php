@@ -98,7 +98,7 @@
           </td>
           <td><?php echo $v['mobile']; ?></td>
           <td><?php if($v['sex'] == '1') echo '男'; elseif($v['sex'] == '2') echo '女';elseif($v['sex'] == '0') echo '未知'; ?></td>
-          <td><?php if($v['member_status'] == '0') echo '不是'; elseif($v['member_status'] == '1') echo '是';elseif($v['member_status'] == '2') echo '不通过';elseif($v['member_status'] == '3') echo '申请中'; ?></td>
+          <td class="align-center"><?php if($v['member_status'] == '0') echo '不是'; elseif($v['member_status'] == '1') echo '是';elseif($v['member_status'] == '2') echo '不通过';elseif($v['member_status'] == '3') echo '申请中'; ?></td>
           <td><?php echo date('Y-m-d',$v['birthday']); ?></td>
           <td><?php echo $level_list[$v['user_level']]['level_name'];?></td>
           <td><?php echo !empty($v['member_time'])?date('Y-m-d H:i:s',$v['member_time']):''; ?></td>
