@@ -114,7 +114,7 @@
   </form>
 </div>
 <?php echo _get_html_cssjs('lib','jquery-ui/themes/ui-lightness/jquery.ui.css','css');?>
-<?php echo _get_html_cssjs('lib','jquery-ui/jquery.ui.js','js');?>
+<?php echo _get_html_cssjs('lib','jquery-ui/i18n/zh-CN.js,jquery-ui/jquery.ui.js','js');?>
 <script type="text/javascript">
 $(function(){
     $('#time1').datepicker({dateFormat: 'yy-mm-dd'});

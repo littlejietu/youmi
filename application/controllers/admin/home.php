@@ -134,18 +134,18 @@ class Home extends MY_Admin_Controller {
 				/*3 => array(
 					'args' 	=> 'store',
 					'text' 	=> lang('nc_store')),*/
-				4 => array(
+				/*4 => array(
 					'args'	=> 'member',
-					'text'	=> lang('nc_member')),
+					'text'	=> lang('nc_member')),*/
 				5 => array(
 					'args' 	=> 'trade',
 					'text'	=> lang('nc_trade')),
 				/*6 => array(
 					'args'	=> 'website',
 					'text' 	=> lang('nc_website')),*/
-				7 => array(
+				/*7 => array(
 					'args'	=> 'operation',
-					'text'	=> lang('nc_operation')),
+					'text'	=> lang('nc_operation')),*/
 				/*8 => array(
 					'args'	=> 'stat',
 					'text'	=> lang('nc_stat')),*/
@@ -159,21 +159,22 @@ class Home extends MY_Admin_Controller {
 						//array('args'=>'aboutus,dashboard,dashboard',					'text'=>lang('nc_aboutus')),
 						//array('args'=>',base_setting,dashboard',						'text'=>lang('nc_web_set')),
 	     				// array('args'=>',goods,dashboard',							'text'=>lang('nc_goods_manage')),
-						array('args'=>'index,order,dashboard',			       			'text'=>lang('nc_order_manage')),
+						//array('args'=>'index,order,dashboard',			       			'text'=>lang('nc_order_manage')),
 					)
 				),
 				1 => array(
 					'nav' => 'setting',
 					'text' => lang('nc_config'),
 					'list' => array(
+						array('args'=>',operation,setting',			    			'text'=>lang('nc_operation_set')),
 						//array('args'=>',base_setting,setting',						'text'=>lang('nc_web_set')),
 						//array('args'=>'qq,account,setting',		    				'text'=>lang('nc_web_account_syn')),
 						//array('args'=>',upload,setting',								'text'=>lang('nc_upload_set')),
 						//array('args'=>'seo,setting,setting',							'text'=>lang('nc_seo_set')),
 						//array('args'=>',message,setting',								'text'=>lang('nc_message_set').'模板'),
 						//array('args'=>',payment,setting',								'text'=>lang('nc_pay_method')),
-						array('args'=>',admin,setting',									'text'=>lang('nc_limit_manage')),
-						array('args'=>',shop_transport,setting',					'text'=>'物流工具'),
+						//array('args'=>',admin,setting',									'text'=>lang('nc_limit_manage')),
+						//array('args'=>',shop_transport,setting',					'text'=>'物流工具'),
 						// array('args'=>'index,express,setting',						'text'=>lang('nc_admin_express_set')),
 						//array('args'=>',waybill,setting',           					'text'=>'运单模板'),
 						//array('args'=>'index,offpay_area,setting',					'text'=>lang('nc_admin_offpay_area_set')),
@@ -216,7 +217,7 @@ class Home extends MY_Admin_Controller {
 						//array('args'=>'list,ownshop,store',							'text'=>'自营店铺'),
 					)
 				),*/
-				4 => array(
+				/*4 => array(
 					'nav' => 'member',
 					'text' => lang('nc_member'),
 					'list' => array(
@@ -234,7 +235,7 @@ class Home extends MY_Admin_Controller {
 						//array('args'=>'member_tag,sns_member,member',					'text'=>lang('nc_member_tag')),
 						//array('args'=>'chat_log,chat_log,member',						'text'=>'聊天记录')
 					)
-				),
+				),*/
 				5 => array(
 					'nav' => 'trade',
 					'text' => lang('nc_trade'),
@@ -250,7 +251,7 @@ class Home extends MY_Admin_Controller {
 						//array('args'=>'consulting,consulting,trade',					'text'=>lang('nc_consult_manage')),
 						//array('args'=>'inform_list,inform,trade',						'text'=>lang('nc_inform_config')),
 						//array('args'=>',comment,trade',									'text'=>lang('nc_goods_evaluate')),
-					    array('args'=>'export_all,excel,trade',									'text'=>'数据导出'),
+					    //array('args'=>'export_all,excel,trade',									'text'=>'数据导出'),
 						//array('args'=>'complain_new_list,complain,trade',				'text'=>lang('nc_complain_config')),
 					)
 				),
@@ -269,11 +270,11 @@ class Home extends MY_Admin_Controller {
 						
 					)
 				),*/
-				7 => array(
+				/*7 => array(
 					'nav' => 'operation',
 					'text' => lang('nc_operation'),
 					'list' => array(
-						array('args'=>',operation,operation',			    			'text'=>lang('nc_operation_set')),
+						
 						//array('args'=>'groupbuy_template_list,groupbuy,operation',	'text'=>lang('nc_groupbuy_manage')),
 	                    //array('args'=>'index,vr_groupbuy,operation',               	'text'=>'虚拟抢购设置'),
 						//array('args'=>'xianshi_apply,promotion_xianshi,operation',	'text'=>lang('nc_promotion_xianshi')),
@@ -296,7 +297,7 @@ class Home extends MY_Admin_Controller {
 	                    //array('args'=>'index,rechargecard,operation',             	'text'=>'平台充值卡'),
 	                    //array('args'=>'index,delivery,operation',                  	'text'=>'物流自提服务站')
 					)
-				),
+				),*/
 				/*8 => array(
 					'nav' => 'stat',
 					'text' => lang('nc_stat'),
