@@ -16,7 +16,9 @@ $(function() {
         initWx(['onMenuShareTimeline','onMenuShareAppMessage'],function(res){
             getHomeData();
             if(res == 1){
-                shareObj.link = WapSiteUrl+'/index.html?site_id='+site_id;       //?? w/11?
+                shareObj.title = '油蜜科技';
+                shareObj.desc = '油蜜科技 - 领先的加油站经营管理服务商';
+                shareObj.link = SiteUrl+'/api/wxauth/go?url='+WapSiteUrl+'/index.html?site_id='+site_id;       //?? w/11?
                 wxShareTimeLine(shareObj);
                 wxShareToFriend(shareObj);
             }
@@ -42,9 +44,9 @@ $(function() {
             site_id = result.data.site.site_id;
             save_string_tolocal('site_id', result.data.site.site_id);
             save_string_tolocal('site_name', result.data.site.site_name);
-            document.title = result.data.site.site_name;
             gun_oil_no = result.data.site.gun_oil_no;
             getDataResult(result.data);
+            document.title = result.data.site.site_name;
         }else{
             tipsAlert(result.msg);
         }
