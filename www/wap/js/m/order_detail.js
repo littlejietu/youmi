@@ -1,6 +1,10 @@
 $(function(){
     if(typeof FastClick != 'undefined') FastClick.attach(document.body);
 
+    var site_id = getUrlParam("site_id");
+    if(site_id!=null&&site_id!='')
+        save_string_tolocal('site_id', site_id);
+    
     var order_id = getUrlParam('order_id');
     sendPostData({order_id:order_id},ApiUrl+'m/order/detail',function (result) {
     	if(result.code=='SUCCESS'){

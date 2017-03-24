@@ -1,6 +1,10 @@
 $(function(){
     if(typeof FastClick != 'undefined') FastClick.attach(document.body);
 
+    var site_id = getUrlParam("site_id");
+    if(site_id!=null&&site_id!='')
+        save_string_tolocal('site_id', site_id);
+    
     $('.user_points span').bind('click',function(){
         $('.point_intro').show();
         $('.point_intro ul.point_rules').animate({marginLeft:"3.4rem"});

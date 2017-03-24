@@ -1,4 +1,7 @@
 $(function(){
+	var site_id = getUrlParam("site_id");
+    if(site_id!=null&&site_id!='')
+        save_string_tolocal('site_id', site_id);
 
 	$('#captchabtn').click(function(){
 		var site_id = get_string_fromlocal('site_id');
