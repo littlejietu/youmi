@@ -60,12 +60,12 @@
 		{{each paymethod as value i}}
 			{{if value.code==1}}
 				{{if user_amount*1 >= pay_amount*1}}
-					<dd class="type on" payType="{{value.code}}"><img src="../img/icon_19.png"><span>可用余额<b>￥{{user_amount}}</b>元</span></dd>
+					<dd class="type {{if default_paymethod==value.code}}on{{/if}}" payType="{{value.code}}"><img src="../img/icon_19.png"><span>可用余额<b>￥{{user_amount}}</b>元</span></dd>
 				{{/if}}
 			{{else if value.code==30}}
-				<dd class="type" payType="{{value.code}}"><img src="../img/icon_20.png"><span>可用余油<b>￥{{user_oil}}L</b>L</span></dd>
+				<dd class="type {{if default_paymethod==value.code}}on{{/if}}" payType="{{value.code}}"><img src="../img/icon_20.png"><span>可用余油<b>￥{{user_oil}}L</b>L</span></dd>
 			{{else if value.code==12}}
-				<dd class="type" payType="{{value.code}}"><img src="../img/icon_pay_{{value.code}}.png"></dd>
+				<dd class="type {{if default_paymethod==value.code}}on{{/if}}" payType="{{value.code}}"><img src="../img/icon_pay_{{value.code}}.png"></dd>
 			{{else}}
 				<dd class="type" payType="{{value.code}}"><img src="../img/icon_pay_{{value.code}}.png"></dd>
 			{{/if}}
