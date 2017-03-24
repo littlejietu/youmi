@@ -52,7 +52,27 @@
           <td class="vatop rowform"><input type="text" id="price" name="price" class="txt" value="<?php echo !empty($info)?$info['price']:'';?>"></td>
           <td class="vatop tips">请输入油品价格</td>
         </tr>
-
+        <?php if(!empty($info)):?>
+        <tr>
+          <td colspan="2" class="required"><label class="validation" for="price">各油枪泵码数:</label></td>
+        </tr>
+        <tr class="noborder">
+          <td colspan="2">
+            <table>
+              <tr class="noborder">
+                <td>油枪号</td>
+                <td>泵码数</td>
+              </tr>
+            <?php foreach($gun_list as $k=>$v):?>
+              <tr class="noborder">
+                <td class="align-center"><?php echo $v['gun_no']?></td>
+                <td><input type="text" name="pump_no[<?php echo $v['gun_no']?>]"></td>
+              </tr>
+            <?php endforeach;?>
+            </table>
+          </td>
+        </tr>
+      <?php endif;?>
       </tbody>
 
       <tfoot>

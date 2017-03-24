@@ -75,7 +75,7 @@
           <td class="vatop tips"></td>
         </tr>
         <tr>
-          <td colspan="2" class="required"><label for="user_pwd">管理员密码:</label></td>
+          <td colspan="2" class="required"><label for="user_pwd">密码:</label></td>
         </tr>
         <tr class="noborder">
           <td class="vatop rowform"><input type="password" id="user_pwd" name="user_pwd" class="txt"></td>

@@ -65,7 +65,7 @@
         </tr>
         <tr class="noborder">
           <td class="vatop rowform"><input type="text" id="pump_no" name="pump_no" class="txt" value="<?php echo !empty($info)?$info['pump_no']:'';?>"></td>
-          <td class="vatop tips">请输入油品价格</td>
+          <td class="vatop tips">请输入泵码</td>
         </tr>
 
       </tbody>

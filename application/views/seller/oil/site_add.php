@@ -34,7 +34,11 @@
     <input type="hidden" name="id" value="<?php echo !empty($info)?$info['id']:0;?>" />
     <table class="table tb-type2 nobdb">
       <tbody>
-
+        <?php if(!empty($info)):?>
+        <tr class="noborder">
+          <td colspan="2" class="required"><label for="site_name">微信网址:</label>  <?php echo BASE_SITE_URL.'/w/'.$info['id']?></td>
+        </tr>
+        <?php endif;?>
         <tr class="noborder">
           <td colspan="2" class="required"><label class="validation" for="site_name">油站名称:</label></td>
         </tr>
@@ -49,12 +53,19 @@
           <td class="vatop rowform"><input type="text" id="site_long" name="site_long" class="txt" value="<?php echo !empty($info)?$info['site_long']:'';?>"></td>
           <td class="vatop tips">请输入油站全称</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td colspan="2" class="required"><label for="public_name">公众号:</label></td>
         </tr>
         <tr class="noborder">
-          <td class="vatop rowform"><input type="text" id="public_name" name="public_name" class="txt" value="<?php echo !empty($info)?$info['public_name']:'';?>"></td>
+          <td class="vatop rowform"><input type="text" id="public_name" name="public_name" class="txt" value="<?php //echo !empty($info)?$info['public_name']:'';?>"></td>
           <td class="vatop tips"></td>
+        </tr> -->
+        <tr>
+          <td colspan="2" class="required"><label for="refund_pwd">退款口令:</label></td>
+        </tr>
+        <tr class="noborder">
+          <td class="vatop rowform"><input type="text" id="refund_pwd" name="refund_pwd" class="txt"></td>
+          <td class="vatop tips">需要修改时，填写</td>
         </tr>
         <tr>
           <td colspan="2" class="required"><label for="reg_address">注册地址:</label></td>
@@ -153,13 +164,13 @@
           <td class="vatop tips">系统支持的图片格式为 gif,jpg,jpeg,png</td>
         </tr>
         
-        <tr>
+        <!-- <tr>
           <td colspan="2" class="required"><label for="net_id">网点id:</label></td>
         </tr>
         <tr class="noborder">
-          <td class="vatop rowform"><input type="text" id="net_id" name="net_id" class="txt" value="<?php echo !empty($info)?$info['net_id']:'';?>"></td>
+          <td class="vatop rowform"><input type="text" id="net_id" name="net_id" class="txt" value="<?php //echo !empty($info)?$info['net_id']:'';?>"></td>
           <td class="vatop tips"></td>
-        </tr>
+        </tr> -->
       </tbody>
       <tbody id="title_status">
         <tr>
@@ -211,18 +222,9 @@ $(document).ready(function(){
                   }
                 }
             },
-            site_long : {
-                required : true,
-				minlength: 6,
-				maxlength: 20
-            },
-            site_long : {
-                required : true,
-                equalTo  : '#site_long'
-            },
-            gid : {
+          site_long : {
                 required : true
-            }        
+            }
         },
         messages : {
             site_name : {
@@ -230,7 +232,7 @@ $(document).ready(function(){
             },
             site_long : {
                 required : '加油站全称不能为空',
-            },
+            }
 
         }
 	});
