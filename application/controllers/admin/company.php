@@ -157,8 +157,9 @@ class Company extends MY_Admin_Controller {
                     }
                 }
 
+                $company = $this->input->post('company');
                 $data = array(
-                    'company' => $this->input->post('company'),
+                    'company' => $company,
                     'company_long' => $this->input->post('company_long'),
                     'product_id' => $this->input->post('product_id'),
                     'prd_start_time' => $prd_start_time,
@@ -169,12 +170,31 @@ class Company extends MY_Admin_Controller {
                 );
 
                 if(empty($id)){
-                    $data['addtime'] = time();
-                    $company_id = $this->Company_model->insert_string($data);
+                    //自动seller添加
+                    $this->load->service('user_service');
+                    $seller_userid = 0;
+                    $seller = $user_name.'@com';
+                    $user_data = array('user_name'=>$seller,'mobile'=>'','pwd'=>$seller,'site_id'=>0,
+                        'name'=>$company, 'platform_id' =>1);
+                    $arrReturn = $this->user_service->reg_user($user_data);
+                    if($arrReturn['code']=='SUCCESS')
+                        $seller_userid = $arrReturn['data']['user_id'];
+                    else{
+                        showDialog('初始化商户失败');
+                        exit;
+                    }
 
+                    //初始化帐户
+                    $this->load->model('acct/Account_model');
+                    $this->Account_model->init($seller_userid);
+
+                    $data['addtime'] = time();
+                    $data['seller_userid'] = $seller_userid;
+                    $data['seller_username'] = $seller;
+                    $company_id = $this->Company_model->insert_string($data);
                     
 
-                    $data_config = array('company_id'=>$company_id,'is_agent'=>0,'level_day'=>30);
+                    $data_config = array('company_id'=>$company_id,'is_agent'=>0);
                     if(!empty($wx_appid))
                         $data_config['wx_appid'] = $wx_appid;
                     if(!empty($wx_mchid))
@@ -188,8 +208,8 @@ class Company extends MY_Admin_Controller {
                     //添加管理员
                     $data_admin = array('username'=>$user_name,'password'=>md5($user_pwd),'name'=>'管理员','is_super'=>1,'is_cashier'=>0,'company_id'=>$company_id,'site_ids'=>'','status'=>1);
                     $this->O_admin_model->insert_string($data_admin);
-                }
-                else{
+
+                }else{
                     $this->Company_model->update_by_id($id, $data);
 
                     $data_config = array();
@@ -205,7 +225,7 @@ class Company extends MY_Admin_Controller {
                         $this->O_admin_model->update_by_id($admin_id, array('password'=>md5($user_pwd)));
                     
                 }
-                
+
                 redirect(ADMIN_SITE_URL.'/company');
             }
         }
@@ -226,8 +246,7 @@ class Company extends MY_Admin_Controller {
         }
         
         $data['status'] = -1;
-        $where['id'] = $id;
-        $this->Company_model->delete_by_id($id);
+        $this->Company_model->update_by_id($id, $data);
         redirect( ADMIN_SITE_URL.'/company' );
     }
     
