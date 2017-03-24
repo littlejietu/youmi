@@ -97,7 +97,7 @@ $config['OrderStatusName'] = array(
 	'WaitSend'=>'待发货',
 	'WaitConfirm'=>'待收货',
 	'Refunded'=>'已退款',
-	'Finished'=>'完成',
+	'Finished'=>'已完成',
 	'Closed'=>'关闭',
 	'ClosedBySys'=>'系统关闭',
 );
@@ -199,7 +199,7 @@ $config['PayMethodName'] = array(
 );
 
 $config['PayWXALI'] = array(
-	'WXPAY'=>array(11,12,13),
+	'WXPAY'=>array(10,11,12,13,14,15),
 	'ALIPAY'=>array(21,22,23),
 );
 

@@ -131,6 +131,7 @@ class Site extends MY_Admin_Controller {
     
     public function save()
     {
+        $this->load->model('oil/Company_model');
         if ($this->input->is_post())
         {
             $config = array(
@@ -155,11 +156,17 @@ class Site extends MY_Admin_Controller {
                 $prd_start_time = !empty($prd_start_time)?strtotime($prd_start_time):0;
                 $prd_end_time = $this->input->post('prd_end_time');
                 $prd_end_time = !empty($prd_end_time)?strtotime($prd_end_time):0;
+                $refund_pwd = $this->input->post('refund_pwd');
+                if(empty($refund_pwd))
+                    $refund_pwd = 'mirong';
+
+                $com_info = $this->Company_model->get_by_id($company_id);
 
                 $data = array(
                     'site_name' => $this->input->post('site_name'),
                     'site_long' => $this->input->post('site_long'),
                     'public_name' => $this->input->post('public_name'),
+                    'refund_pwd' => md5($refund_pwd),
                     'reg_address' => $this->input->post('reg_address'),
                     'linkman' => $this->input->post('linkman'),
                     'phone' => $this->input->post('phone'),
@@ -171,6 +178,8 @@ class Site extends MY_Admin_Controller {
                     'company_id' => $company_id,
                     'net_id' => $this->input->post('net_id'),
                     'status' => $this->input->post('status'),
+                    'seller_userid' => $com_info['seller_userid'],
+                    'seller_username' => $com_info['seller_username'],
                 );
                 $img = $this->input->post('img');
                 if($img)
@@ -215,9 +224,8 @@ class Site extends MY_Admin_Controller {
             $id	= $this->input->get('id');
         }
         
-        $data['status'] = -1;
-        $where['id'] = $id;
-        $this->Site_model->delete_by_id($id);
+        $data = array('status'=>-1);
+        $this->Site_model->update_by_id($id,$data);
         redirect( ADMIN_SITE_URL.'/site' );
     }
     

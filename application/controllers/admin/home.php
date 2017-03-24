@@ -167,16 +167,7 @@ class Home extends MY_Admin_Controller {
 					'text' => lang('nc_config'),
 					'list' => array(
 						array('args'=>',operation,setting',			    			'text'=>lang('nc_operation_set')),
-						//array('args'=>',base_setting,setting',						'text'=>lang('nc_web_set')),
-						//array('args'=>'qq,account,setting',		    				'text'=>lang('nc_web_account_syn')),
-						//array('args'=>',upload,setting',								'text'=>lang('nc_upload_set')),
-						//array('args'=>'seo,setting,setting',							'text'=>lang('nc_seo_set')),
-						//array('args'=>',message,setting',								'text'=>lang('nc_message_set').'模板'),
-						//array('args'=>',payment,setting',								'text'=>lang('nc_pay_method')),
-						//array('args'=>',admin,setting',									'text'=>lang('nc_limit_manage')),
-						//array('args'=>',shop_transport,setting',					'text'=>'物流工具'),
-						// array('args'=>'index,express,setting',						'text'=>lang('nc_admin_express_set')),
-						//array('args'=>',waybill,setting',           					'text'=>'运单模板'),
+
 						//array('args'=>'index,offpay_area,setting',					'text'=>lang('nc_admin_offpay_area_set')),
 						//array('args'=>'clear,cache,setting',							'text'=>lang('nc_admin_clear_cache')),
 						//array('args'=>'db,db,setting',								'text'=>'数据备份'),
@@ -224,9 +215,9 @@ class Home extends MY_Admin_Controller {
 						array('args'=>',user,member',									'text'=>lang('nc_member_manage')),
 						//array('args'=>'index,member_grade,member',					'text'=>'会员级别'),
 						//array('args'=>'index,exppoints,member',						'text'=>lang('nc_exppoints_manage')),
-						array('args'=>'send,message,member',							'text'=>lang('nc_member_notice')),
-						array('args'=>',shop,member',								    'text'=>lang('nc_store_manage')),
-						array('args'=>'index,deliver,member',						    'text'=>'派送员管理'),
+						//array('args'=>'send,message,member',							'text'=>lang('nc_member_notice')),
+						//array('args'=>',shop,member',								    'text'=>lang('nc_store_manage')),
+						//array('args'=>'index,deliver,member',						    'text'=>'派送员管理'),
 						//array('args'=>',integral_goods,member',						'text'=>lang('nc_member_pointsmanage')),
 						//array('args'=>'predeposit,predeposit,member',					'text'=>lang('nc_member_predepositmanage')),
 						//array('args'=>'sharesetting,sns_sharesetting,member',			'text'=>lang('nc_binding_manage')),
@@ -274,17 +265,12 @@ class Home extends MY_Admin_Controller {
 					'nav' => 'operation',
 					'text' => lang('nc_operation'),
 					'list' => array(
-						
-						//array('args'=>'groupbuy_template_list,groupbuy,operation',	'text'=>lang('nc_groupbuy_manage')),
-	                    //array('args'=>'index,vr_groupbuy,operation',               	'text'=>'虚拟抢购设置'),
-						//array('args'=>'xianshi_apply,promotion_xianshi,operation',	'text'=>lang('nc_promotion_xianshi')),
-						//array('args'=>'mansong_apply,promotion_mansong,operation',	'text'=>lang('nc_promotion_mansong')),
-						//array('args'=>'bundling_list,promotion_bundling,operation',	'text'=>lang('nc_promotion_bundling')),
+
 						//array('args'=>'goods_list,promotion_booth,operation',			'text'=>lang('nc_promotion_booth')),
 						//array('args'=>'voucher_apply,voucher,operation',           	'text'=>lang('nc_voucher_price_manage')),
 						//array('args'=>'index,bill,operation',					    	'text'=>lang('nc_bill_manage')),
 						//array('args'=>'index,vr_bill,operation',						'text'=>'虚拟订单结算'),
-						array('args'=>',activity,operation',							'text'=>lang('nc_activity_manage')),
+						/*array('args'=>',activity,operation',							'text'=>lang('nc_activity_manage')),
 						array('args'=>',coupon,operation',								'text'=>'优惠券管理'),
 						array('args'=>',integral_goods,operation',						'text'=>lang('nc_pointprod')),
 						array('args'=>',first,operation',								'text'=>'推首管理'),
@@ -292,12 +278,12 @@ class Home extends MY_Admin_Controller {
 					    array('args'=>'index,invite,operation',							'text'=>lang('nc_invite_bonus_list')),
 					    array('args'=>'userlist,invite,operation',						'text'=>'分佣关系'),
                         array('args'=>'index,service,operation',						'text'=>'客服'),
-                        array('args'=>',feedback,operation',						'text'=>'意见反馈'),
+                        array('args'=>',feedback,operation',						'text'=>'意见反馈'),*/
 						//array('args'=>'index,mall_consult,operation',             	'text'=>'平台客服'),
 	                    //array('args'=>'index,rechargecard,operation',             	'text'=>'平台充值卡'),
 	                    //array('args'=>'index,delivery,operation',                  	'text'=>'物流自提服务站')
-					)
-				),*/
+					//)
+				//),*/
 				/*8 => array(
 					'nav' => 'stat',
 					'text' => lang('nc_stat'),
