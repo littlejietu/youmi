@@ -319,7 +319,7 @@ class Order extends TokenOAdminApiController {
         $order_id = $this->input->post('order_id');
         $pwd = $this->input->post('pwd');
 
-        $this->load->model('oil/O_admin_model');
+        $this->load->model('oil/Site_model');
 
         if(empty($order_id) || empty($pwd)){
             output_error('NOT_NULL','订单id,密码不能为空');
@@ -327,12 +327,16 @@ class Order extends TokenOAdminApiController {
         }
 
 
-        $aAdmin = $this->O_admin_model->get_by_id($this->admin_id);
-        if($aAdmin['password']!=md5($pwd) )
-        {
-            output_error('PWDERR','密码不正确');//Pay_Password_Error
+        // $aAdmin = $this->O_admin_model->get_by_id($this->admin_id);
+        $info = $this->Site_model->get_by_id($this->site_id);
+        if($info['refund_pwd']!=md5($pwd) ){
+            output_error('PWDERR','密码不正确');
             exit;
         }
+
+        $aOrder = $this->Order_model->get_by_id($order_id);
+        if($aOrder['site_id']!=$this->site_id)
+            output_error('ERR','错误,请与管理员联系');
 
         $bResult = $this->order_service->close($order_id);
         if($bResult)
