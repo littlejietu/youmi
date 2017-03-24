@@ -25,7 +25,7 @@
       <ul class="tab-base">
       <li><a href="JavaScript:void(0);" class="current"><span>自定义菜单列表</span></a></li>
       <?php if(empty($default_menu)):?>
-        <li><a href="<?php echo SELLER_SITE_URL.'/reply/txt_add';?>"><span>添加自定义菜单</span></a></li>
+        <li><a href="<?php echo SELLER_SITE_URL.'/menu/add';?>"><span>添加自定义菜单</span></a></li>
       <?php endif;?>
       </ul>
     </div>

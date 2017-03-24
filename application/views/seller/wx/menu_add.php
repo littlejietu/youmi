@@ -208,7 +208,7 @@
 		<div class="shop-preview col-xs-12 col-sm-9 col-lg-10">
 			
 			<div class="text-center alert alert-warning" style="background:#faebcc">
-				<?php if($params['type']==1):?>
+				<?php if(empty($params) || $params['type']==1):?>
 					<span class="btn btn-primary" id="btn-submit" ng-click="context.submit();">上架</span>
 				<?php endif?>
 				<a href="<?php echo SELLER_SITE_URL.'/menu'?>" class="btn btn-primary" >返回</a>
@@ -430,7 +430,7 @@ require(['angular', 'underscore', 'jquery.ui', 'jquery.caret', 'wechatDistrict']
 					util.message('自定义菜单不能设置为一键拨号');
 					return;
 				} else if(href.indexOf("http://") == -1 && href.indexOf("https://") == -1) {
-					href = site_url + '/wap' + href;
+					href = site_url + href;
 				}
 				$scope.context.activeItem.url = href;
 				$scope.$digest();
