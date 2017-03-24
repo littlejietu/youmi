@@ -26,7 +26,7 @@ class Menu extends BaseSellerController {
 			exit;
 		}
 		$this->Menu_model->update_by_where(array('company_id' => $company_id,'status'=>1), array('status' => 0));
-		$default_menu = $result['menu'];
+		$default_menu = !empty($result['menu'])?$result['menu']:'';
 		if(!empty($default_menu)) {
 			$condition_menu = !empty($result['conditionalmenu'])?$result['conditionalmenu']:array();
 			$condition_menu[] = array(
@@ -91,8 +91,6 @@ class Menu extends BaseSellerController {
 			'arrParam' => $arrParam,
 			'default_menu'=>$default_menu,
 		);
-
-
 
 		$this->load->view('seller/wx/menu',$result);
     }

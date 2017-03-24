@@ -28,7 +28,7 @@ class Gun extends BaseSellerController {
 
          foreach($list['rows'] as $k => $v){
 
-           $siteName = $this->Site_model->get_by_id($v['site_id'],'site_name');
+            $siteName = $this->Site_model->get_by_id($v['site_id'],'site_name');
 
             $list['rows'][$k]['site_name'] = $siteName['site_name'];
         }

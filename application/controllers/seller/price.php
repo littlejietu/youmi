@@ -50,11 +50,15 @@ class Price extends BaseSellerController {
 
         $this->load->model('oil/Company_model');
         $this->load->model('oil/Site_model');
+        $this->load->model('oil/Gun_model');
     
         $info = array();
+        $gun_list = array();
         if(!empty($id)){
             $info = $this->Price_model->get_by_id($id);
             $site_id = $info['site_id'];
+
+            $gun_list = $this->Gun_model->get_list(array('site_id'=>$site_id,'company_id'=>$company_id));
         }
         $company_site = '';
         $comInfo = $this->Company_model->get_by_id($company_id);
@@ -69,6 +73,7 @@ class Price extends BaseSellerController {
             'info' => $info,
             'company_site' => $company_site,
             'arrParam' => $arrParam,
+            'gun_list' => $gun_list,
         );
         
         $this->load->view('seller/oil/price_add',$result);
@@ -78,6 +83,7 @@ class Price extends BaseSellerController {
     {
         $sellerInfo = $this->seller_info;
         $company_id = $sellerInfo['company_id'];
+        $admin_id = $sellerInfo['admin_id'];
         if ($this->input->is_post())
         {
             $config = array(
@@ -98,7 +104,7 @@ class Price extends BaseSellerController {
             {
                 $id = $this->input->post('id');
                 $site_id = $this->input->post('site_id');
-                
+                $pump_no = $this->input->post('pump_no');
 
                 $data = array(
                     'oil_no' => $this->input->post('oil_no'),
@@ -115,6 +121,16 @@ class Price extends BaseSellerController {
                     $this->Price_model->update_by_id($id, $data);
                 }
 
+                $this->load->model('oil/Pump_note_model');
+                $note_time = strtotime(date('Y-m-d', time()));
+                $this->Pump_note_model->update_by_where(array('site_id'=>$site_id,'note_time'=>$note_time),array('status'=>-1));
+                foreach ($pump_no as $gun_no => $pump) {
+                    
+                    $data_pump = array('site_id'=>$site_id, 'gun_no'=>$gun_no, 'pump'=>$pump, 
+                        'admin_id'=>$admin_id, 'note_time'=>$note_time,'status'=>1);
+                    $this->Pump_note_model->insert_string($data_pump);
+                
+                }
                 redirect(SELLER_SITE_URL.'/price?site_id='.$site_id);
             }
         }

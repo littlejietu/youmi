@@ -28,7 +28,7 @@ class User extends BaseSellerController {
 		$page     = _get_page();
 		$pagesize = 10;	
 		$arrParam = array();
-		$arrWhere = array();
+		$arrWhere = array('company_id'=>$company_id,'status<>'=>-1);
 
 		if($cKey)
 		{
@@ -62,8 +62,6 @@ class User extends BaseSellerController {
 				$arrWhere['status'] = 2;
 		}
 
-		
-		$arrWhere['status <>'] = -1;
 		$strOrderBy = 'user_id desc';
 
 		$level_list = array();
