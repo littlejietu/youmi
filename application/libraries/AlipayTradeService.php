@@ -11,7 +11,7 @@ require_once 'alipay-sdk/AopLoader.php';
 class AlipayTradeService {
 
 	//支付宝网关地址
-	public $gateway_url = "https://openapi.alipaydev.com/gateway.do";
+	public $gateway_url = "https://openapi.alipay.com/gateway.do";
 
 	//异步通知回调地址
 	public $notify_url;

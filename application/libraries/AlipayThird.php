@@ -1,5 +1,5 @@
 <?php
-define('ALIPAY_OPEN_AUTH_TOKEN', 'https://openauth.alipaydev.com/oauth2/appToAppAuth.htm?app_id=%s&redirect_uri=%s');
+define('ALIPAY_OPEN_AUTH_TOKEN', 'https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=%s&redirect_uri=%s');
 require_once 'alipay-sdk/AopLoader.php';
 
 class AlipayThird {

@@ -55,9 +55,10 @@ class WeixinThird extends WeixinThirdAuth {
 	function getComponentAccesstoken() {
 		$accesstoken = rkcache('account:component:assesstoken');
 		if (empty($accesstoken) || empty($accesstoken['value']) || $accesstoken['expire'] < time()) {
+			// $ticket = 'ticket@@@mAONMPArEtTMbIu1p8w-GQYqDXZhHpS7wQWtxvHN-lqEughksY2lhrH3Z2MHok5dC4ivgwJVPL6jUaKWdopWPg';
 			$ticket = rkcache('account:component:ticket');
 			if (empty($ticket)) {
-				return error(1, '缺少接入平台关键数据，等待微信开放平台推送数据，请十分钟后再试或是检查“授权事件接收URL”');
+				return error(1, '缺少接入平台关键数据，等待微信开放平台推送数据，请十分钟后再试或是检查“授权事件接收URL”..');
 			}
 			$data = array(
 				'component_appid' => $this->appid,
@@ -202,7 +203,7 @@ class WeixinThird extends WeixinThirdAuth {
 	}
 	
 	public function getJsApiTicket(){
-		$cachename = 'account:jsapi_ticket';
+		$cachename = 'account:jsapi_ticket'.$this->account['account_appid'];
 		$js_ticket = rkcache($cachename);
 		if (empty($js_ticket) || empty($js_ticket['value']) || $js_ticket['expire'] < time()) {
 			$access_token = $this->getAccessToken();
@@ -215,7 +216,7 @@ class WeixinThird extends WeixinThirdAuth {
 					'value' => $response['ticket'],
 					'expire' => time() + $response['expires_in'] - 200,
 			);
-			wkcache('account:jsapi_ticket', $js_ticket);
+			wkcache($cachename, $js_ticket);
 		}
 		$this->account['jsapi_ticket'] = $js_ticket;
 		return $js_ticket['value'];
@@ -242,12 +243,14 @@ class WeixinThird extends WeixinThirdAuth {
 			$config['string1'] = $string1;
 			//$config['name'] = $this->account['name'];
 		}
+
 		return $config;
 	}
 
 	public function openPlatformTestCase() {
 		$post = file_get_contents('php://input');
-		//file_put_contents('openPlatformTestCase.html', date('Y-m-d H:i:s').'--post string--'.var_export($post, true).PHP_EOL, FILE_APPEND);
+		//file_put_contents(BASE_ROOT_PATH.'/tmp/openPlatformTestCase.html', date('Y-m-d H:i:s').'--post string--'.var_export($post, true).PHP_EOL, FILE_APPEND);
+
 		//WeUtility::logging('platform-test-message', $post);
 		$encode_message = $this->xmlExtract($post);
 		//file_put_contents('openPlatformTestCase.html', date('Y-m-d H:i:s').'--encrypt string--'.$encode_message['encrypt'].PHP_EOL, FILE_APPEND);
@@ -267,15 +270,20 @@ class WeixinThird extends WeixinThirdAuth {
 			}else if (strexists($message['content'], 'QUERY_AUTH_CODE')) {
 				list($sufixx, $authcode) = explode(':', $message['content']);
 				$auth_info = $this->getAuthInfo($authcode);
+				//print_r($auth_info);die;
 				//WeUtility::logging('platform-test-send-message', var_export($auth_info, true));
-				$url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=". $auth_info['authorization_info']['authorizer_access_token'];
-				$data = array(
-					'touser' => $message['from'],
-					'msgtype' => 'text',
-					'text' => array('content' => $authcode.'_from_api'),
-				);
-				$response = ihttp_request($url, urldecode(json_encode($data)));
-				exit('');
+				if(!empty($auth_info['authorization_info'])){
+					$url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=". $auth_info['authorization_info']['authorizer_access_token'];
+					$data = array(
+						'touser' => $message['from'],
+						'msgtype' => 'text',
+						'text' => array('content' => $authcode.'_from_api'),
+					);
+					$response = ihttp_request($url, urldecode(json_encode($data)));
+					exit('');
+				}else
+					exit('ticke error');
+				
 			}
 		}
 
@@ -308,10 +316,10 @@ class WeixinThird extends WeixinThirdAuth {
 	}
 
 	private function getAuthRefreshToken() {
-		$auth_refresh_token = rkcache('account:auth:refreshtoken:'.$this->account['company_id']);
+		$auth_refresh_token = rkcache('account:auth:refreshtoken:'.$this->account['wx_appid']);
 		if (empty($auth_refresh_token)) {
 			$auth_refresh_token = $this->account['wx_auth_refresh_token'];
-			wkcache('account:auth:refreshtoken:'.$this->account['company_id'], $auth_refresh_token);
+			wkcache('account:auth:refreshtoken:'.$this->account['wx_appid'], $auth_refresh_token);
 		}
 		return $auth_refresh_token;
 	}
@@ -320,7 +328,7 @@ class WeixinThird extends WeixinThirdAuth {
 		$data = array('wx_auth_refresh_token' => $token);
 		M('oil/Company_config')->update_by_id($this->account['company_id'], $data);
 		
-		wkcache('account:auth:refreshtoken:'.$this->account['company_id'], $token);
+		wkcache('account:auth:refreshtoken:'.$this->account['wx_appid'], $token);
 	}
 
 	public function authz($redirect_uri)
@@ -330,9 +338,8 @@ class WeixinThird extends WeixinThirdAuth {
 			$appid = $this->account['wx_appid'];
 
 		$url = $this->getOauthUserInfoUrl($redirect_uri, $this->account['company_id']);
-		if($this->isTest==1)
-			$url = $this->test_authorize_url.'?redirect_uri='.urlencode($redirect_uri);
-
+		// if($this->isTest==1)
+		// 	$url = $this->test_authorize_url.'?redirect_uri='.urlencode($redirect_uri);
 		header('location:'.$url);exit;
 	}
 }
