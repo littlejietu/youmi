@@ -2,7 +2,7 @@
  * Created by mirong on 2017/2/19.
  */
 var CONFIG_DEBUG = true;
-var IS_DEBUG = true;
+var IS_DEBUG = false;
 
 if (CONFIG_DEBUG) {
     //document.write("<script src='http://www.xshop.com/wap/corejs/testData.js'></script>");
@@ -362,9 +362,8 @@ function sendPostData(obj, url, fun, errfun) {
     } else {
         obj.site_id = getUrlParam("site_id");
     }
-    
     var time = new Date().getTime();
-    var sign = get_sign_str(obj, time, isNeedToken(url))
+    var sign = get_sign_str(obj, time, isNeedToken(url));
     obj.sign = sign;
     obj.timestamp = time;
     if (!errfun) {

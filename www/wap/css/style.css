@@ -37,7 +37,7 @@ a{
 a.btn{
 	display: inline-block;
 	padding: .03rem .4rem;
-	border: 1px solid #000;
+	border: 1px solid #02c27f;
 	border-radius: 4px;
 	text-align: center;
 }
@@ -1203,6 +1203,7 @@ input{
 	color: #02c27f;
 	margin-left: .3rem;
 	margin-top: .6rem;
+	margin-right: .3rem;
 }
 
 
@@ -1420,16 +1421,16 @@ input.captcha {
 .cancel-mask2 .cancel-outMask10 .p1 button{display:inline-block;width:200px;border-radius:5px;border:0;height:40px;text-align:center;line-height:40px;margin:0 10px;}
 .cancel-mask2 .cancel-outMask10 .btn1{color:#fff;background:#ff3d23;}
 
-.cancel-mask{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;}
-.cancel-mask .cancel-outMask{position: fixed;width: 80%;background: #fff;z-index: 1001;border-radius: 5px;}
-.cancel-mask .cancel-wrapper{padding:10px;}
-.cancel-mask .cancel-outMask h3{text-align:center;font-size:16px;color:#000;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
-.cancel-mask .cancel-outMask .div1{padding:10px;font-size:14px;}
-.cancel-mask .cancel-outMask .div1 .span1{float:left;display:inline-block;width:20%;}
-.cancel-mask .cancel-outMask .div1 .span1 img{width:80%;}
-.cancel-mask .cancel-outMask .div1 .span2{float:left;display:inline-block;width:80%;}
-.cancel-mask .cancel-outMask p{line-height:30px;text-align:center;}
-.cancel-mask .cancel-outMask .p1{padding:10px 0;margin-top:10px;font-size:14px;}
-.cancel-mask .cancel-outMask .p1 button{display:inline-block;width:80px;border-radius:5px;border:0;height:40px;text-align:center;line-height:40px;margin:0 10px;}
-.cancel-mask .cancel-outMask .btn1{color:#999;background:#e5e5e5;}
-.cancel-mask .cancel-outMask .btn2{background:#ff3d23;color:#fff;}
+.other-mask,.cancel-mask{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;}
+.other-mask .cancel-outMask3,.cancel-mask .cancel-outMask{position: fixed;width: 80%;background: #fff;z-index: 1001;border-radius: 5px;}
+.other-mask .cancel-wrapper,.cancel-mask .cancel-wrapper{padding:10px;}
+.other-mask .cancel-outMask3 h3,.cancel-mask .cancel-outMask h3{text-align:center;font-size:16px;color:#000;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
+.other-mask .cancel-outMask3 .div1,.cancel-mask .cancel-outMask .div1{padding:10px;font-size:14px;}
+.other-mask .cancel-outMask3 .div1 .span1,.cancel-mask .cancel-outMask .div1 .span1{float:left;display:inline-block;width:20%;}
+.other-mask .cancel-outMask3 .div1 .span1 img,.cancel-mask .cancel-outMask .div1 .span1 img{width:80%;}
+.other-mask .cancel-outMask3 .div1 .span2,.cancel-mask .cancel-outMask .div1 .span2{float:left;display:inline-block;width:80%;}
+.other-mask .cancel-outMask3 p,.cancel-mask .cancel-outMask p{line-height:30px;text-align:center;}
+.other-mask .cancel-outMask3 .p1,.cancel-mask .cancel-outMask .p1{padding:10px 0;margin-top:10px;font-size:14px;}
+.other-mask .cancel-outMask3 .p1 button,.cancel-mask .cancel-outMask .p1 button{display:inline-block;width:80px;border-radius:5px;border:0;height:40px;text-align:center;line-height:40px;margin:0 10px;}
+.other-mask .cancel-outMask3 .btn1,.cancel-mask .cancel-outMask .btn1{color:#999;background:#e5e5e5;}
+.other-mask .cancel-outMask3 .btn2,.cancel-mask .cancel-outMask .btn2{background:#ff3d23;color:#fff;}

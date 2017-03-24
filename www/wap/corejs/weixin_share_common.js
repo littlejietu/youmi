@@ -5,7 +5,7 @@ var app_path = window.location.href;
 var debug = 0;
 var myAppId;
 var shareObj  = {};
-shareObj.imgUrl = WapSiteUrl+'/images/108X108-icon.png';
+shareObj.imgUrl = SiteUrl+'/res/front/images/logo.png';
 shareObj.desc = document.getElementsByTagName('meta')[0]['content'];
 shareObj.title = document.title;
 function showAlert(res){
@@ -291,6 +291,27 @@ function initWx(list,fun,url,site_id){
         //alert(XMLHttpRequest.status);
         //alert(XMLHttpRequest.readyState);
         //alert(textStatus+'dd');
+    });
+}
+
+function initWxCom(list,fun,url,company_id){
+
+    sendPostData({url:url,company_id:company_id},ApiUrl+'wxauth/jsapi',
+        function(e){
+            if(e.code == 1 || e.code == 'SUCCESS'){
+                if(e.data.timestamp && e.data.nonceStr && e.data.signature){
+                    weixinInit(e.data,list,fun);
+                }
+            }else{
+                if(fun)
+                    fun(2);
+            }
+
+        },
+        function(XMLHttpRequest, textStatus, errorThrown){
+            showAlert('errorThrown:'+errorThrown);
+            if(fun)
+                fun(3);
     });
 }
 
