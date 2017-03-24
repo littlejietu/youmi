@@ -1109,8 +1109,47 @@ class fundOrder_service
 		// }
 
 		$bResult = $this->ci->Fundorder_model->refund($aFundOrder);
-		if ($bResult)
+		if ($bResult){
 			$arrReturn['code'] = C('OrderResultError.Success');
+
+			$this->ci->load->model('trd/Third_refund_log_model');
+
+			$log = $this->ci->Third_refund_log_model->get_by_where(array('fund_order_id'=>$aFundOrder['fund_order_id'],'status'=>0));
+			if(!empty($log)){
+				$this->ci->load->model('oil/Site_config_model');
+				//退款
+				if( in_array($log['netpay_method'], array(10,11,12,13,14,15)) ){
+					$this->ci->load->library('WxPayApi');
+            		$input = new WxPayRefund();
+					$wxConfig = $this->ci->Site_config_model->getPayConfig($log['site_id'], $log['company_id']);
+	                $input->SetOut_trade_no($log['fund_order_id']);
+	                $input->SetTotal_fee($log['total_amt']*100);
+	                $input->SetRefund_fee($log['refund_amt']*100);
+	                $input->SetOut_refund_no($wxConfig['MCHID'].$log['fund_order_id']);
+	                $input->SetOp_user_id($wxConfig['MCHID']);
+	                $wx_result = WxPayApi::refund($input, $wxConfig);
+	                if(!empty($wx_result['result_code']) && !empty($wx_result['return_code']) && $wx_result['result_code']=='SUCCESS' && $wx_result['return_code']=='SUCCESS')
+	                    $this->ci->Third_refund_log_model->update_by_where(array('fund_order_id'=>$log['fund_order_id']),array('status'=>1));
+				}else if( in_array($log['netpay_method'], array(21,22,23)) ){
+					require_once APPPATH.'/libraries/alipay-sdk/model/builder/AlipayTradeRefundContentBuilder.php';
+		            require_once APPPATH.'/libraries/AlipayTradeService.php';
+		            $config = C('PayConfig.ALIPAY3');
+		            $refundResponse = new AlipayTradeService($config);
+
+		            $aliConfig = $this->ci->Site_config_model->getPayConfig($log['site_id'], $log['company_id']);
+	                $refundRequestBuilder = new AlipayTradeRefundContentBuilder();
+	                $refundRequestBuilder->setOutTradeNo($log['fund_order_id']);
+	                $refundRequestBuilder->setRefundAmount($log['total_amt']);
+	                //$refundRequestBuilder->setOutRequestNo($out_request_no);
+
+	                $refundRequestBuilder->setAppAuthToken($aliConfig['ali_auth_token']);
+
+	                $ali_result = $refundResponse->refund($refundRequestBuilder);
+	                if($ali_result->getTradeStatus()=='SUCCESS')
+	                    $this->ci->Third_refund_log_model->update_by_where(array('fund_order_id'=>$log['fund_order_id']),array('status'=>1));
+				}
+			}
+		}
 		else
 			$arrReturn['code'] = C('OrderResultError.Failure');
 

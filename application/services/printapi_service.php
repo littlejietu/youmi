@@ -6,11 +6,8 @@ class Printapi_service
     public function __construct()
 	{
 		$this->ci = & get_instance();
-		$this->ci->load->model('inter/Orderprint_log_model');
-		$this->ci->load->model('trd/Order_model');
-		$this->ci->load->model('trd/Order_oil_model');
-		$this->ci->load->model('trd/Order_goods_model');
-		$this->ci->load->model('oil/O_admin_token_model');
+		$this->ci->load->model(array('inter/Orderprint_log_model','trd/Order_model','trd/Order_oil_model','trd/Order_goods_model',
+			'oil/O_admin_token_model','trd/Order_model','oil/Site_model'));
 	}
 
 	public function orderprint_data($order_id){
@@ -20,8 +17,16 @@ class Printapi_service
 		$info = $this->ci->Order_model->get_by_id($order_id);
 		if(empty($info) || $info['status']!=C('OrderStatus.Finished'))
 			return ;
-	
-		$adminInfo = $this->ci->O_admin_token_model->get_by_where(array('site_id'=>$info['site_id'],'status'=>1),'admin_id','addtime desc');
+
+		$adminInfo = array();
+		$admin_name = '';
+		if(!empty($info['cashier_id'])){
+			$adminInfo = $this->ci->O_admin_token_model->get_by_where(array('site_id'=>$info['site_id'],'status'=>1,'admin_id'=>$info['cashier_id']),'admin_id,name');
+			if(!empty($adminInfo))
+				$admin_name = $adminInfo['name'];
+		}
+		if(empty($adminInfo))
+			$adminInfo = $this->ci->O_admin_token_model->get_by_where(array('site_id'=>$info['site_id'],'status'=>1),'admin_id','addtime desc');
 		if(empty($adminInfo))
 			return ;
 
@@ -51,11 +56,11 @@ class Printapi_service
 			$oil_num = $oilInfo['oil_num'];
 			$oil_price = $oilInfo['oil_price'];
 		}
+		$siteInfo = $this->ci->Site_model->get_by_id($info['site_id']);
 		$user_level = '金卡会员';
-		$discount_list = 'ddd';
-		$integal = 111;
-		$site_name = '1122';
-		$admin_name = '某某';
+		$discount_list = "其中：优惠券：￥10.00\n";
+		$integal = intval($info['pay_amt']);
+		$site_name = $siteInfo['site_name'];
 
 		$oil_goods_text = "";
 		if(!empty($oilInfo))
@@ -66,15 +71,15 @@ class Printapi_service
 
 		$tpl_text = "Youme支付小票---商户联\n         {user_level}\n车号：{car_no}\n时间：{createtime}\n订单：{order_sn}\n"
 			.$oil_goods_text."\n应付：{total_amt}元   数量：{oil_num}升\n单价：{oil_price}元/升  \n"
-			."其中：{discount_list}"
+			."{discount_list}"
 			."合计优惠：{discount_amt}元\n实付：{pay_amt}元\n本次积分：{integal}分\n"
-			."油站：{site_name}\n发票抬头：{invoice_title}\n\t操作员：{admin_name}\n"
+			."油站：{site_name}\n发票抬头：{invoice_title}\n操作员：{admin_name}\n"
 			."备注：\n\n客户签名：\n\n\n本人确认以上交易，同意支付。\n";
 		$replace_search = array('{user_level}','{car_no}','{createtime}','{order_sn}','{oil_name}','{gun_no}',
 			'{total_amt}','{oil_num}','{oil_price}','{discount_list}','{discount_amt}','{pay_amt}','{integal}',
 			'{site_name}','{invoice_title}','{admin_name}'
 			);
-		$replace_subject = array($user_level, $userInfo['car_no'],time(),$info['order_sn'],$oil_name,$gun_no,
+		$replace_subject = array($user_level, $userInfo['car_no'],date('Y-m-d H:i',time()),$info['order_sn'],$oil_name,$gun_no,
 			$info['total_amt'],$oil_num,$oil_price,$discount_list,$info['discount_amt'],$info['pay_amt'],$integal,
 			$site_name, $userInfo['invoice_title'],$admin_name
 			);

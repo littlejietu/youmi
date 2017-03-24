@@ -190,7 +190,8 @@ class Cron_service
         $this->ci->load->model('oil/Site_config_model');
         
         $time = strtotime('today-3');
-        $list = $this->ci->Third_refund_log_model->get_list(array('status'=>0,'addtime>'=>$time,'netpay_method'=>array(11,12,13)));
+        $list = $this->ci->Third_refund_log_model->get_list(array('status'=>0,'netpay_method'=>array(10,11,12,13,14,15)));
+
         if(!empty($list)){
             $this->ci->load->library('WxPayApi');
             $input = new WxPayRefund();
@@ -201,13 +202,14 @@ class Cron_service
                 $input->SetRefund_fee($a['refund_amt']*100);
                 $input->SetOut_refund_no($wxConfig['MCHID'].$a['fund_order_id']);
                 $input->SetOp_user_id($wxConfig['MCHID']);
-                $result = WxPayApi::refund($input, $wxConfig);
-                $result['fund_order_id'] = $a['fund_order_id'];
-                print_r($result);
+                $wx_result = WxPayApi::refund($input, $wxConfig);
+                if(!empty($wx_result['result_code']) && !empty($wx_result['return_code']) && $wx_result['result_code']=='SUCCESS' && $wx_result['return_code']=='SUCCESS')
+                    $this->ci->Third_refund_log_model->update_by_where(array('fund_order_id'=>$a['fund_order_id']),array('status'=>1));
             }
         }
 
-        $list = $this->ci->Third_refund_log_model->get_list(array('status'=>0,'addtime>'=>$time,'netpay_method'=>array(21,22,23)));
+        $list = $this->ci->Third_refund_log_model->get_list(array('status'=>0,'netpay_method'=>array(21,22,23)));
+        $result2 = array();
         if(!empty($list)){
             require_once APPPATH.'/libraries/alipay-sdk/model/builder/AlipayTradeRefundContentBuilder.php';
             require_once APPPATH.'/libraries/AlipayTradeService.php';
@@ -222,12 +224,15 @@ class Cron_service
 
                 $refundRequestBuilder->setAppAuthToken($aliConfig['ali_auth_token']);
 
-                $result = $refundResponse->refund($refundRequestBuilder);
-                //$result['fund_order_id'] = $a['fund_order_id'];
-                print_r($result);
+                $ali_result = $refundResponse->refund($refundRequestBuilder);
+                if($ali_result->getTradeStatus()=='SUCCESS')
+                    $this->ci->Third_refund_log_model->update_by_where(array('fund_order_id'=>$a['fund_order_id']),array('status'=>1));
+                
+
             }
         }
 
+        echo 'ok';
     }
 
     public function stat_customer(){

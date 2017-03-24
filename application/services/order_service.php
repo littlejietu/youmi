@@ -165,7 +165,7 @@ class Order_service
 	 * @param coupon
 	 * @return $arrReturn 订单id
 	 */
-	public function createOrderList($arrCart, $arrBuy, $arrCashier=null, $addressId=0, $invoiceId=0, $ifcart=0){
+	public function createOrderList($arrCart, $arrBuy, $arrCashier=null, $addressId=0, $invoiceId=0, $ifcart=0, $remark=null){
 		$this->ci->load->model('oil/Site_model');
 		$this->ci->load->model('oil/Gun_model');
 		$this->ci->load->service('buying_service');
@@ -195,8 +195,12 @@ class Order_service
 				if(!empty($arrGoods))
 					$arrTrdOrder['title'] .= '+商品';
 			}
-			if(empty($arrOil) && !empty($arrGoods))
-				$arrTrdOrder['title'] .= '商品';
+			if(empty($arrOil) && !empty($arrGoods)){
+				if(!empty($remark))
+					$arrTrdOrder['title'] = $remark;
+				else
+					$arrTrdOrder['title'] .= '商品';
+			}
 			$coupon_id = !empty($aItem['coupon'])?$aItem['coupon']:0;
 			$activity_id = !empty($aItem['activity'])?$aItem['activity']:0;
 
